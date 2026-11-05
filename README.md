@@ -22,6 +22,14 @@ The site URL will be:
 
 After GitHub Pages finishes its first deployment, visit the link. If a JSON warning appears, check the filename is exactly `recipes.json` and is saved at the root; the root file should be the published JSON manifest or a full exported library.
 
+## Featured U.S. recipes and collection names
+
+The Discover homepage leads with a curated selection of familiar American recipes (chicken pot pie, macaroni and cheese, pancakes, cookies and more). Air-fryer recipes and international dishes are **not** used for this first featured block. The All Recipes page also defaults to **Featured · U.S. classics first**, but visitors can use the country filter or select a different sorting method.
+
+"Popular" means hand-selected widely familiar dishes, **not** actual traffic or star ratings: the site does not track views or collect visitor data.
+
+The original export includes **9 named collections**, but references **35 additional cookbook IDs without names**. Those 35 cookbook groups are preserved and assigned **descriptive, reconstructed labels** in [`collection-names.json`](collection-names.json), rather than repeatedly appearing as "Other collection." The exact original titles are not in the export, so these labels are **not presented as the original saved names**. If you remember a title, edit its value in `collection-names.json` and commit; the site will display it automatically without changing any recipes. The 9 names present in the export take precedence.
+
 ## Features
 
 - Discover homepage featuring published recipes, cookbooks, and event menus
