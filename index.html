@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#132942">
+  <meta name="description" content="Recipe Blueprint: browse practical recipes, cookbooks, and event menus with step-by-step cooking timelines.">
+  <title>Recipe Blueprint | Cookbooks & Recipes</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./pdf.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./" id="brandLink" aria-label="Recipe Blueprint home">
+          <span class="brand-mark" aria-hidden="true">▦</span>
+          <span><strong>Recipe Blueprint</strong><small>THE COOKBOOK LIBRARY</small></span>
+        </a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <button type="button" class="nav-link active" data-view="home">Discover</button>
+          <button type="button" class="nav-link" data-view="recipes">All recipes</button>
+          <button type="button" class="nav-link" data-view="cookbooks">Cookbooks</button>
+          <button type="button" class="nav-link" data-view="events">Event menus</button>
+          <button type="button" class="nav-link" data-view="favorites">Saved <span id="favoriteCount" class="nav-count">0</span></button>
+        </nav>
+        <button class="header-search-button" type="button" id="searchShortcut" aria-label="Search recipes" title="Search recipes">⌕ <span>Search</span></button>
+      </div>
+    </header>
+    <main class="page" id="main" tabindex="-1">
+      <section class="hero" id="homeHero">
+        <div class="hero-copy">
+          <span class="eyebrow light">COOK SOMETHING WONDERFUL</span>
+          <h1>Every good meal<br><em>starts with a plan.</em></h1>
+          <p>Discover recipes made easy to follow, from everyday favorites to complete holiday menus. The ingredients, the timing, the steps — all in one place.</p>
+          <div class="hero-actions">
+            <button class="button button-light" data-view="recipes">Explore recipes <span aria-hidden="true">→</span></button>
+            <button class="button button-ghost" data-view="cookbooks">Browse cookbooks</button>
+          </div>
+        </div>
+        <div class="hero-illustration" aria-hidden="true">
+          <div class="blueprint-art"><div class="art-top">RECIPE BLUEPRINT <span>01 / 03</span></div><div class="art-lines"><b></b><b></b><b></b><b></b><b></b></div><div class="art-grid"><span>PREP</span><span>COOK</span><span>REST</span><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="art-bottom">A BETTER WAY TO COOK <span>✳</span></div></div>
+        </div>
+      </section>
+      <section id="statusArea" class="status-area" aria-live="polite">
+        <div class="loading-state"><span class="loading-spinner"></span> Loading cookbook library…</div>
+      </section>
+      <div id="content"></div>
+    </main>
+    <footer class="site-footer"><span>▦ <strong>Recipe Blueprint</strong></span><span>Recipes made readable. Cooking made easier.</span><span>Times are estimates; always check safe doneness.</span></footer>
+  </div>
+
+  <section id="recipeOverlay" class="reader-overlay" role="dialog" aria-modal="true" aria-label="Full-screen recipe" hidden>
+    <div class="reader-toolbar">
+      <button class="button button-secondary compact" type="button" id="readerBack">← Back to recipes</button>
+      <div class="reader-toolbar-right">
+        <button class="button button-secondary compact" type="button" id="readerFavorite" aria-pressed="false">♡ Save</button>
+        <button class="button button-secondary compact" type="button" id="readerShare">Share</button>
+        <button class="button button-secondary compact" type="button" id="readerPrint">Print</button>
+        <button class="button button-primary compact" type="button" id="readerPDF">↓ One-page PDF</button>
+      </div>
+    </div>
+    <div class="reader-scroll" id="readerScroll">
+      <article class="recipe-sheet" id="recipeSheet">
+        <div class="recipe-sheet-head">
+          <div><span class="eyebrow">THE RECIPE BLUEPRINT</span><h1 id="readerTitle"></h1><p id="readerIntro"></p><div id="readerTags" class="tag-list"></div></div>
+          <div class="recipe-time-card"><span>TOTAL TIME</span><strong id="readerTotal"></strong><small id="readerYield"></small></div>
+        </div>
+        <section class="recipe-ingredient-section">
+          <div class="section-title"><div><span class="eyebrow">01 / THE INGREDIENTS</span><h2>What you'll need</h2></div><span id="readerIngredientCount" class="section-aside"></span></div>
+          <div id="readerIngredients" class="ingredient-grid"></div>
+        </section>
+        <section class="recipe-timeline-section">
+          <div class="section-title"><div><span class="eyebrow">02 / THE TIMELINE</span><h2>Cooking blueprint</h2></div><span class="section-aside">Scroll sideways to explore the timing →</span></div>
+          <p class="section-note">Each column represents elapsed cooking time. Steps can overlap when they're working with different ingredients.</p>
+          <div id="readerTimeline" class="timeline-scroll" tabindex="0" aria-label="Ingredient and cooking timeline"></div>
+          <div class="timeline-legend"><span><i class="legend-dot active"></i>Mix / prep</span><span><i class="legend-dot heat"></i>Cook / bake</span><span><i class="legend-dot passive"></i>Rest / wait</span></div>
+        </section>
+        <section class="recipe-direction-section">
+          <div class="section-title"><div><span class="eyebrow">03 / THE METHOD</span><h2>Step by step</h2></div><span id="readerStepCount" class="section-aside"></span></div>
+          <div id="readerSteps" class="directions-grid"></div>
+          <div id="readerFinish" class="finish-note" hidden></div>
+        </section>
+        <div class="recipe-endbar"><button type="button" class="button button-secondary" id="readerPrev">← Previous</button><span id="readerPosition"></span><button type="button" class="button button-secondary" id="readerNext">Next recipe →</button></div>
+      </article>
+    </div>
+  </section>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
