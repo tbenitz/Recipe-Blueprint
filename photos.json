@@ -1,0 +1,4 @@
+{
+  "_instructions": "Optional owner-supplied recipe photographs. Add keys by recipe ID (recommended) or exact title. Each entry uses url, credit, license, source. URLs must be HTTPS. Example: \"my-recipe-id\": {\"url\":\"https://example.com/pie.jpg\",\"credit\":\"Photographer Name\",\"license\":\"Used with permission\",\"source\":\"https://example.com/photo-page\"}. The site otherwise finds matching licensed images from Wikimedia Commons without any API key.",
+  "recipes": {}
+}
