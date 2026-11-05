@@ -12,6 +12,16 @@
   function toast(message){const e=$('toast');e.textContent=message;e.classList.add('show');clearTimeout(toastHandle);toastHandle=setTimeout(()=>e.classList.remove('show'),3500);}
   function safeText(value,max=5000){return String(value??'').slice(0,max);}
   function totalTime(r){return Math.max(0,...r.steps.map(s=>s.start+s.duration));}
+  function readableIntro(intro){
+    const value=String(intro??'').trim();
+    if(value.length!==350||/[.!?][)"']?$/.test(value))return value;
+    // A legacy Studio v6 export cap cut some saved intros mid-word.
+    // Prefer a completed sentence over an abrupt fragment.
+    const matches=[...value.matchAll(/[.!?](?=\s|$)/g)];
+    const last=matches.length?matches[matches.length-1].index+1:-1;
+    if(last>95)return value.slice(0,last)+' The full cooking instructions are below.';
+    return value.replace(/\s+\S*$/,'').trim()+'…';
+  }
   function normalizeRecipe(raw,index){
     if(!raw||typeof raw!=='object')return null;
     const src=raw.recipe&&typeof raw.recipe==='object'?raw.recipe:raw;
@@ -29,7 +39,8 @@
     steps.forEach(s=>{s.rowStart=Math.min(Math.max(0,ingredients.length-1),s.rowStart);s.rowEnd=Math.min(Math.max(0,ingredients.length-1),s.rowEnd);if(s.rowEnd<s.rowStart)[s.rowStart,s.rowEnd]=[s.rowEnd,s.rowStart];});
     const title=safeText(raw.title??src.title??'Untitled recipe',250);
     return {id:safeText(raw.id??('recipe-'+index),120),title,category:safeText(raw.category??'Unsorted',100),country:safeText(raw.country??'Unspecified',100),region:safeText(raw.region??'',100),collectionId:safeText(raw.collectionId??'',120),updated:Number(raw.updated)||0,
-      recipe:{title:safeText(src.title??title,250),yield:safeText(src.yield??src.servings??'',220),intro:safeText(src.intro??src.prep_note??src.prepNote??'',1500),finish:safeText(src.finish??src.notes??'',2400),ingredients,steps}};
+      image:raw.image??raw.photo??raw.imageUrl??null,
+      recipe:{image:src.image??src.photo??src.imageUrl??null,title:safeText(src.title??title,250),yield:safeText(src.yield??src.servings??'',220),intro:safeText(src.intro??src.prep_note??src.prepNote??'',20000),finish:safeText(src.finish??src.notes??'',2400),ingredients,steps}};
   }
   function normalizeData(data){
     const entries=Array.isArray(data)?data:(Array.isArray(data?.recipes)?data.recipes:null);
@@ -127,13 +138,13 @@
     const col=state.collectionMap.get(r.collectionId);
     return `<article class="recipe-card">
       <a href="?view=${encodeURIComponent(state.view)}&recipe=${encodeURIComponent(r.id)}" data-open-recipe="${esc(r.id)}" aria-label="Read ${esc(r.title)}">
-        <div class="card-art ${recipeArt(r)}"><span class="art-symbol">${recipeArt(r)?'◈':'▦'}</span></div>
+        <div class="card-art ${recipeArt(r)}" data-recipe-photo="${esc(r.id)}"><span class="art-symbol">${recipeArt(r)?'◈':'▦'}</span></div>
         <div class="card-body"><span class="card-eyebrow">${esc(r.category)}${r.country&&r.country!=='Unspecified'?' · '+esc(r.country):''}</span>
           <h3>${esc(r.title)}</h3><p>${esc(col?.name||r.region||'From the collection')}</p>
           <div class="card-bottom"><span>◷ ${esc(minutes(totalTime(r.recipe)))}</span><span>▤ ${r.recipe.ingredients.length} ingredients</span><span>✓ ${r.recipe.steps.length} steps</span></div>
         </div>
       </a>
-      <div class="card-actions"><button type="button" class="card-open" data-open-recipe="${esc(r.id)}">View full recipe →</button><button type="button" class="favorite-toggle ${state.favorites.has(r.id)?'saved':''}" data-favorite="${esc(r.id)}" aria-label="${state.favorites.has(r.id)?'Remove from saved':'Save recipe'}" aria-pressed="${state.favorites.has(r.id)}">${state.favorites.has(r.id)?'♥':'♡'}</button></div>
+      <div class="card-actions"><button type="button" class="card-open" data-open-recipe="${esc(r.id)}">View full recipe →</button><a class="photo-credit-link" data-photo-credit="${esc(r.id)}" href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer" hidden>Photo credit</a><button type="button" class="favorite-toggle ${state.favorites.has(r.id)?'saved':''}" data-favorite="${esc(r.id)}" aria-label="${state.favorites.has(r.id)?'Remove from saved':'Save recipe'}" aria-pressed="${state.favorites.has(r.id)}">${state.favorites.has(r.id)?'♥':'♡'}</button></div>
     </article>`;
   }
   function collectionCard(c){
@@ -161,6 +172,7 @@
     <section class="stat-strip"><div class="stat-block"><strong>${number(state.recipes.length)}</strong><span>Complete recipes</span></div><div class="stat-block"><strong>${number(books.length)}</strong><span>Cookbooks</span></div><div class="stat-block"><strong>${number(events.length)}</strong><span>Event menus</span></div><div class="stat-block"><strong>${number(new Set(state.recipes.map(r=>r.country).filter(x=>x&&x!=='Unspecified')).size)}</strong><span>Countries represented</span></div></section>
     ${featured.length?`<section class="section-block"><div class="section-heading"><div><span class="eyebrow">EXPLORE YOUR COLLECTIONS</span><h2>Browse the bookshelf</h2><p>Browse cookbooks, family meals, and event menus.</p></div><button class="text-link" data-view="cookbooks">View all cookbooks →</button></div><div class="card-grid">${featured.map(collectionCard).join('')}</div></section>`:''}
     ${more.length?`<section class="section-block"><div class="section-heading"><div><span class="eyebrow">MORE EVERYDAY FAVORITES</span><h2>Keep cooking</h2><p>More familiar meals and comfort-food recipes to try.</p></div><button class="text-link" data-view="recipes">Explore full recipe library →</button></div><div class="card-grid">${more.map(recipeCard).join('')}</div></section>`:''}`;
+    window.RecipeBlueprintPhotos?.observe($('content'),state.recipeMap);
   }
   function optionList(values,placeholder,chosen){return '<option value="">'+esc(placeholder)+'</option>'+values.sort((a,b)=>a.localeCompare(b)).map(v=>'<option value="'+esc(v)+'"'+(v===chosen?' selected':'')+'>'+esc(v)+'</option>').join('');}
   function renderBrowser(){
@@ -188,6 +200,7 @@
     $('resultsCount').textContent=number(list.length)+' matching recipe'+(list.length===1?'':'s')+' · '+number(state.recipes.length)+' total in library';
     $('browseGrid').innerHTML=shown.length?shown.map(recipeCard).join(''):`<div class="empty-state" style="grid-column:1/-1"><h2>No recipes found</h2><p>${state.view==='collection'?'This collection has no published recipes matching your filters.':'Try another search, country, or dish type.'}</p></div>`;
     $('browsePager').innerHTML=list.length>pageSize?`<button class="button button-secondary compact" data-page="-1" ${state.filters.page===0?'disabled':''}>← Previous</button><span>Page ${state.filters.page+1} of ${pages}</span><button class="button button-secondary compact" data-page="1" ${state.filters.page+1===pages?'disabled':''}>Next →</button>`:'';
+    window.RecipeBlueprintPhotos?.observe($('content'),state.recipeMap);
   }
   function renderCollections(){
     const event=state.view==='events',cols=collectionItems(event?'event':'cookbook');
@@ -217,7 +230,7 @@
     if(!state.sequence.length)state.sequence=state.recipes.map(r=>r.id);
     const r=item.recipe;const col=state.collectionMap.get(item.collectionId);
     $('readerTitle').textContent=r.title||item.title;
-    $('readerIntro').textContent=r.intro||'';
+    $('readerIntro').textContent=readableIntro(r.intro);
     $('readerTags').innerHTML=[item.category,item.country!=='Unspecified'?item.country:'',item.region,col?.name].filter(Boolean).map(v=>'<span class="tag">'+esc(v)+'</span>').join('');
     $('readerTotal').textContent=minutes(totalTime(r));$('readerYield').textContent=r.yield||'';
     $('readerIngredientCount').textContent=r.ingredients.length+' ingredients';
@@ -227,13 +240,15 @@
     $('readerSteps').innerHTML=steps.map((s,i)=>`<div class="direction-item"><span class="direction-no">${i+1}</span><div class="direction-main"><h3>${esc(s.title)}</h3><p>${esc(s.details||s.title)}</p></div><span class="direction-time">${esc(minutes(s.start))} · ${esc(minutes(s.duration))}</span></div>`).join('');
     $('readerFinish').hidden=!r.finish;$('readerFinish').innerHTML=r.finish?'<strong>Finish & serve:</strong> '+esc(r.finish):'';
     $('readerTimeline').innerHTML=renderTimeline(r);
+    $('recipeOverlay').dataset.openRecipe=id;
+    window.RecipeBlueprintPhotos?.showReader(item,id);
     const saved=state.favorites.has(id);$('readerFavorite').textContent=saved?'♥ Saved':'♡ Save';$('readerFavorite').setAttribute('aria-pressed',String(saved));
     const idx=state.sequence.indexOf(id);$('readerPrev').disabled=idx<=0;$('readerNext').disabled=idx<0||idx===state.sequence.length-1;
     $('readerPosition').textContent=idx>=0?(number(idx+1)+' of '+number(state.sequence.length)+' recipes'):'Recipe details';
     document.title=(r.title||item.title)+' | Recipe Blueprint';
   }
   function closeReader(clearUrl=true){
-    state.readerId='';$('recipeOverlay').hidden=true;document.body.style.overflow='';document.title='Recipe Blueprint | Cookbooks & Recipes';
+    state.readerId='';$('recipeOverlay').dataset.openRecipe='';$('recipeOverlay').hidden=true;document.body.style.overflow='';document.title='Recipe Blueprint | Cookbooks & Recipes';
     if(clearUrl&&new URL(window.location.href).searchParams.has('recipe'))writeUrl({view:state.view==='home'?'recipes':state.view,collection:state.collectionId});
   }
   function renderTimeline(r){
