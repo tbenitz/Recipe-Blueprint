@@ -5,7 +5,7 @@
   const number = n => Number(n || 0).toLocaleString();
   const minutes = n => { const v=Math.max(0,Math.round(Number(n)||0)); return v>=60 ? Math.floor(v/60)+'h '+String(v%60).padStart(2,'0')+'m' : v+' min'; };
   const toNumber = (n,d=0) => Number.isFinite(Number(n)) ? Math.round(Number(n)) : d;
-  const state = {recipes:[],collections:[],recipeMap:new Map(),collectionMap:new Map(),favorites:new Set(),view:'home',filters:{search:'',country:'',region:'',category:'',sort:'title',page:0},collectionId:'',readerId:'',sequence:[],ready:false};
+  const state = {recipes:[],collections:[],recipeMap:new Map(),collectionMap:new Map(),collectionAliases:{},favorites:new Set(),view:'home',filters:{search:'',country:'',region:'',category:'',sort:'featured',page:0},collectionId:'',readerId:'',sequence:[],ready:false};
   const pageSize=24;
   try { const ids=JSON.parse(localStorage.getItem('recipe-blueprint-favorites-v1')||'[]'); if(Array.isArray(ids))state.favorites=new Set(ids.map(String)); } catch {}
   let toastHandle=0;
@@ -37,18 +37,72 @@
     const recs=[];const used=new Set();
     entries.forEach((raw,i)=>{const r=normalizeRecipe(raw,i);if(!r)return;let id=r.id;while(used.has(id))id=r.id+'-'+i;used.add(id);r.id=id;recs.push(r);});
     const collections=[];const known=new Set();
-    function addCollection(c){if(!c||typeof c!=='object')return;const id=safeText(c.id??c.collectionId??'',120);if(!id||known.has(id))return;known.add(id);collections.push({id,name:safeText(c.name??c.title??'Untitled collection',240),type:c.type==='event'?'event':'cookbook',targetCount:Math.max(0,toNumber(c.targetCount??c.target)),created:Number(c.created)||0,planned:0});}
+    function addCollection(c){if(!c||typeof c!=='object')return;const id=safeText(c.id??c.collectionId??'',120);if(!id||known.has(id))return;known.add(id);collections.push({id,name:safeText(c.name??c.title??'Untitled collection',240),type:c.type==='event'?'event':'cookbook',targetCount:Math.max(0,toNumber(c.targetCount??c.target)),created:Number(c.created)||0,planned:0,recovered:!!c.recovered});}
     if(Array.isArray(data?.collections))data.collections.forEach(addCollection);
     const plans=[...(Array.isArray(data?.plans)?data.plans:[]),...(data?.plan?[data.plan]:[])];
     plans.forEach(p=>{if(!p||typeof p!=='object')return;const id=safeText(p.collectionId??'',120);if(!id)return;addCollection({id,name:p.name,type:p.type,targetCount:p.targetCount,created:p.created});const col=collections.find(c=>c.id===id);if(col){col.planned=Math.max(col.planned,Array.isArray(p.items)?p.items.length:0);col.targetCount=Math.max(col.targetCount,toNumber(p.targetCount));}});
-    recs.forEach(r=>{if(r.collectionId&&!known.has(r.collectionId))addCollection({id:r.collectionId,name:'Other collection',type:'cookbook'});});
+    recs.forEach(r=>{if(r.collectionId&&!known.has(r.collectionId))addCollection({id:r.collectionId,name:state.collectionAliases[r.collectionId]||('Unnamed cookbook '+r.collectionId.slice(-5)),type:'cookbook',recovered:true});});
     return {recipes:recs,collections};
   }
   function writeUrl(params,replace=false){const url=new URL(window.location.href);url.search='';for(const [k,v] of Object.entries(params)){if(v)url.searchParams.set(k,String(v));}history[replace?'replaceState':'pushState']({},'',url.pathname+url.search+url.hash);}
-  function navView(view,options={}){state.view=view;state.collectionId=options.collectionId||'';state.filters.page=0;state.filters.search=options.search??'';state.filters.country='';state.filters.region='';state.filters.category='';state.filters.sort='title';if(!options.noHistory)writeUrl({view:view==='home'?'':view,collection:state.collectionId});renderPage();closeReader(false);window.scrollTo(0,0);}
+  function navView(view,options={}){state.view=view;state.collectionId=options.collectionId||'';state.filters.page=0;state.filters.search=options.search??'';state.filters.country='';state.filters.region='';state.filters.category='';state.filters.sort='featured';if(!options.noHistory)writeUrl({view:view==='home'?'':view,collection:state.collectionId});renderPage();closeReader(false);window.scrollTo(0,0);}
   function routeFromUrl(){const u=new URL(window.location.href),view=u.searchParams.get('view')||'home',cid=u.searchParams.get('collection')||'',rid=u.searchParams.get('recipe')||'';
     state.view=['home','recipes','cookbooks','events','favorites','collection'].includes(view)?view:'home';state.collectionId=cid;state.filters.page=0;
     renderPage();if(rid&&state.recipeMap.has(rid))showReader(rid,false);else closeReader(false);}
+  function isAirFryerRecipe(r){
+  return /\bair[\s-]*(?:fry|fried|fryer|frying)\b/i.test(r.title+' '+r.recipe.intro);
+}
+  function isUSRecipe(r){
+  return /^United States(?:$|[\s(/-])/i.test(r.country);
+}
+  function curatedAmericanPatterns(){
+  return [
+    /^Chicken Pot Pie$/i,
+    /^Classic Baked Macaroni and Cheese$/i,
+    /^Buttermilk Pancakes$/i,
+    /^Chewy Chocolate Chip Cookies$/i,
+    /^Classic American Apple Pie$/i,
+    /^Baked Cheeseburger Sliders$/i,
+    /^Buttermilk Fried Chicken$/i,
+    /^Classic Chicken Noodle Soup$/i,
+    /^Baked Ziti$/i,
+    /^Grilled Cheese Sandwiches$/i,
+    /^Biscuits and Gravy$/i,
+    /^Classic Tomato Soup$/i,
+    /^Classic Deviled Eggs$/i,
+    /^Roast Turkey with Gravy$/i,
+    /^Cinnamon Rolls$/i,
+    /^Key Lime Pie$/i,
+    /^Skillet Mac and Cheese$/i,
+    /^Banana Bread$/i
+  ];
+}
+  function recipeFeatureRank(r){
+  // Editorial ranking of familiar recipes, not a claim about actual reader statistics.
+  const title=r.title.toLowerCase();
+  const patterns=curatedAmericanPatterns();
+  const exactIndex=patterns.findIndex(re=>re.test(r.title));
+  if(exactIndex>=0)return exactIndex;
+  let score=100;
+  if(/chicken|beef|pork|turkey|pot roast|pancake|brownie|cookie|pie|pasta|bread|casserole|soup|salad|potato|grilled cheese|burger|chili|cornbread/.test(title))score-=25;
+  if(/classic|homemade|easy|weeknight|family|traditional|simple/.test(title))score-=12;
+  if(/main dishes|mains|breakfast|desserts/.test(r.category.toLowerCase()))score-=10;
+  if(/smoked|spicy|fusion|paleo|keto|gluten.free|sugar.free/.test(title))score+=12;
+  score+=Math.min(20,Math.floor(title.length/12));
+  return score;
+}
+  function pickPopularAmericanRecipes(limit=12,exclude=new Set()){
+  const eligible=state.recipes.filter(r=>isUSRecipe(r)&&!isAirFryerRecipe(r)&&!exclude.has(r.id));
+  eligible.sort((a,b)=>recipeFeatureRank(a)-recipeFeatureRank(b)||a.title.localeCompare(b.title));
+  const selected=[],seen=new Set();
+  for(const r of eligible){
+    const stem=r.title.toLowerCase().replace(/\b(classic|easy|homemade|traditional|southern|american|chewy)\b/g,'').trim();
+    if(seen.has(stem))continue;
+    selected.push(r);seen.add(stem);
+    if(selected.length>=limit)break;
+  }
+  return selected;
+}
   function currentRecipeSet(){
     const f=state.filters;let list=state.view==='favorites'?state.recipes.filter(r=>state.favorites.has(r.id)):state.view==='collection'?state.recipes.filter(r=>r.collectionId===state.collectionId):state.recipes.slice();
     const search=f.search.toLocaleLowerCase().trim();
@@ -56,7 +110,11 @@
     if(f.country)list=list.filter(r=>r.country===f.country);
     if(f.region)list=list.filter(r=>r.region===f.region);
     if(f.category)list=list.filter(r=>r.category===f.category);
-    if(f.sort==='newest')list.sort((a,b)=>b.updated-a.updated||a.title.localeCompare(b.title));
+    if(f.sort==='featured')list.sort((a,b)=>{
+      const tier=r=>isUSRecipe(r)&&!isAirFryerRecipe(r)?0:!isAirFryerRecipe(r)?1:2;
+      return tier(a)-tier(b)||recipeFeatureRank(a)-recipeFeatureRank(b)||a.title.localeCompare(b.title);
+    });
+    else if(f.sort==='newest')list.sort((a,b)=>b.updated-a.updated||a.title.localeCompare(b.title));
     else if(f.sort==='time')list.sort((a,b)=>totalTime(a.recipe)-totalTime(b.recipe)||a.title.localeCompare(b.title));
     else if(f.sort==='country')list.sort((a,b)=>a.country.localeCompare(b.country)||a.title.localeCompare(b.title));
     else list.sort((a,b)=>a.title.localeCompare(b.title));
@@ -83,7 +141,7 @@
     const kind=c.type==='event'?'Event menu':'Cookbook';
     return `<article class="collection-card"><button type="button" data-open-collection="${esc(c.id)}" aria-label="Browse ${esc(c.name)}">
       <div class="card-art ${c.type==='event'?'event':'book'}"><span class="art-symbol">${c.type==='event'?'✳':'▤'}</span></div>
-      <div class="card-body"><span class="card-eyebrow">${kind}</span><h3>${esc(c.name)}</h3>
+      <div class="card-body"><span class="card-eyebrow">${kind}${c.recovered?' · Descriptive title':''}</span><h3>${esc(c.name)}</h3>
       <p>${done?number(done)+' published recipe'+(done===1?'':'s'):'No published recipes yet'}${target>done?' · '+number(target)+' planned total':''}</p>
       ${target?'<div class="collection-progress"><span style="width:'+Math.min(100,Math.round(done/target*100))+'%"></span></div>':''}
       <div class="card-bottom"><strong>Explore collection →</strong><span>${number(done)} available</span></div></div></button></article>`;
@@ -93,11 +151,15 @@
   }
   function renderHome(){
     const books=collectionItems('cookbook'),events=collectionItems('event'),featured=[...books,...events].slice(0,4);
-    const recs=state.recipes.slice().sort((a,b)=>b.updated-a.updated||a.title.localeCompare(b.title)).slice(0,8);
+    const popular=pickPopularAmericanRecipes(12);
+    const excluded=new Set(popular.map(r=>r.id));
+    const more=pickPopularAmericanRecipes(8,excluded);
+    state.sequence=[...popular,...more].map(r=>r.id);
     $('content').innerHTML=`<section class="stat-strip"><div class="stat-block"><strong>${number(state.recipes.length)}</strong><span>Complete recipes</span></div><div class="stat-block"><strong>${number(books.length)}</strong><span>Cookbooks</span></div><div class="stat-block"><strong>${number(events.length)}</strong><span>Event menus</span></div><div class="stat-block"><strong>${number(new Set(state.recipes.map(r=>r.country).filter(x=>x&&x!=='Unspecified')).size)}</strong><span>Countries represented</span></div></section>
-    ${featured.length?`<section class="section-block"><div class="section-heading"><div><span class="eyebrow">COLLECTIONS TO EXPLORE</span><h2>Browse the bookshelf</h2><p>Full cookbooks, organized menus, and recipes for every occasion.</p></div><button class="text-link" data-view="cookbooks">View all cookbooks →</button></div><div class="card-grid">${featured.map(collectionCard).join('')}</div></section>`:''}
-    <section class="section-block"><div class="section-heading"><div><span class="eyebrow">FRESH FROM THE LIBRARY</span><h2>Find your next favorite</h2><p>Clear quantities, realistic timing, and instructions you can actually follow.</p></div><button class="text-link" data-view="recipes">View all recipes →</button></div>
-    ${recs.length?'<div class="card-grid">'+recs.map(recipeCard).join('')+'</div>':'<div class="empty-state"><h2>Recipes are coming soon</h2><p>The recipe library has no published recipes yet.</p></div>'}</section>`;
+    <section class="section-block"><div class="section-heading"><div><span class="eyebrow">POPULAR AMERICAN CLASSICS</span><h2>What sounds good today?</h2><p>Handpicked familiar favorites from the U.S. collection — no air-fryer recipes in this featured selection.</p></div><button class="text-link" data-view="recipes">See all recipes →</button></div>
+    ${popular.length?'<div class="card-grid">'+popular.map(recipeCard).join('')+'</div>':'<div class="empty-state"><h2>Recipes are coming soon</h2><p>Check back for more featured recipes.</p></div>'}</section>
+    ${featured.length?`<section class="section-block"><div class="section-heading"><div><span class="eyebrow">EXPLORE YOUR COLLECTIONS</span><h2>Browse the bookshelf</h2><p>Browse cookbooks, family meals, and event menus.</p></div><button class="text-link" data-view="cookbooks">View all cookbooks →</button></div><div class="card-grid">${featured.map(collectionCard).join('')}</div></section>`:''}
+    ${more.length?`<section class="section-block"><div class="section-heading"><div><span class="eyebrow">MORE EVERYDAY FAVORITES</span><h2>Keep cooking</h2><p>More familiar meals and comfort-food recipes to try.</p></div><button class="text-link" data-view="recipes">Explore full recipe library →</button></div><div class="card-grid">${more.map(recipeCard).join('')}</div></section>`:''}`;
   }
   function optionList(values,placeholder,chosen){return '<option value="">'+esc(placeholder)+'</option>'+values.sort((a,b)=>a.localeCompare(b)).map(v=>'<option value="'+esc(v)+'"'+(v===chosen?' selected':'')+'>'+esc(v)+'</option>').join('');}
   function renderBrowser(){
@@ -105,7 +167,7 @@
     const isCollection=state.view==='collection';
     const kind=state.view==='favorites'?'YOUR PERSONAL LIST':isCollection?(col?.type==='event'?'EVENT MENU':'COOKBOOK'):'THE COMPLETE LIBRARY';
     const title=isCollection?(col?.name||'Collection not found'):state.view==='favorites'?'Saved recipes':'All recipes';
-    const description=isCollection?'Explore the recipes published in this collection.':state.view==='favorites'?'Your saved choices live only in this browser.':'Search by recipe, ingredient, country, or category. Every recipe has a full-screen cooking blueprint.';
+    const description=isCollection?'Explore the recipes published in this collection.':state.view==='favorites'?'Your saved choices live only in this browser.':'Browse popular U.S. favorites first, or search every recipe, ingredient, country, and category.';
     const base=isCollection?state.recipes.filter(r=>r.collectionId===state.collectionId):state.view==='favorites'?state.recipes.filter(r=>state.favorites.has(r.id)):state.recipes;
     const unique=key=>[...new Set(base.map(r=>r[key]).filter(x=>x&&x!=='Unspecified'))];
     $('content').innerHTML=(isCollection?'<div class="breadcrumbs"><button data-view="'+(col?.type==='event'?'events':'cookbooks')+'">← All '+(col?.type==='event'?'events':'cookbooks')+'</button><span>/</span><span>'+esc(col?.name||'Collection')+'</span></div>':'')
@@ -114,7 +176,7 @@
       <div class="field"><label for="filterCategory">Dish type</label><select id="filterCategory">${optionList(unique('category'),'All categories',state.filters.category)}</select></div>
       <div class="field"><label for="filterCountry">Country</label><select id="filterCountry">${optionList(unique('country'),'All countries',state.filters.country)}</select></div>
       <div class="field"><label for="filterRegion">Region</label><select id="filterRegion">${optionList(unique('region'),'All regions',state.filters.region)}</select></div>
-      <div class="field"><label for="filterSort">Sort by</label><select id="filterSort"><option value="title">Name A–Z</option><option value="newest">Recently added</option><option value="country">Country A–Z</option><option value="time">Fastest first</option></select></div>
+      <div class="field"><label for="filterSort">Sort by</label><select id="filterSort"><option value="featured">Featured · U.S. classics first</option><option value="title">Name A–Z</option><option value="newest">Recently added</option><option value="country">Country A–Z</option><option value="time">Fastest first</option></select></div>
     </div><div class="browse-meta"><span id="resultsCount"></span><button type="button" id="clearFilters">Clear filters</button></div><div class="card-grid" id="browseGrid"></div><div class="pagination" id="browsePager"></div>`;
     $('filterSort').value=state.filters.sort;renderBrowseGrid();
   }
@@ -128,7 +190,7 @@
   }
   function renderCollections(){
     const event=state.view==='events',cols=collectionItems(event?'event':'cookbook');
-    $('content').innerHTML=heading(event?'Event menus':'The cookbook shelf',event?'CELEBRATIONS & GATHERINGS':'COOKBOOK COLLECTIONS',event?'Holiday feasts, parties, and complete meals in one place.':'Every cookbook from the library, including those still being filled with recipes.')
+    $('content').innerHTML=heading(event?'Event menus':'The cookbook shelf',event?'CELEBRATIONS & GATHERINGS':'COOKBOOK COLLECTIONS',event?'Holiday feasts, parties, and complete meals in one place.':'Explore the named cookbooks and collections. Where the export lost a book title, a descriptive title based on its recipes is shown.')
     +`<div class="browse-meta"><span>${number(cols.length)} ${event?'event menu':'cookbook'}${cols.length===1?'':'s'} · ${number(cols.reduce((n,c)=>n+countOfCollection(c.id),0))} published recipes</span></div>`
     +(cols.length?'<div class="card-grid">'+cols.map(collectionCard).join('')+'</div>':'<div class="empty-state"><h2>Nothing on this shelf yet</h2><p>Collections from the published JSON will show here automatically.</p></div>');
   }
@@ -234,6 +296,14 @@
         const uncompressed=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
         data=JSON.parse(await new Response(uncompressed).text());
       }
+      // Optional editorial labels for the 35 collections whose names were missing from the export.
+      try{
+        const labelsResponse=await fetch('./collection-names.json',{cache:'no-store'});
+        if(labelsResponse.ok){
+          const labels=await labelsResponse.json();
+          state.collectionAliases=labels?.titles||{};
+        }
+      }catch(e){console.warn('Could not load collection title overrides:',e);}
       const normalized=normalizeData(data);
       state.recipes=normalized.recipes;state.collections=normalized.collections;
       state.recipeMap=new Map(state.recipes.map(r=>[r.id,r]));
