@@ -1,0 +1,15 @@
+{
+  "format": "recipe-blueprint-compressed-v1",
+  "encoding": "base64",
+  "compression": "gzip",
+  "parts": [
+    "data/recipes-01.b64",
+    "data/recipes-02.b64",
+    "data/recipes-03.b64",
+    "data/recipes-04.b64"
+  ],
+  "recipeCount": 11941,
+  "collectionCount": 9,
+  "originalBytes": 62579907,
+  "compressedBytes": 9685648
+}

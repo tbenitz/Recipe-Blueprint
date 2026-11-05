@@ -2,14 +2,15 @@
 
 A **read-only, public-facing recipe website** built from the Recipe Blueprint Studio v6 JSON library export. It is designed for GitHub Pages and requires no server, database, signup, API key, or generation requests.
 
-## Publish your recipes
+## Your published recipe library
 
-1. Open this repository on GitHub.
-2. Choose **Add file → Upload files** and upload your complete library backup named **`recipes.json`** (lowercase).
-3. Put `recipes.json` at the **repository root**, beside `index.html`, `app.js`, `pdf.js`, and `styles.css`.
-4. Commit the upload. The website reads `./recipes.json` when visitors load the site.
+The complete recipe export has now been published: **11,941 recipes** across **9 collections**.
 
-**Export the full library backup from Recipe Blueprint Studio** (Library → Backup library), not just a single recipe JSON. The full backup has `recipes` and `collections` arrays and carries the cookbook/event grouping. The website also accepts a plain array of recipes, but that may not carry the bookshelf information.
+Because GitHub's connected upload interface rejected the original 59.7 MiB JSON as a single request, the library is losslessly gzip-compressed and hosted in four small text assets under `data/`. The root `recipes.json` is a tiny manifest listing those assets.
+
+The website automatically downloads, combines, decompresses, and parses those assets **in the visitor's browser**. There is no external API or server application. The compressed payload is about 9.2 MiB rather than the original 59.7 MiB.
+
+To update recipes later, you can replace the root `recipes.json` with a **regular full library export** from Recipe Blueprint Studio (the site supports both normal JSON and the special compressed manifest). GitHub's browser uploader limits may require using Git to push exports over 25 MiB.
 
 ## Enable the live website
 
@@ -19,7 +20,7 @@ The site URL will be:
 
 **https://tbenitz.github.io/Recipe-Blueprint/**
 
-After GitHub Pages finishes its first deployment, visit the link. If a JSON warning appears, check the filename is exactly `recipes.json` and is saved at the root; it is **not included in this initial commit** because you said you would upload it separately.
+After GitHub Pages finishes its first deployment, visit the link. If a JSON warning appears, check the filename is exactly `recipes.json` and is saved at the root; the root file should be the published JSON manifest or a full exported library.
 
 ## Features
 
@@ -40,49 +41,11 @@ Only recipes containing actual ingredient or cooking-step data are treated as pu
 
 ## Data format
 
-The site's expected full Studio export is:
+The full Studio export is a JSON object with a `recipes` array, `collections` array, and optional planning metadata. Each recipe includes its ingredients, timed cooking steps, geographic classification, category, and collection ID.
 
-```json
-{
-  "recipes": [
-    {
-      "id": "recipe-1",
-      "title": "Example dish",
-      "category": "Main dishes",
-      "country": "Italy",
-      "region": "Europe",
-      "collectionId": "book-1",
-      "recipe": {
-        "title": "Example dish",
-        "yield": "4 servings",
-        "intro": "Preparation note",
-        "finish": "Serving note",
-        "ingredients": [
-          { "amount": "2 tbsp", "name": "olive oil", "prep": "" }
-        ],
-        "steps": [
-          {
-            "id": "step-1",
-            "title": "Heat oil",
-            "details": "Warm oil in a pan.",
-            "start": 0,
-            "duration": 2,
-            "rowStart": 0,
-            "rowEnd": 0,
-            "kind": "heat"
-          }
-        ]
-      }
-    }
-  ],
-  "collections": [
-    { "id": "book-1", "name": "Example cookbook", "type": "cookbook", "targetCount": 100 }
-  ],
-  "plans": []
-}
-```
+The published `recipes.json` currently contains a compressed-bundle manifest, with `format: "recipe-blueprint-compressed-v1"` and four `parts` URLs under `data/`. The reader also accepts direct JSON exports of the original Studio format.
 
-Categories and regions are taken from your exported data; they are **not** guessed by the website.
+Categories, cookbooks and countries are taken from the export without guessing.
 
 ## Running it locally
 

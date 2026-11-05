@@ -217,7 +217,24 @@
     try{
       const response=await fetch('./recipes.json',{cache:'no-store'});
       if(!response.ok)throw Error(response.status===404?'recipes.json is not uploaded yet.':'Could not load recipes.json (HTTP '+response.status+').');
-      const data=await response.json();const normalized=normalizeData(data);
+      let data=await response.json();
+      // Compressed publication bundles are assembled and decompressed in the visitor's browser.
+      // Regular full-library recipes.json exports remain supported without modification.
+      if(data?.format==='recipe-blueprint-compressed-v1'){
+        if(typeof DecompressionStream==='undefined')throw Error('This browser cannot unpack the recipe library. Please use a current version of Chrome, Edge, Firefox or Safari.');
+        const pieces=await Promise.all(data.parts.map(async part=>{
+          if(!/^data\/recipes-\d+\.b64$/.test(part))throw Error('Invalid recipe archive part in manifest.');
+          const res=await fetch('./'+part);
+          if(!res.ok)throw Error('Missing recipe library part: '+part+' (HTTP '+res.status+').');
+          return res.text();
+        }));
+        const encoded=pieces.join('');
+        const binary=atob(encoded);
+        const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+        const uncompressed=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+        data=JSON.parse(await new Response(uncompressed).text());
+      }
+      const normalized=normalizeData(data);
       state.recipes=normalized.recipes;state.collections=normalized.collections;
       state.recipeMap=new Map(state.recipes.map(r=>[r.id,r]));
       state.collectionMap=new Map(state.collections.map(c=>[c.id,c]));
