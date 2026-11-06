@@ -7,6 +7,7 @@
   <meta name="description" content="Recipe Blueprint: browse practical recipes, cookbooks, and event menus with step-by-step cooking timelines.">
   <title>Recipe Blueprint | Cookbooks & Recipes</title>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./mobile.css?v=1">
   <script defer src="./pdf.js"></script>
   <script defer src="./photos.js"></script>
   <script defer src="./app.js"></script>
@@ -20,11 +21,11 @@
           <span><strong>Recipe Blueprint</strong><small>THE COOKBOOK LIBRARY</small></span>
         </a>
         <nav class="primary-nav" aria-label="Main navigation">
-          <button type="button" class="nav-link active" data-view="home">Discover</button>
-          <button type="button" class="nav-link" data-view="recipes">All recipes</button>
-          <button type="button" class="nav-link" data-view="cookbooks">Cookbooks</button>
-          <button type="button" class="nav-link" data-view="events">Event menus</button>
-          <button type="button" class="nav-link" data-view="favorites">Saved <span id="favoriteCount" class="nav-count">0</span></button>
+          <button type="button" class="nav-link active" data-view="home"><span class="mobile-nav-icon" aria-hidden="true">⌂</span><span class="nav-label">Discover</span></button>
+          <button type="button" class="nav-link" data-view="recipes"><span class="mobile-nav-icon" aria-hidden="true">▤</span><span class="nav-label">All recipes</span></button>
+          <button type="button" class="nav-link" data-view="cookbooks"><span class="mobile-nav-icon" aria-hidden="true">▦</span><span class="nav-label">Cookbooks</span></button>
+          <button type="button" class="nav-link" data-view="events"><span class="mobile-nav-icon" aria-hidden="true">✳</span><span class="nav-label">Event menus</span></button>
+          <button type="button" class="nav-link" data-view="favorites"><span class="mobile-nav-icon" aria-hidden="true">♡</span><span class="nav-label">Saved</span><span id="favoriteCount" class="nav-count">0</span></button>
         </nav>
         <button class="header-search-button" type="button" id="searchShortcut" aria-label="Search recipes" title="Search recipes">⌕ <span>Search</span></button>
       </div>
@@ -59,7 +60,7 @@
         <button class="button button-secondary compact" type="button" id="readerFavorite" aria-pressed="false">♡ Save</button>
         <button class="button button-secondary compact" type="button" id="readerShare">Share</button>
         <button class="button button-secondary compact" type="button" id="readerPrint">Print</button>
-        <button class="button button-primary compact" type="button" id="readerPDF">↓ One-page PDF</button>
+        <button class="button button-primary compact" type="button" id="readerPDF" aria-label="Download one-page PDF">↓ <span class="pdf-label-long">One-page PDF</span><span class="pdf-label-short" aria-hidden="true">PDF</span></button>
       </div>
     </div>
     <div class="reader-scroll" id="readerScroll">
