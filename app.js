@@ -265,7 +265,7 @@
     $('readerStepCount').textContent=steps.length+' steps';
     $('readerSteps').innerHTML=steps.map((s,i)=>`<div class="direction-item ${s.aiGenerated?'ai-reconstructed':''}"><span class="direction-no">${s.timelineExcluded?'↪':i+1}</span><div class="direction-main"><h3>${esc(s.title)}${s.aiGenerated?'<span class="step-ai-badge">AI '+esc(s.aiAction||'generated')+'</span>':''}${s.timelineExcluded?'<span class="step-ai-badge">Alternative · excluded from total</span>':''}</h3><p>${esc(s.details||s.title)}</p>${s.aiGenerated&&s.originalText?'<small class="original-step-text">Recovered text: '+esc(s.originalText)+'</small>':''}</div><span class="direction-time">${item.sourcePdf?.timeIsPlaceholder?'Time not documented':esc(minutes(s.duration)+(s.timelineExcluded?' · alternative':s.durationSource==='source-text'?' · in manuscript':s.durationSource==='ai-text'?' · AI text':' · estimated'))}</span></div>`).join('');
     $('readerFinish').hidden=!r.finish;$('readerFinish').innerHTML=r.finish?'<strong>Finish & serve:</strong> '+esc(r.finish):'';
-    $('readerTimeline').innerHTML=item.sourcePdf?.timingMethod?.startsWith('engineered')?renderFamilyEngineeredTimeline(r):renderTimeline(r);
+    $('readerTimeline').innerHTML=renderTimeline(r);
     $('readerTimelineNote').textContent=item.sourcePdf?.timingMethod?.startsWith('engineered')?'Engraved in the cookbook: labeled SOURCE durations. All other times are ESTIMATES for scheduling, not historical facts. Alternatives do not count toward total time.':item.sourcePdf?.timeIsPlaceholder?'Family cookbook: time not provided by source.':'Each column represents elapsed cooking time. Steps can overlap when they are working with different ingredients.';
     $('recipeOverlay').dataset.openRecipe=id;
     window.RecipeBlueprintPhotos?.showReader(item,id);
@@ -277,41 +277,6 @@
   function closeReader(clearUrl=true){
     state.readerId='';$('recipeOverlay').dataset.openRecipe='';$('recipeOverlay').hidden=true;document.body.style.overflow='';document.title='Recipe Blueprint | Cookbooks & Recipes';
     if(clearUrl&&new URL(window.location.href).searchParams.has('recipe'))writeUrl({view:state.view==='home'?'recipes':state.view,collection:state.collectionId});
-  }
-
-  function renderFamilyEngineeredTimeline(r){
-    const steps=r.steps.filter(s=>!s.timelineExcluded).slice().sort((a,b)=>a.start-b.start);
-    const alternatives=r.steps.filter(s=>s.timelineExcluded);
-    if(!steps.length)return '<div class="empty-state">Historical directions not available for a timed schedule.</div>';
-    const total=Math.max(1,totalTime(r));
-    const labelAt=p=>minutes(Math.round(p*total));
-    const safeName=x=>esc(String(x?.name||'').trim());
-    const rows=steps.map((s,i)=>{
-      const left=Math.min(99,100*Math.max(0,s.start)/total);
-      const width=Math.max(.2,Math.min(100-left,100*Math.max(1,s.duration)/total));
-      const evidence=s.durationSource==='source-text'?'From cookbook':s.durationSource==='ai-text'?'From AI-reconstructed text':'Estimated';
-      const linked=(s.ingredientRows||[]).map(index=>r.ingredients[index]).filter(Boolean).slice(0,4).map(safeName);
-      const other=(s.ingredientRows||[]).length-4;
-      const ingredientText=linked.length?linked.join(', ')+(other>0?' +'+other:''):'Ingredient association not specified';
-      const snippet=s.details||s.title||('Step '+(i+1));
-      const sourceTitle=esc(evidence+' · '+minutes(s.duration)+(s.timingEvidence?' · '+s.timingEvidence:''));
-      return '<div class="engineer-row" role="row">'+
-        '<div class="engineer-step" role="cell"><div class="engineer-step-title"><b>'+ (i+1) +'. '+esc(s.title)+'</b></div>'+
-        '<div class="engineer-step-meta"><strong>'+esc(minutes(s.duration))+'</strong> <span class="'+(s.durationSource==='source-text'?'source':'estimate')+'">'+esc(evidence)+'</span> · Starts ~'+esc(minutes(s.start))+'</div>'+
-        '<small class="engineer-step-ing">'+ingredientText+'</small>'+(s.aiGenerated?'<small class="engineer-ai">✦ AI '+esc(s.aiAction||'generated')+' wording</small>':'')+
-        '</div><div class="engineer-track" role="cell" aria-label="'+esc(snippet)+'; '+sourceTitle+'">'+
-        '<div class="engineer-bar '+esc(s.kind)+' '+(s.durationSource==='source-text'?'documented':'inferred')+'" style="left:'+left.toFixed(3)+'%;width:'+width.toFixed(3)+'%" title="'+esc(snippet)+' — '+sourceTitle+'">'+
-        (width>15?'<span>'+esc(minutes(s.duration))+'</span>':'')+'</div></div></div>';
-    }).join('');
-    const ticks=[0,.25,.5,.75,1].map(t=>'<span>'+esc(labelAt(t))+'</span>').join('');
-    const sourced=steps.filter(s=>s.durationSource==='source-text').length;
-    const estimateCount=steps.filter(s=>s.durationSource!=='source-text').length;
-    const header='<div class="engineer-summary"><span><b>≈ '+esc(minutes(total))+'</b> planned elapsed time</span><span>'+sourced+' source-timed steps</span><span>'+estimateCount+' estimated/AI-timed steps</span></div>';
-    const alt=alternatives.length?'<p class="engineer-alternatives">'+alternatives.length+' alternative method'+(alternatives.length===1?'':'s')+' excluded from elapsed time; see directions below.</p>':'';
-    return '<section class="engineer-timeline" aria-label="Engineered family recipe schedule">'+header+
-      '<div class="engineer-heading"><span>STEP · DURATION · SOURCE · INGREDIENTS</span><div class="engineer-axis">'+ticks+'</div></div>'+
-      rows+'<p class="engineer-legend"><span><i class="engineer-dot heat"></i> Cook / heat</span><span><i class="engineer-dot active"></i> Active preparation</span><span><i class="engineer-dot passive"></i> Wait / chill / rest</span><span>Dashed outline = estimated time</span></p>'+alt+
-      '<p class="engineer-disclaimer">The schedule follows the source step order. Unsourced durations are planning estimates, not exact cookbook directions or tested cooking times. Ingredient associations are inferred from step wording.</p></section>';
   }
 
   function renderTimeline(r){
