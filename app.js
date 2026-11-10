@@ -42,8 +42,8 @@
     const steps=(Array.isArray(src.steps)?src.steps:[]).map((x,i)=>({
       id:safeText(x?.id??('step-'+i),100),title:safeText(raw.sourcePdf?displaySourceStep(x?.title??x?.action??x?.name??('Step '+(i+1))):x?.title??x?.action??x?.name??('Step '+(i+1)),250),
       details:safeText(raw.sourcePdf?displaySourceStep(x?.details??x?.instructions??x?.description):x?.details??x?.instructions??x?.description,12000),
-      start:Math.max(0,Math.min(1440,toNumber(x?.start??x?.start_min??x?.startMin))),
-      duration:Math.max(1,Math.min(1440,toNumber(x?.duration??x?.duration_min??x?.durationMin,1))),
+      start:Math.max(0,Math.min(10080,toNumber(x?.start??x?.start_min??x?.startMin))),
+      duration:Math.max(1,Math.min(10080,toNumber(x?.duration??x?.duration_min??x?.durationMin,1))),
       rowStart:Math.max(0,toNumber(x?.rowStart??x?.row_start??x?.from_row??x?.rows?.[0])),
       rowEnd:Math.max(0,toNumber(x?.rowEnd??x?.row_end??x?.to_row??x?.rows?.at?.(-1))),
       kind:['active','passive','heat'].includes(x?.kind??x?.type)?(x.kind??x.type):'active',aiGenerated:!!x?.aiGenerated,aiAction:safeText(x?.aiAction??'',32),originalText:safeText(x?.originalText??'',2000),durationSource:safeText(x?.durationSource??'',30),timingEvidence:safeText(x?.timingEvidence??'',220),durationRange:Array.isArray(x?.durationRange)?x.durationRange.slice(0,2):null,timelineExcluded:!!x?.timelineExcluded,ingredientRows:Array.isArray(x?.ingredientRows)?x.ingredientRows.filter(n=>Number.isInteger(n)&&n>=0&&n<ingredients.length):[]
