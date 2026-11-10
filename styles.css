@@ -18,3 +18,20 @@
 .recipe-sheet-head p{white-space:pre-wrap;overflow-wrap:anywhere;max-height:none!important;display:block;overflow:visible!important;-webkit-line-clamp:unset!important;line-clamp:unset!important}
 @media(max-width:620px){.reader-photo-figure{margin-top:16px}.reader-photo-figure img{aspect-ratio:16/10;max-height:260px}.recipe-card .card-art{height:130px}.recipe-card .photo-credit-link{font-size:8px;max-width:135px}}
 @media print{.reader-photo-figure{max-height:230px;break-inside:avoid;margin:10px 0}.reader-photo-figure img{height:190px;max-height:190px;aspect-ratio:auto}.reader-photo-figure figcaption{padding:3px 8px;font-size:7px}}
+
+
+/* Stone family cookbook – provenance, manuscript links, and transparent AI corrections */
+.family-home-block{border:1px solid #cbdcd6;border-radius:18px;padding:22px;background:linear-gradient(145deg,#f1f8f3,#fff);margin-bottom:16px}
+.family-home-block .eyebrow{color:#297650}
+.reader-source-box{margin:16px 0 22px;padding:15px 18px;border:1px solid #cbdcd6;background:#f4faf6;border-radius:12px;font-size:13px;line-height:1.6}
+.reader-source-box[hidden]{display:none}
+.source-meta{display:flex;gap:12px 22px;align-items:center;flex-wrap:wrap;margin-bottom:9px;color:#3b5e4c}
+.source-meta strong{color:#145836}
+.source-pdf-link{display:inline-flex;margin:4px 0 1px;padding:9px 13px;background:#175c42;color:#fff;border-radius:9px;text-decoration:none;font-weight:750}
+.source-pdf-link:hover{background:#0d4932;color:#fff}
+.source-pdf-pending{font-size:12px;color:#795a25;display:inline-block;padding:8px 10px;border-radius:7px;background:#fdf4df}
+.source-ai-warning{padding:10px 13px;background:#fff4e5;border-left:3px solid #d79840;border-radius:4px;color:#694b25;margin:10px 0 0}
+.direction-item.ai-reconstructed{background:#fffbf3;border-radius:9px;border:1px solid #efd8b1;padding:12px}
+.step-ai-badge{font-size:10px;display:inline-block;margin-left:9px;border-radius:6px;background:#f5e4c6;color:#875d21;padding:3px 7px;vertical-align:middle}
+.original-step-text{display:block;font-size:11px;margin-top:8px;color:#806749}
+@media(max-width:620px){.family-home-block{padding:12px}.source-meta{align-items:flex-start;flex-direction:column;gap:3px}.reader-source-box{padding:12px}}
