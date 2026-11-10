@@ -69,6 +69,7 @@
           <div><span class="eyebrow">THE RECIPE BLUEPRINT</span><h1 id="readerTitle"></h1><p id="readerIntro"></p><div id="readerTags" class="tag-list"></div></div>
           <div class="recipe-time-card"><span>TOTAL TIME</span><strong id="readerTotal"></strong><small id="readerYield"></small></div>
         </div>
+        <div id="readerSource" class="reader-source-box" hidden></div>
         <figure class="reader-photo-figure" id="readerPhotoFigure" hidden>
           <img id="readerPhoto" alt="" decoding="async" referrerpolicy="no-referrer">
           <figcaption><a id="readerPhotoCredit" href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">Photo credit</a><span> Reference photograph; appearance may vary</span></figcaption>
@@ -79,7 +80,7 @@
         </section>
         <section class="recipe-timeline-section">
           <div class="section-title"><div><span class="eyebrow">02 / THE TIMELINE</span><h2>Cooking blueprint</h2></div><span class="section-aside">Scroll sideways to explore the timing →</span></div>
-          <p class="section-note">Each column represents elapsed cooking time. Steps can overlap when they're working with different ingredients.</p>
+          <p class="section-note" id="readerTimelineNote">Each column represents elapsed cooking time. Steps can overlap when they are working with different ingredients.</p>
           <div id="readerTimeline" class="timeline-scroll" tabindex="0" aria-label="Ingredient and cooking timeline"></div>
           <div class="timeline-legend"><span><i class="legend-dot active"></i>Mix / prep</span><span><i class="legend-dot heat"></i>Cook / bake</span><span><i class="legend-dot passive"></i>Rest / wait</span></div>
         </section>
