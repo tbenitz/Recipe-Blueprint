@@ -242,7 +242,7 @@
     const restoredPage=Number(src.restoredPdfPage||src.bookPage||src.page);
     if(!Number.isInteger(scanPage)||scanPage<1||scanPage>199)return '';
     const link=state.familyPdfAvailable?
-      '<a class="source-pdf-link" href="./books/stone-family-recipes.pdf#page='+scanPage+'" target="_blank" rel="noopener noreferrer">↗ View original scanned manuscript · page '+scanPage+'</a>':
+      '<a class="source-pdf-link" href="./books/stone-family-recipes.pdf#page='+scanPage+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">↗ View original scanned manuscript · page '+scanPage+'</a>':
       '<span class="source-pdf-pending">Original scanned PDF is pending upload</span>';
     return '<div class="source-meta"><strong>Original manuscript: page '+scanPage+'</strong><span>Restored cookbook: page '+(Number.isInteger(restoredPage)?restoredPage:'not listed')+'</span>'+(src.contributor?'<span>From '+esc(src.contributor)+'</span>':'')+'</div>'+link+
       (src.aiGenerated?'<p class="source-ai-warning"><strong>AI-reconstructed material:</strong> marked steps or ingredients were generated or corrected by AI and may not match the original family recipe.</p>':'')+
@@ -379,7 +379,12 @@
       $('retryLoad').addEventListener('click',()=>{ $('statusArea').innerHTML='<div class="loading-state"><span class="loading-spinner"></span> Loading cookbook library…</div>';load();});
     }
   }
+  // PDF source links must bypass the recipe-overlay's delegated navigation handlers.
+  $('readerSource').addEventListener('click',e=>{
+    if(e.target.closest('a.source-pdf-link'))e.stopPropagation();
+  });
   document.addEventListener('click',e=>{
+    if(e.target.closest('a.source-pdf-link'))return;
     const view=e.target.closest('[data-view]');if(view){e.preventDefault();navView(view.dataset.view);return;}
     const open=e.target.closest('a[data-open-recipe], button[data-open-recipe]');if(open){e.preventDefault();showReader(open.dataset.openRecipe);return;}
     const col=e.target.closest('[data-open-collection]');if(col){navView('collection',{collectionId:col.dataset.openCollection});return;}
