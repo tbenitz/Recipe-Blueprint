@@ -114,6 +114,15 @@
   }
   return selected;
 }
+  function isFamilyRecipe(r){return !!state.familyCollectionId&&r.collectionId===state.familyCollectionId;}
+  const familiarFamilyTitles=['Brownies','Beef Pot Roast','Pot Roast','Chocolate Cake (Trib)','Chocolate Sour Cream Cake','Apple Upside Down Cake','Coffee Cake','Blueberry Pie','Lemon Meringue Pie','Chocolate Ice Cream','French Pancakes','Potato Salad Recipe','Chicken Pilaf (Tribune)','Lemon Crumb Squares','Chocolate Ice Box Cake','Cherry Cheese Pie','Corn Meal Waffles','Sweet Potatoes Southern','Chicken and Shrimp Jambalaya','Apple Skillet Cake','Potatoes Anna','Broccoli Casserole'];
+  function familyRank(r){
+    const n=familiarFamilyTitles.findIndex(v=>v.toLowerCase()===r.title.toLowerCase());
+    if(n>=0)return n;
+    const t=r.title.toLowerCase(),cat=r.category.toLowerCase();
+    return 200-(/chicken|beef|pot roast|brownie|cookie|cake|pie|pancake|waffle|pudding|potato|casserole|salad|soup|bread/.test(t)?65:0)-(/main dishes|desserts|breakfast|breads/.test(cat)?30:0)+(/dressing|topping|relish|fondue|aspic|mousse|sauce/.test(t)?30:0);
+  }
+  function featuredFamilyRecipes(limit=12){return state.recipes.filter(isFamilyRecipe).sort((a,b)=>familyRank(a)-familyRank(b)||a.title.localeCompare(b.title)).slice(0,limit);}
   function currentRecipeSet(){
     const f=state.filters;let list=state.view==='favorites'?state.recipes.filter(r=>state.favorites.has(r.id)):state.view==='collection'?state.recipes.filter(r=>r.collectionId===state.collectionId):state.recipes.slice();
     const search=f.search.toLocaleLowerCase().trim();
@@ -122,8 +131,8 @@
     if(f.region)list=list.filter(r=>r.region===f.region);
     if(f.category)list=list.filter(r=>r.category===f.category);
     if(f.sort==='featured')list.sort((a,b)=>{
-      const tier=r=>isUSRecipe(r)&&!isAirFryerRecipe(r)?0:!isAirFryerRecipe(r)?1:2;
-      return tier(a)-tier(b)||recipeFeatureRank(a)-recipeFeatureRank(b)||a.title.localeCompare(b.title);
+      const tier=r=>isFamilyRecipe(r)?0:isUSRecipe(r)&&!isAirFryerRecipe(r)?1:!isAirFryerRecipe(r)?2:3;
+      return tier(a)-tier(b)||(isFamilyRecipe(a)&&isFamilyRecipe(b)?familyRank(a)-familyRank(b):recipeFeatureRank(a)-recipeFeatureRank(b))||a.title.localeCompare(b.title);
     });
     else if(f.sort==='newest')list.sort((a,b)=>b.updated-a.updated||a.title.localeCompare(b.title));
     else if(f.sort==='time')list.sort((a,b)=>totalTime(a.recipe)-totalTime(b.recipe)||a.title.localeCompare(b.title));
@@ -131,7 +140,7 @@
     else list.sort((a,b)=>a.title.localeCompare(b.title));
     return list;
   }
-  function collectionItems(type){return state.collections.filter(c=>!type||c.type===type).sort((a,b)=>b.created-a.created||a.name.localeCompare(b.name));}
+  function collectionItems(type){return state.collections.filter(c=>!type||c.type===type).sort((a,b)=>Number(b.id===state.familyCollectionId)-Number(a.id===state.familyCollectionId)||b.created-a.created||a.name.localeCompare(b.name));}
   function countOfCollection(id){return state.recipes.filter(r=>r.collectionId===id).length;}
   function recipeArt(r){return /dessert|cake|cookie|sweet|brownie|pie|pudding/i.test(r.category)?'dessert':'';}
   function recipeCard(r){
@@ -139,9 +148,9 @@
     return `<article class="recipe-card">
       <a href="?view=${encodeURIComponent(state.view)}&recipe=${encodeURIComponent(r.id)}" data-open-recipe="${esc(r.id)}" aria-label="Read ${esc(r.title)}">
         <div class="card-art ${recipeArt(r)}" data-recipe-photo="${esc(r.id)}"><span class="art-symbol">${recipeArt(r)?'◈':'▦'}</span></div>
-        <div class="card-body"><span class="card-eyebrow">${esc(r.category)}${r.country&&r.country!=='Unspecified'?' · '+esc(r.country):''}</span>
+        <div class="card-body"><span class="card-eyebrow">${isFamilyRecipe(r)?'STONE FAMILY · ':''}${esc(r.category)}${r.country&&r.country!=='Unspecified'?' · '+esc(r.country):''}</span>
           <h3>${esc(r.title)}</h3><p>${esc(col?.name||r.region||'From the collection')}</p>
-          <div class="card-bottom"><span>◷ ${esc(minutes(totalTime(r.recipe)))}</span><span>▤ ${r.recipe.ingredients.length} ingredients</span><span>✓ ${r.recipe.steps.length} steps</span></div>
+          <div class="card-bottom"><span>◷ ${r.sourcePdf?.timeIsPlaceholder?'Time not recorded':esc(minutes(totalTime(r.recipe)))}</span><span>▤ ${r.recipe.ingredients.length} ingredients</span><span>✓ ${r.recipe.steps.length} steps</span></div>
         </div>
       </a>
       <div class="card-actions"><button type="button" class="card-open" data-open-recipe="${esc(r.id)}">View full recipe →</button><a class="photo-credit-link" data-photo-credit="${esc(r.id)}" href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer" hidden>Photo credit</a><button type="button" class="favorite-toggle ${state.favorites.has(r.id)?'saved':''}" data-favorite="${esc(r.id)}" aria-label="${state.favorites.has(r.id)?'Remove from saved':'Save recipe'}" aria-pressed="${state.favorites.has(r.id)}">${state.favorites.has(r.id)?'♥':'♡'}</button></div>
@@ -152,7 +161,7 @@
     const kind=c.type==='event'?'Event menu':'Cookbook';
     return `<article class="collection-card"><button type="button" data-open-collection="${esc(c.id)}" aria-label="Browse ${esc(c.name)}">
       <div class="card-art ${c.type==='event'?'event':'book'}"><span class="art-symbol">${c.type==='event'?'✳':'▤'}</span></div>
-      <div class="card-body"><span class="card-eyebrow">${kind}${c.recovered?' · Descriptive title':''}</span><h3>${esc(c.name)}</h3>
+      <div class="card-body"><span class="card-eyebrow">${c.id===state.familyCollectionId?'★ FEATURED · ':''}${kind}${c.recovered?' · Descriptive title':''}</span><h3>${esc(c.name)}</h3>
       <p>${done?number(done)+' published recipe'+(done===1?'':'s'):'No published recipes yet'}${target>done?' · '+number(target)+' planned total':''}</p>
       ${target?'<div class="collection-progress"><span style="width:'+Math.min(100,Math.round(done/target*100))+'%"></span></div>':''}
       <div class="card-bottom"><strong>Explore collection →</strong><span>${number(done)} available</span></div></div></button></article>`;
@@ -162,11 +171,14 @@
   }
   function renderHome(){
     const books=collectionItems('cookbook'),events=collectionItems('event'),featured=[...books,...events].slice(0,4);
+    const familyFavorites=featuredFamilyRecipes(12);
     const popular=pickPopularAmericanRecipes(12);
     const excluded=new Set(popular.map(r=>r.id));
     const more=pickPopularAmericanRecipes(8,excluded);
-    state.sequence=[...popular,...more].map(r=>r.id);
+    state.sequence=[...familyFavorites,...popular,...more].map(r=>r.id);
+    const familyBlock=familyFavorites.length?'<section class="section-block family-home-block"><div class="section-heading"><div><span class="eyebrow">★ FEATURED FAMILY COOKBOOK</span><h2>Stone Family Recipes</h2><p>236 restored family recipes. Browse familiar favorites and check the original manuscript pages.</p></div><button class="text-link" data-open-collection="'+esc(state.familyCollectionId)+'">Browse family cookbook →</button></div><div class="card-grid">'+familyFavorites.map(recipeCard).join('')+'</div></section>':'';
     $('content').innerHTML=`
+    ${familyBlock}
     <section class="section-block"><div class="section-heading"><div><span class="eyebrow">POPULAR AMERICAN CLASSICS</span><h2>What sounds good today?</h2><p>Handpicked familiar favorites from the U.S. collection — no air-fryer recipes in this featured selection.</p></div><button class="text-link" data-view="recipes">See all recipes →</button></div>
     ${popular.length?'<div class="card-grid">'+popular.map(recipeCard).join('')+'</div>':'<div class="empty-state"><h2>Recipes are coming soon</h2><p>Check back for more featured recipes.</p></div>'}</section>
     <section class="stat-strip"><div class="stat-block"><strong>${number(state.recipes.length)}</strong><span>Complete recipes</span></div><div class="stat-block"><strong>${number(books.length)}</strong><span>Cookbooks</span></div><div class="stat-block"><strong>${number(events.length)}</strong><span>Event menus</span></div><div class="stat-block"><strong>${number(new Set(state.recipes.map(r=>r.country).filter(x=>x&&x!=='Unspecified')).size)}</strong><span>Countries represented</span></div></section>
