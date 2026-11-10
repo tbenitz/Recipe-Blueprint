@@ -25,7 +25,7 @@
   function normalizeRecipe(raw,index){
     if(!raw||typeof raw!=='object')return null;
     const src=raw.recipe&&typeof raw.recipe==='object'?raw.recipe:raw;
-    const ingredients=(Array.isArray(src.ingredients)?src.ingredients:[]).map(x=>typeof x==='string'?{amount:'',name:safeText(x,280),prep:''}:({amount:safeText(x?.amount??x?.quantity,150),name:safeText(x?.name??x?.ingredient,280),prep:safeText(x?.prep??x?.preparation,280)})).filter(x=>x.name);
+    const ingredients=(Array.isArray(src.ingredients)?src.ingredients:[]).map(x=>typeof x==='string'?{amount:'',name:safeText(x,280),prep:''}:({amount:safeText(x?.amount??x?.quantity,150),name:safeText(x?.name??x?.ingredient,280),prep:safeText(x?.prep??x?.preparation,280),aiGenerated:!!x?.aiGenerated,aiAction:safeText(x?.aiAction??'',32),originalText:safeText(x?.originalText??'',2000)})).filter(x=>x.name);
     const steps=(Array.isArray(src.steps)?src.steps:[]).map((x,i)=>({
       id:safeText(x?.id??('step-'+i),100),title:safeText(x?.title??x?.action??x?.name??('Step '+(i+1)),250),
       details:safeText(x?.details??x?.instructions??x?.description,12000),
@@ -33,7 +33,7 @@
       duration:Math.max(1,Math.min(1440,toNumber(x?.duration??x?.duration_min??x?.durationMin,1))),
       rowStart:Math.max(0,toNumber(x?.rowStart??x?.row_start??x?.from_row??x?.rows?.[0])),
       rowEnd:Math.max(0,toNumber(x?.rowEnd??x?.row_end??x?.to_row??x?.rows?.at?.(-1))),
-      kind:['active','passive','heat'].includes(x?.kind??x?.type)?(x.kind??x.type):'active'
+      kind:['active','passive','heat'].includes(x?.kind??x?.type)?(x.kind??x.type):'active',aiGenerated:!!x?.aiGenerated,aiAction:safeText(x?.aiAction??'',32),originalText:safeText(x?.originalText??'',2000)
     }));
     if(!ingredients.length&&!steps.length)return null;
     steps.forEach(s=>{s.rowStart=Math.min(Math.max(0,ingredients.length-1),s.rowStart);s.rowEnd=Math.min(Math.max(0,ingredients.length-1),s.rowEnd);if(s.rowEnd<s.rowStart)[s.rowStart,s.rowEnd]=[s.rowEnd,s.rowStart];});
@@ -235,6 +235,19 @@
     updateNav();if(state.readerId===id){const el=$('readerFavorite'),saved=state.favorites.has(id);el.textContent=saved?'♥ Saved':'♡ Save';el.setAttribute('aria-pressed',String(saved));}
     if(state.view==='home')renderHome();else if(['recipes','favorites','collection'].includes(state.view))renderBrowseGrid();
   }
+  function familySourcePanel(item){
+    const src=item.sourcePdf;
+    if(!src)return '';
+    const scanPage=Number(src.originalPdfPage||src.originalManuscriptPage);
+    const restoredPage=Number(src.restoredPdfPage||src.bookPage||src.page);
+    if(!Number.isInteger(scanPage)||scanPage<1||scanPage>199)return '';
+    const link=state.familyPdfAvailable?
+      '<a class="source-pdf-link" href="./books/stone-family-recipes.pdf#page='+scanPage+'" target="_blank" rel="noopener noreferrer">↗ View original scanned manuscript · page '+scanPage+'</a>':
+      '<span class="source-pdf-pending">Original scanned PDF is pending upload</span>';
+    return '<div class="source-meta"><strong>Original manuscript: page '+scanPage+'</strong><span>Restored cookbook: page '+(Number.isInteger(restoredPage)?restoredPage:'not listed')+'</span>'+(src.contributor?'<span>From '+esc(src.contributor)+'</span>':'')+'</div>'+link+
+      (src.aiGenerated?'<p class="source-ai-warning"><strong>AI-reconstructed material:</strong> marked steps or ingredients were generated or corrected by AI and may not match the original family recipe.</p>':'')+
+      (src.incompleteOriginal&&!src.aiGenerated?'<p class="source-ai-warning">Some recovered wording or directions remain incomplete. Check the scanned manuscript.</p>':'');
+  }
   function showReader(id,push=true){
     const item=state.recipeMap.get(id);if(!item)return;
     if(push)writeUrl({view:state.view==='home'?'recipes':state.view,collection:state.collectionId,recipe:id});
@@ -244,14 +257,16 @@
     $('readerTitle').textContent=r.title||item.title;
     $('readerIntro').textContent=readableIntro(r.intro);
     $('readerTags').innerHTML=[item.category,item.country!=='Unspecified'?item.country:'',item.region,col?.name].filter(Boolean).map(v=>'<span class="tag">'+esc(v)+'</span>').join('');
-    $('readerTotal').textContent=minutes(totalTime(r));$('readerYield').textContent=r.yield||'';
+    $('readerSource').innerHTML=familySourcePanel(item);$('readerSource').hidden=!item.sourcePdf;
+    $('readerTotal').textContent=item.sourcePdf?.timeIsPlaceholder?'Not recorded':minutes(totalTime(r));$('readerYield').textContent=r.yield||'';
     $('readerIngredientCount').textContent=r.ingredients.length+' ingredients';
-    $('readerIngredients').innerHTML=r.ingredients.map((ing,i)=>`<label class="ingredient-item"><input type="checkbox" aria-label="Mark ${esc(ing.name)} as ready"><div><b>${esc(ing.amount)}</b> ${esc(ing.name)}<small>${esc(ing.prep||'')}</small></div></label>`).join('');
+    $('readerIngredients').innerHTML=r.ingredients.map((ing,i)=>`<label class="ingredient-item"><input type="checkbox" aria-label="Mark ${esc(ing.name)} as ready"><div><b>${esc(ing.amount)}</b> ${esc(ing.name)}<small>${esc(ing.prep||'')}${ing.aiGenerated?' · ✦ AI '+esc(ing.aiAction||'generated')+' — not original wording':''}</small></div></label>`).join('');
     const steps=[...r.steps].sort((a,b)=>a.start-b.start||a.rowStart-b.rowStart);
     $('readerStepCount').textContent=steps.length+' steps';
-    $('readerSteps').innerHTML=steps.map((s,i)=>`<div class="direction-item"><span class="direction-no">${i+1}</span><div class="direction-main"><h3>${esc(s.title)}</h3><p>${esc(s.details||s.title)}</p></div><span class="direction-time">${esc(minutes(s.start))} · ${esc(minutes(s.duration))}</span></div>`).join('');
+    $('readerSteps').innerHTML=steps.map((s,i)=>`<div class="direction-item ${s.aiGenerated?'ai-reconstructed':''}"><span class="direction-no">${i+1}</span><div class="direction-main"><h3>${esc(s.title)}${s.aiGenerated?'<span class="step-ai-badge">AI '+esc(s.aiAction||'generated')+'</span>':''}</h3><p>${esc(s.details||s.title)}</p>${s.aiGenerated&&s.originalText?'<small class="original-step-text">Recovered text: '+esc(s.originalText)+'</small>':''}</div><span class="direction-time">${item.sourcePdf?.timeIsPlaceholder?'Time not documented':esc(minutes(s.start)+' · '+minutes(s.duration))}</span></div>`).join('');
     $('readerFinish').hidden=!r.finish;$('readerFinish').innerHTML=r.finish?'<strong>Finish & serve:</strong> '+esc(r.finish):'';
     $('readerTimeline').innerHTML=renderTimeline(r);
+    $('readerTimelineNote').textContent=item.sourcePdf?.timeIsPlaceholder?'Family cookbook: timeline slots indicate the order of steps only. They are NOT verified cooking times.':'Each column represents elapsed cooking time. Steps can overlap when they are working with different ingredients.';
     $('recipeOverlay').dataset.openRecipe=id;
     window.RecipeBlueprintPhotos?.showReader(item,id);
     const saved=state.favorites.has(id);$('readerFavorite').textContent=saved?'♥ Saved':'♡ Save';$('readerFavorite').setAttribute('aria-pressed',String(saved));
