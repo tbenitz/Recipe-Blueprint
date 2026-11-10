@@ -1,4 +1,4 @@
-# Stone Family Recipes — scanned manuscript
+# Stone Family Recipe Book — scanned manuscript
 
 Place the **199-page original family cookbook scan** here, named:
 
