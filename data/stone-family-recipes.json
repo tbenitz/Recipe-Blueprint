@@ -1,11 +1,12 @@
 {
   "format": "recipe-blueprint-family-collection-v1",
   "title": "Stone Family Recipe Book",
-  "recipeCount": 236,
+  "recipeCount": 233,
   "collectionId": "svs9861kq9",
   "parts": [
     "data/stone-family-recipes-1.json",
     "data/stone-family-recipes-2.json"
   ],
-  "originalPdf": "books/stone-family-recipes.pdf"
+  "originalPdf": "books/stone-family-recipes.pdf",
+  "displayTitle": "Stone Family Recipe Book"
 }
