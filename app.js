@@ -176,7 +176,7 @@
     const excluded=new Set(popular.map(r=>r.id));
     const more=pickPopularAmericanRecipes(8,excluded);
     state.sequence=[...familyFavorites,...popular,...more].map(r=>r.id);
-    const familyBlock=familyFavorites.length?'<section class="section-block family-home-block"><div class="section-heading"><div><span class="eyebrow">★ FEATURED FAMILY COOKBOOK</span><h2>Stone Family Recipes</h2><p>236 restored family recipes. Browse familiar favorites and check the original manuscript pages.</p></div><button class="text-link" data-open-collection="'+esc(state.familyCollectionId)+'">Browse family cookbook →</button></div><div class="card-grid">'+familyFavorites.map(recipeCard).join('')+'</div></section>':'';
+    const familyBlock=familyFavorites.length?'<section class="section-block family-home-block"><div class="section-heading"><div><span class="eyebrow">★ FEATURED FAMILY COOKBOOK</span><h2>Stone Family Recipe Book</h2><p>236 restored family recipes. Browse familiar favorites and check the original manuscript pages.</p></div><button class="text-link" data-open-collection="'+esc(state.familyCollectionId)+'">Browse family cookbook →</button></div><div class="card-grid">'+familyFavorites.map(recipeCard).join('')+'</div></section>':'';
     $('content').innerHTML=`
     ${familyBlock}
     <section class="section-block"><div class="section-heading"><div><span class="eyebrow">POPULAR AMERICAN CLASSICS</span><h2>What sounds good today?</h2><p>Handpicked familiar favorites from the U.S. collection — no air-fryer recipes in this featured selection.</p></div><button class="text-link" data-view="recipes">See all recipes →</button></div>
