@@ -25,8 +25,8 @@
   // Only the manuscript transcription can be AI-repaired; engineered scheduling alone is not a text repair.
   function displaySourceStep(value){
     return String(value??'')
-      .replace(/^\s*[✦✧]\s*AI\s+(?:generated|corrected)\s*[·:\-–—]\s*/i,'')
-      .replace(/^\s*\[AI\s+(?:GENERATED|CORRECTED)\s*[-–—]\s*not original cookbook wording\]\s*/i,'');
+      .replace(/^\s*[✦✧]\s*AI\s+(?:generated|corrected|inferred)\s*[·:\-–—]\s*/i,'')
+      .replace(/^\s*\[AI\s+(?:GENERATED|CORRECTED|INFERRED)\s*[-–—]\s*not original cookbook wording\]\s*/i,'');
   }
   function displayFamilyIntro(value,source){
     return source?String(value??'').replace(/^\s*AI-generated missing directions \(not original\)\.\s*/i,''):String(value??'');
@@ -279,9 +279,9 @@
     const steps=[...r.steps].sort((a,b)=>a.start-b.start||a.rowStart-b.rowStart);
     $('readerStepCount').textContent=steps.length+' steps';
     const fullMethodReconstructed=item.sourcePdf?.aiScope==='full-directions';
-    const directionCorrections=item.sourcePdf?.aiScope==='selective'&&item.sourcePdf?.aiGeneratedFields?.includes('directions');
+    const directionCorrections=item.sourcePdf?.aiScope==='selective'&&(item.sourcePdf?.aiGeneratedFields?.includes('directions')||item.sourcePdf?.aiGeneratedFields?.includes('engineered schedule: AI-inferred instructions'));
     const fullMethodNotice=fullMethodReconstructed?'<div class="source-ai-warning" style="grid-column:1/-1"><strong>Directions reconstructed by AI — not the original family cookbook instructions.</strong> The original manuscript has no recovered method; open its linked page above to compare.</div>':'';
-    $('readerSteps').innerHTML=fullMethodNotice+steps.map((s,i)=>{const flagged=item.sourcePdf?(!!directionCorrections&&!!s.aiGenerated&&['corrected','generated'].includes(s.aiAction)):!!s.aiGenerated;return `<div class="direction-item ${flagged?'ai-reconstructed':''}"><span class="direction-no">${s.timelineExcluded?'↪':i+1}</span><div class="direction-main"><h3>${esc(s.title)}${flagged?'<span class="step-ai-badge">AI '+esc(s.aiAction||'generated')+'</span>':''}${s.timelineExcluded?'<span class="step-ai-badge">Alternative · excluded from total</span>':''}</h3><p>${esc(s.details||s.title)}</p>${flagged&&s.originalText?'<small class="original-step-text">Recovered text: '+esc(s.originalText)+'</small>':''}</div><span class="direction-time">${item.sourcePdf?.timeIsPlaceholder?'Time not documented':esc(minutes(s.duration)+(s.timelineExcluded?' · alternative':s.durationSource==='source-text'?' · in manuscript':s.durationSource==='ai-text'?' · AI text':' · estimated'))}</span></div>`;}).join('');
+    $('readerSteps').innerHTML=fullMethodNotice+steps.map((s,i)=>{const flagged=item.sourcePdf?(!!directionCorrections&&!!s.aiGenerated&&['corrected','generated','inferred'].includes(s.aiAction)):!!s.aiGenerated;return `<div class="direction-item ${flagged?'ai-reconstructed':''}"><span class="direction-no">${s.timelineExcluded?'↪':i+1}</span><div class="direction-main"><h3>${esc(s.title)}${flagged?'<span class="step-ai-badge">AI '+esc(s.aiAction||'generated')+'</span>':''}${s.timelineExcluded?'<span class="step-ai-badge">Alternative · excluded from total</span>':''}</h3><p>${esc(s.details||s.title)}</p>${flagged&&s.originalText?'<small class="original-step-text">Recovered text: '+esc(s.originalText)+'</small>':''}</div><span class="direction-time">${item.sourcePdf?.timeIsPlaceholder?'Time not documented':esc(minutes(s.duration)+(s.timelineExcluded?' · alternative':s.durationSource==='source-text'?' · in manuscript':s.durationSource==='ai-text'?' · AI text':' · estimated'))}</span></div>`;}).join('');
     const displayedFinish=displayFamilyFinish(r.finish,item.sourcePdf);
     $('readerFinish').hidden=!displayedFinish;$('readerFinish').innerHTML=displayedFinish?'<strong>Finish & serve:</strong> '+esc(displayedFinish):'';
     $('readerTimeline').innerHTML=renderTimeline(r);
