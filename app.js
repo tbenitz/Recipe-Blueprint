@@ -381,7 +381,7 @@
   }
   document.addEventListener('click',e=>{
     const view=e.target.closest('[data-view]');if(view){e.preventDefault();navView(view.dataset.view);return;}
-    const open=e.target.closest('[data-open-recipe]');if(open){e.preventDefault();showReader(open.dataset.openRecipe);return;}
+    const open=e.target.closest('a[data-open-recipe], button[data-open-recipe]');if(open){e.preventDefault();showReader(open.dataset.openRecipe);return;}
     const col=e.target.closest('[data-open-collection]');if(col){navView('collection',{collectionId:col.dataset.openCollection});return;}
     const fav=e.target.closest('[data-favorite]');if(fav){e.preventDefault();toggleFavorite(fav.dataset.favorite);return;}
     const pg=e.target.closest('[data-page]');if(pg){state.filters.page=Math.max(0,state.filters.page+Number(pg.dataset.page));renderBrowseGrid();document.querySelector('.browse-title')?.scrollIntoView({block:'start'});return;}
