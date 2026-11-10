@@ -35,3 +35,38 @@
 .step-ai-badge{font-size:10px;display:inline-block;margin-left:9px;border-radius:6px;background:#f5e4c6;color:#875d21;padding:3px 7px;vertical-align:middle}
 .original-step-text{display:block;font-size:11px;margin-top:8px;color:#806749}
 @media(max-width:620px){.family-home-block{padding:12px}.source-meta{align-items:flex-start;flex-direction:column;gap:3px}.reader-source-box{padding:12px}}
+
+/* Engineered Stone family recipes: step-first Gantt, never one giant ingredient-spanning cell */
+.engineer-timeline{display:block;width:100%;min-width:0;border:1px solid #d9e5f0;border-radius:13px;overflow:hidden;background:#fff;font-size:12px}
+.engineer-summary{display:flex;align-items:center;flex-wrap:wrap;gap:8px 22px;padding:15px 18px;border-bottom:1px solid #e1e9f1;background:#f5f9fe;color:#4b647d;font-size:12px}
+.engineer-summary b{color:#193d66;font-size:18px}
+.engineer-heading,.engineer-row{display:grid;grid-template-columns:minmax(245px,40%) minmax(180px,1fr);gap:0}
+.engineer-heading{align-items:center;background:#eaf2fc;color:#31577d;font-size:10px;font-weight:800;border-bottom:1px solid #d7e2ee}
+.engineer-heading>span{padding:13px 14px}
+.engineer-axis{height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 9px;color:#3d6486;border-left:1px solid #d7e2ee;font-variant-numeric:tabular-nums}
+.engineer-axis span{white-space:nowrap}
+.engineer-row{border-bottom:1px solid #e6edf4;min-height:76px}
+.engineer-row:nth-of-type(even){background:#fbfdff}
+.engineer-step{padding:10px 15px 11px;min-width:0}
+.engineer-step-title{font-size:12px;line-height:1.4;color:#243d59;overflow-wrap:anywhere}
+.engineer-step-title b{font-weight:750}
+.engineer-step-meta{font-size:11px;color:#607994;margin-top:5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.engineer-step-meta strong{color:#264d7e;font-variant-numeric:tabular-nums}
+.engineer-step-meta .source{color:#176144;font-weight:780}
+.engineer-step-meta .estimate{color:#986122;font-weight:750}
+.engineer-step-ing{display:block;font-size:10px;color:#768aa0;margin-top:6px;overflow-wrap:anywhere}
+.engineer-ai{display:inline-block;color:#975e1f;font-size:10px;margin-top:5px}
+.engineer-track{border-left:1px solid #d7e2ee;position:relative;min-height:76px;background-image:linear-gradient(to right,transparent calc(25% - 1px),#dde8f5 25%,transparent calc(25% + 1px),transparent calc(50% - 1px),#dde8f5 50%,transparent calc(50% + 1px),transparent calc(75% - 1px),#dde8f5 75%,transparent calc(75% + 1px));}
+.engineer-bar{position:absolute;top:calc(50% - 12px);height:24px;min-width:8px;border-radius:5px;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#123c63;border:1px solid #8fb4df;background:#dceafa}
+.engineer-bar.heat{background:#cbdcf3;border-color:#6291cf}
+.engineer-bar.passive{background:#dde4ed;border-color:#a4b4c8;color:#435c75}
+.engineer-bar.active{background:#e4efff;border-color:#8ab3e9}
+.engineer-bar.inferred{border-style:dashed}
+.engineer-bar span{font-size:10px;font-weight:800;padding:0 5px}
+.engineer-legend{display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px;padding:12px 15px;font-size:11px;color:#6c8299;margin:0}
+.engineer-dot{width:10px;height:10px;display:inline-block;vertical-align:middle;margin-right:4px;border-radius:2px;border:1px solid #99acc4;background:#e4efff}
+.engineer-dot.heat{background:#cbdcf3;border-color:#6291cf}.engineer-dot.passive{background:#dde4ed}
+.engineer-disclaimer,.engineer-alternatives{padding:0 15px 13px;margin:0;color:#617b94;font-size:11px;line-height:1.55}
+.engineer-alternatives{color:#765c37}
+.reader-source-box .source-pdf-link{position:relative;z-index:1;pointer-events:auto;cursor:pointer}
+@media(max-width:640px){.engineer-heading,.engineer-row{grid-template-columns:minmax(190px,53%) minmax(140px,1fr)}.engineer-step{padding:9px}.engineer-heading>span{padding:9px}.engineer-summary{padding:12px}.engineer-axis{padding:0 3px;font-size:9px}.engineer-step-meta{font-size:10px}.engineer-track{min-height:75px}}
