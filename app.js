@@ -5,7 +5,7 @@
   const number = n => Number(n || 0).toLocaleString();
   const minutes = n => { const v=Math.max(0,Math.round(Number(n)||0)); return v>=60 ? Math.floor(v/60)+'h '+String(v%60).padStart(2,'0')+'m' : v+' min'; };
   const toNumber = (n,d=0) => Number.isFinite(Number(n)) ? Math.round(Number(n)) : d;
-  const state = {recipes:[],collections:[],recipeMap:new Map(),collectionMap:new Map(),collectionAliases:{},favorites:new Set(),view:'home',filters:{search:'',country:'',region:'',category:'',sort:'featured',page:0},collectionId:'',readerId:'',sequence:[],ready:false};
+  const state = {recipes:[],collections:[],recipeMap:new Map(),collectionMap:new Map(),collectionAliases:{},favorites:new Set(),view:'home',filters:{search:'',country:'',region:'',category:'',sort:'featured',page:0},collectionId:'',readerId:'',sequence:[],ready:false,familyCollectionId:'',familyPdfAvailable:false};
   const pageSize=24;
   try { const ids=JSON.parse(localStorage.getItem('recipe-blueprint-favorites-v1')||'[]'); if(Array.isArray(ids))state.favorites=new Set(ids.map(String)); } catch {}
   let toastHandle=0;
@@ -38,7 +38,7 @@
     if(!ingredients.length&&!steps.length)return null;
     steps.forEach(s=>{s.rowStart=Math.min(Math.max(0,ingredients.length-1),s.rowStart);s.rowEnd=Math.min(Math.max(0,ingredients.length-1),s.rowEnd);if(s.rowEnd<s.rowStart)[s.rowStart,s.rowEnd]=[s.rowEnd,s.rowStart];});
     const title=safeText(raw.title??src.title??'Untitled recipe',250);
-    return {id:safeText(raw.id??('recipe-'+index),120),title,category:safeText(raw.category??'Unsorted',100),country:safeText(raw.country??'Unspecified',100),region:safeText(raw.region??'',100),collectionId:safeText(raw.collectionId??'',120),updated:Number(raw.updated)||0,
+    return {id:safeText(raw.id??('recipe-'+index),120),title,category:safeText(raw.category??'Unsorted',100),country:safeText(raw.country??'Unspecified',100),region:safeText(raw.region??'',100),collectionId:safeText(raw.collectionId??'',120),updated:Number(raw.updated)||0,sourcePdf:raw.sourcePdf&&typeof raw.sourcePdf==='object'?raw.sourcePdf:null,
       image:raw.image??raw.photo??raw.imageUrl??null,
       recipe:{image:src.image??src.photo??src.imageUrl??null,title:safeText(src.title??title,250),yield:safeText(src.yield??src.servings??'',220),intro:safeText(src.intro??src.prep_note??src.prepNote??'',20000),finish:safeText(src.finish??src.notes??'',2400),ingredients,steps}};
   }
@@ -321,6 +321,26 @@
         }
       }catch(e){console.warn('Could not load collection title overrides:',e);}
       const normalized=normalizeData(data);
+      try{
+        const response=await fetch('./data/stone-family-recipes.json',{cache:'no-store'});
+        if(response.ok){
+          const manifest=await response.json();
+          if(manifest.format==='recipe-blueprint-family-collection-v1'&&Array.isArray(manifest.parts)){
+            const parts=await Promise.all(manifest.parts.map(async p=>{
+              if(!/^data\/stone-family-recipes-[12]\.json$/.test(p))throw Error('Invalid family archive part');
+              const res=await fetch('./'+p,{cache:'no-store'});
+              if(!res.ok)throw Error('Missing family recipe archive: '+p);
+              return res.json();
+            }));
+            const family=normalizeData({recipes:parts.flatMap(p=>p.recipes||[]),collections:parts.flatMap(p=>p.collections||[])});
+            const existingIds=new Set(normalized.recipes.map(r=>r.id));
+            for(const recipe of family.recipes){if(existingIds.has(recipe.id))recipe.id='stone-'+recipe.id;existingIds.add(recipe.id);normalized.recipes.push(recipe);}
+            for(const c of family.collections)if(!normalized.collections.some(x=>x.id===c.id))normalized.collections.push(c);
+            state.familyCollectionId=manifest.collectionId||family.collections[0]?.id||'';
+            try{const pdf=await fetch('./books/stone-family-recipes.pdf',{method:'HEAD',cache:'no-store'});state.familyPdfAvailable=pdf.ok;}catch{state.familyPdfAvailable=false;}
+          }
+        }
+      }catch(error){console.warn('Stone family cookbook did not load:',error);}
       state.recipes=normalized.recipes;state.collections=normalized.collections;
       state.recipeMap=new Map(state.recipes.map(r=>[r.id,r]));
       state.collectionMap=new Map(state.collections.map(c=>[c.id,c]));
