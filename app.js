@@ -51,7 +51,7 @@
     if(!ingredients.length&&!steps.length)return null;
     steps.forEach(s=>{s.rowStart=Math.min(Math.max(0,ingredients.length-1),s.rowStart);s.rowEnd=Math.min(Math.max(0,ingredients.length-1),s.rowEnd);if(s.rowEnd<s.rowStart)[s.rowStart,s.rowEnd]=[s.rowEnd,s.rowStart];});
     const title=safeText(raw.title??src.title??'Untitled recipe',250);
-    return {id:safeText(raw.id??('recipe-'+index),120),title,category:safeText(raw.category??'Unsorted',100),country:safeText(raw.country??'Unspecified',100),region:safeText(raw.region??'',100),collectionId:safeText(raw.collectionId??'',120),updated:Number(raw.updated)||0,sourcePdf:raw.sourcePdf&&typeof raw.sourcePdf==='object'?raw.sourcePdf:null,
+    return {id:safeText(raw.id??('recipe-'+index),120),title,category:safeText(raw.category??'Unsorted',100),country:safeText(raw.country??'Unspecified',100),region:safeText(raw.region??'',100),collectionId:safeText(raw.collectionId??'',120),updated:Number(raw.updated)||0,aliases:Array.isArray(raw.aliases)?raw.aliases.map(x=>safeText(x,120)):[],sourcePdf:raw.sourcePdf&&typeof raw.sourcePdf==='object'?raw.sourcePdf:null,
       image:raw.image??raw.photo??raw.imageUrl??null,
       recipe:{image:src.image??src.photo??src.imageUrl??null,title:safeText(src.title??title,250),yield:safeText(src.yield??src.servings??'',220),intro:safeText(src.intro??src.prep_note??src.prepNote??'',20000),finish:safeText(src.finish??src.notes??'',2400),ingredients,steps}};
   }
@@ -128,7 +128,7 @@
   return selected;
 }
   function isFamilyRecipe(r){return !!state.familyCollectionId&&r.collectionId===state.familyCollectionId;}
-  const familiarFamilyTitles=['Brownies','Beef Pot Roast','Pot Roast','Chocolate Cake (Trib)','Chocolate Sour Cream Cake','Apple Upside Down Cake','Coffee Cake','Blueberry Pie','Lemon Meringue Pie','Chocolate Ice Cream','French Pancakes','Potato Salad Recipe','Chicken Pilaf (Tribune)','Lemon Crumb Squares','Chocolate Ice Box Cake','Cherry Cheese Pie','Corn Meal Waffles','Sweet Potatoes Southern','Chicken and Shrimp Jambalaya','Apple Skillet Cake','Potatoes Anna','Broccoli Casserole'];
+  const familiarFamilyTitles=['Brownies','Beef Pot Roast','Pot Roast','Chocolate Cake (Trib)','Marble Squares','Apple Upside Down Cake','Coffee Cake','Blueberry Pie','Lemon Meringue Pie','Chocolate Ice Cream','French Pancakes','Potato Salad Recipe','Chicken Pilaf (Tribune)','Lemon Crumb Squares','Chocolate Ice Box Cake','Cherry Cheese Pie','Corn Meal Waffles','Sweet Potatoes Southern','Chicken and Shrimp Jambalaya','Apple Skillet Cake','Potatoes Anna','Broccoli Casserole'];
   function familyRank(r){
     const n=familiarFamilyTitles.findIndex(v=>v.toLowerCase()===r.title.toLowerCase());
     if(n>=0)return n;
@@ -139,7 +139,7 @@
   function currentRecipeSet(){
     const f=state.filters;let list=state.view==='favorites'?state.recipes.filter(r=>state.favorites.has(r.id)):state.view==='collection'?state.recipes.filter(r=>r.collectionId===state.collectionId):state.recipes.slice();
     const search=f.search.toLocaleLowerCase().trim();
-    if(search)list=list.filter(r=>[r.title,r.category,r.country,r.region,state.collectionMap.get(r.collectionId)?.name||'',...r.recipe.ingredients.map(i=>i.name)].join(' ').toLocaleLowerCase().includes(search));
+    if(search)list=list.filter(r=>[r.title,...(r.aliases||[]),r.category,r.country,r.region,state.collectionMap.get(r.collectionId)?.name||'',...r.recipe.ingredients.map(i=>i.name)].join(' ').toLocaleLowerCase().includes(search));
     if(f.country)list=list.filter(r=>r.country===f.country);
     if(f.region)list=list.filter(r=>r.region===f.region);
     if(f.category)list=list.filter(r=>r.category===f.category);
@@ -189,7 +189,7 @@
     const excluded=new Set(popular.map(r=>r.id));
     const more=pickPopularAmericanRecipes(8,excluded);
     state.sequence=[...familyFavorites,...popular,...more].map(r=>r.id);
-    const familyBlock=familyFavorites.length?'<section class="section-block family-home-block"><div class="section-heading"><div><span class="eyebrow">★ FEATURED FAMILY COOKBOOK</span><h2>Stone Family Recipe Book</h2><p>236 restored family recipes. Browse familiar favorites and check the original manuscript pages.</p></div><button class="text-link" data-open-collection="'+esc(state.familyCollectionId)+'">Browse family cookbook →</button></div><div class="card-grid">'+familyFavorites.map(recipeCard).join('')+'</div></section>':'';
+    const familyBlock=familyFavorites.length?'<section class="section-block family-home-block"><div class="section-heading"><div><span class="eyebrow">★ FEATURED FAMILY COOKBOOK</span><h2>Stone Family Recipe Book</h2><p>'+number(state.recipes.filter(isFamilyRecipe).length)+' preserved family recipes. Browse familiar favorites and check the original manuscript pages.</p></div><button class="text-link" data-open-collection="'+esc(state.familyCollectionId)+'">Browse family cookbook →</button></div><div class="card-grid">'+familyFavorites.map(recipeCard).join('')+'</div></section>':'';
     $('content').innerHTML=`
     ${familyBlock}
     <section class="section-block"><div class="section-heading"><div><span class="eyebrow">POPULAR AMERICAN CLASSICS</span><h2>What sounds good today?</h2><p>Handpicked familiar favorites from the U.S. collection — no air-fryer recipes in this featured selection.</p></div><button class="text-link" data-view="recipes">See all recipes →</button></div>
@@ -263,8 +263,16 @@
     return '<div class="source-meta"><strong>Original manuscript: page '+scanPage+(continuation>scanPage?'–'+continuation:'')+'</strong><span>Restored cookbook: page '+(Number.isInteger(restoredPage)?restoredPage:'not listed')+'</span>'+(src.contributor?'<span>From '+esc(src.contributor)+'</span>':'')+'</div>'+link+continuationLink+
       (src.incompleteOriginal&&!src.aiGenerated?'<p class="source-ai-warning">Some recovered wording or directions remain incomplete. Check the scanned manuscript.</p>':'');
   }
+  // Restored-book transcription created duplicate entries for three manuscript continuations.
+  // Keep old bookmarked recipe IDs working without publishing duplicate recipes.
+  const legacyStoneRecipeAliases={
+    's944eiwwqu':'sl9p9opwhl', // marble topping -> Marble Squares
+    'sb001shbuv':'skh6r2j4xo', // apple continuation -> Apple Upside Down Cake
+    's12ds5flj4':'skwcow91q7'   // illustrated continuation -> Beef Pot Roast
+  };
   function showReader(id,push=true){
     const item=state.recipeMap.get(id);if(!item)return;
+    id=item.id;
     if(push)writeUrl({view:state.view==='home'?'recipes':state.view,collection:state.collectionId,recipe:id});
     state.readerId=id;$('recipeOverlay').hidden=false;document.body.style.overflow='hidden';$('readerScroll').scrollTop=0;
     if(!state.sequence.length)state.sequence=state.recipes.map(r=>r.id);
@@ -390,6 +398,10 @@
       }catch(error){console.warn('Stone family cookbook did not load:',error);}
       state.recipes=normalized.recipes;state.collections=normalized.collections;
       state.recipeMap=new Map(state.recipes.map(r=>[r.id,r]));
+      for(const [oldId,canonicalId] of Object.entries(legacyStoneRecipeAliases)){
+        const original=state.recipeMap.get(canonicalId);
+        if(original)state.recipeMap.set(oldId,original);
+      }
       state.collectionMap=new Map(state.collections.map(c=>[c.id,c]));
       state.ready=true;
       state.sequence=state.recipes.map(r=>r.id);
