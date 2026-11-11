@@ -72,6 +72,35 @@
     if(!Array.isArray(payload?.events))return;
     // Only associate a dish with its published, complete recipe. Never substitute a different recipe.
     const key=value=>String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]/g,'');
+    // A linked event export may embed the exact generated Studio recipes.
+    // Import only complete recipes whose saved ID and title are explicitly referenced
+    // by a menu dish. Never invent, rename, or substitute a vaguely similar recipe.
+    const referencedTitles=new Map();
+    for(const ev of payload.events){
+      for(const dish of (Array.isArray(ev?.recipes)?ev.recipes:[])){
+        const id=safeText(dish?.recipeId??'',120),title=key(dish?.title);
+        if(id&&title)referencedTitles.set(id,title);
+      }
+    }
+    const recipePositions=new Map(normalized.recipes.map((r,i)=>[r.id,i]));
+    if(Array.isArray(payload.generatedRecipes)){
+      for(const [i,raw] of payload.generatedRecipes.entries()){
+        const id=safeText(raw?.id??'',120);
+        if(!id||!referencedTitles.has(id))continue;
+        const complete=normalizeRecipe(raw,normalized.recipes.length+i);
+        if(!complete||key(complete.title)!==referencedTitles.get(id)||
+           !complete.recipe.ingredients.length||!complete.recipe.steps.length)continue;
+        const position=recipePositions.get(id);
+        if(position!==undefined){
+          if(key(normalized.recipes[position].title)!==key(complete.title))continue;
+          normalized.recipes[position]=complete;
+        }else{
+          recipePositions.set(id,normalized.recipes.length);
+          normalized.recipes.push(complete);
+        }
+      }
+    }
+    const recipesById=new Map(normalized.recipes.map(r=>[r.id,r]));
     const recipesByTitle=new Map();
     for(const r of normalized.recipes){
       if(!r.recipe?.steps?.length||!r.recipe?.ingredients?.length)continue;
@@ -101,6 +130,9 @@
       for(const entry of event.recipes){
         const title=safeText(entry?.title||'',250).trim();
         if(!title)continue;
+        const requestedId=safeText(entry?.recipeId??'',120);
+        const exactSaved=requestedId&&recipesById.get(requestedId);
+        const directMatch=exactSaved&&key(exactSaved.title)===key(title)?exactSaved:null;
         const choices=(recipesByTitle.get(key(title))||[]).slice().sort((a,b)=>
           Number(b.collectionId===col.id)-Number(a.collectionId===col.id)||
           Number(/^United States(?:$|[\s(/-])/i.test(b.country))-Number(/^United States(?:$|[\s(/-])/i.test(a.country))||
@@ -110,7 +142,7 @@
         dishes.push({
           title,category:safeText(entry.category||'Other dishes',100),
           description:safeText(entry.description||'',1200),
-          recipeId:choices[0]?.id||''
+          recipeId:directMatch?.id||choices[0]?.id||''
         });
       }
       col.targetCount=Math.max(col.targetCount,dishes.length);
