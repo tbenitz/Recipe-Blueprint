@@ -90,7 +90,8 @@
       usedNames.add(key(name));
       let col=byName.get(key(name));
       if(!col){
-        const stem='menu-'+key(name).slice(0,90),idBase=stem||'menu-event';
+        const slug=String(name).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,'-').slice(0,90);
+        const idBase='menu-'+(slug||'event');
         let id=idBase,suffix=2;
         while(ids.has(id))id=idBase+'-'+suffix++;
         col={id,name,type:'event',targetCount:0,created:0,planned:0,recovered:false};
