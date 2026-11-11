@@ -17,6 +17,7 @@
   }
   function terms(title){return [...new Set(normalize(title).split(' ').filter(x=>x&&!ignored.has(x)).map(stem))];}
   const coreNouns=new Set('salad soup chowder stew chili pie cake cheesecake cookie brownie biscuit bread roll bun sauce gravy dressing dip cocktail punch lemonade tea coffee cider potato rice noodle pasta spaghetti macaroni casserole quiche omelet sandwich slider burger wing steak ribeye chicken turkey ham pork beef salmon shrimp fish lobster clam mussel oyster hotdog sausage taco nacho pudding mousse trifle pizza pancake waffle stuffing muffin'.split(' '));
+  const definingDish=new Set('salad soup chowder stew chili pie cake cheesecake cookie brownie biscuit bread roll bun sauce gravy dressing dip cocktail punch lemonade cider tea coffee casserole quiche omelet sandwich slider burger wing steak ribeye hotdog taco nacho pudding mousse trifle pizza pancake waffle stuffing muffin mushroom potato macaroni'.split(' '));
   const mealProteins=new Set('beef pork chicken turkey ham shrimp salmon lobster fish crab lamb tofu duck'.split(' '));
   const flavorWarnings=new Set('coconut peanut strawberry blueberry lemon lime pumpkin coffee espresso chocolate mint cherry raspberry banana pineapple orange'.split(' '));
   function categoryGroup(category){
@@ -76,6 +77,10 @@
         if(group==='desserts' && ['drinks','main','sauce'].includes(item.group))continue;
         const shared=query.filter(t=>item.termSet.has(t));
         if(!shared.length)continue;
+        if(query.length>1 && shared.length<2)continue;
+        // The main dish must still be the same: shrimp sauce is not shrimp cocktail.
+        const mainDish=query.find(t=>definingDish.has(t));
+        if(mainDish && !item.termSet.has(mainDish))continue;
         // Preserve the main kind of dish: a salad isn't its dressing; a cake isn't frosting.
         const specific=query.filter(t=>coreNouns.has(t));
         const opposing=specific.filter(t=>!item.termSet.has(t));
