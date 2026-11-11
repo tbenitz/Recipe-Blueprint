@@ -53,6 +53,14 @@
         }
       }
     }
+    const weightCache=new Map();
+    const weight=token=>{
+      if(weightCache.has(token))return weightCache.get(token);
+      const count=byTerm.get(token)?.size||0;
+      const value=Math.max(1.2,Math.min(4.4,Math.log((items.length+5)/(count+2))/1.6));
+      weightCache.set(token,value);
+      return value;
+    };
     function compare(title,category){
       const normal=normalize(title),query=terms(title),qset=new Set(query);
       const group=categoryGroup(category);
@@ -65,10 +73,6 @@
         if(!list)continue;
         for(const item of list)candidates.add(item);
       }
-      const weight=token=>{
-        const count=byTerm.get(token)?.size||0;
-        return Math.max(1.2,Math.min(4.4,Math.log((items.length+5)/(count+2))/1.6));
-      };
       const totalWeight=ts=>ts.reduce((s,t)=>s+weight(t),0);
       const qw=totalWeight(query);
       const found=[];
