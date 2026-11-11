@@ -1,0 +1,3237 @@
+{
+  "version": 1,
+  "exportedAt": "2026-11-11T08:43:53.237Z",
+  "name": "Event menus",
+  "events": [
+    {
+      "name": "Thanksgiving Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Herb-Roasted Turkey with Pan Gravy",
+          "category": "Main dishes",
+          "description": "A classic whole roasted turkey seasoned with sage and thyme, served with rich pan gravy.",
+          "status": "done"
+        },
+        {
+          "title": "Sausage and Apple Stuffing",
+          "category": "Side dishes",
+          "description": "Savory bread stuffing with pork sausage, diced apples, and fresh herbs baked until crisp on top.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Mashed Potatoes",
+          "category": "Side dishes",
+          "description": "Creamy Yukon gold potatoes mashed with butter, milk, and roasted garlic.",
+          "status": "done"
+        },
+        {
+          "title": "Green Bean Casserole",
+          "category": "Side dishes",
+          "description": "Tender green beans in a creamy mushroom sauce topped with crispy fried onions.",
+          "status": "done"
+        },
+        {
+          "title": "Homemade Cranberry Sauce",
+          "category": "Side dishes",
+          "description": "Simmered fresh cranberries with orange zest and a touch of sugar for a bright, tangy condiment.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Butternut Squash Soup",
+          "category": "Starters",
+          "description": "A smooth, warming soup of roasted butternut squash finished with a swirl of cream.",
+          "status": "done"
+        },
+        {
+          "title": "Soft Dinner Rolls",
+          "category": "Breads",
+          "description": "Pillowy homemade yeast rolls brushed with melted butter, perfect for sopping up gravy.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Pumpkin Pie",
+          "category": "Desserts",
+          "description": "A spiced pumpkin custard baked in a flaky pastry crust and served with whipped cream.",
+          "status": "done"
+        },
+        {
+          "title": "Apple Cider Punch",
+          "category": "Drinks",
+          "description": "A festive chilled punch of apple cider, ginger ale, and cinnamon with orange slices.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Christmas Eve Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Roast Beef Tenderloin with Red Wine Sauce",
+          "category": "Main dishes",
+          "description": "A show-stopping centerpiece of tender roasted beef with a rich, glossy red wine pan sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Roasted Salmon Fillets",
+          "category": "Main dishes",
+          "description": "A lighter second main of flaky salmon brushed with lemon-herb butter, ideal for Christmas Eve.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Mashed Potatoes",
+          "category": "Side dishes",
+          "description": "Creamy, buttery mashed potatoes with a gentle garlic note to anchor the plate.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Brussels Sprouts with Bacon",
+          "category": "Side dishes",
+          "description": "Caramelized sprouts tossed with crispy bacon for a savory holiday side.",
+          "status": "done"
+        },
+        {
+          "title": "Winter Greens Salad with Cranberries and Walnuts",
+          "category": "Salads",
+          "description": "Crisp greens with dried cranberries, toasted walnuts, and a bright vinaigrette.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Butternut Squash Soup",
+          "category": "Starters",
+          "description": "A silky, warmly spiced soup that opens the meal with seasonal comfort.",
+          "status": "done"
+        },
+        {
+          "title": "Warm Dinner Rolls",
+          "category": "Breads",
+          "description": "Soft, buttery rolls served warm to round out the table.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Cheesecake with Berry Compote",
+          "category": "Desserts",
+          "description": "A creamy baked cheesecake topped with a simple mixed-berry compote.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Cranberry Punch",
+          "category": "Drinks",
+          "description": "A festive, fizzy punch of cranberry and citrus for all ages.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Christmas Day Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Herb-Roasted Turkey with Pan Gravy",
+          "category": "Main dishes",
+          "description": "A classic centerpiece turkey roasted with fresh herbs and served with rich pan gravy.",
+          "status": "done"
+        },
+        {
+          "title": "Honey-Glazed Ham",
+          "category": "Main dishes",
+          "description": "A sweet and savory ham glazed with honey and cloves, perfect for a holiday feast.",
+          "status": "done"
+        },
+        {
+          "title": "Savory Sausage and Herb Stuffing",
+          "category": "Side dishes",
+          "description": "A comforting stuffing made with seasoned sausage, fresh herbs, and toasted bread cubes.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Mashed Potatoes",
+          "category": "Side dishes",
+          "description": "Creamy mashed potatoes infused with roasted garlic and butter.",
+          "status": "done"
+        },
+        {
+          "title": "Green Bean Casserole",
+          "category": "Side dishes",
+          "description": "A creamy, crunchy casserole with green beans, mushroom soup, and crispy fried onions.",
+          "status": "done"
+        },
+        {
+          "title": "Cranberry Sauce",
+          "category": "Side dishes",
+          "description": "A tangy-sweet homemade cranberry sauce with a hint of orange zest.",
+          "status": "done"
+        },
+        {
+          "title": "Soft Dinner Rolls",
+          "category": "Breads",
+          "description": "Fluffy, buttery dinner rolls that are perfect for sopping up gravy.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Pumpkin Pie",
+          "category": "Desserts",
+          "description": "A silky pumpkin custard in a flaky pie crust, spiced with cinnamon and nutmeg.",
+          "status": "done"
+        },
+        {
+          "title": "Spiced Apple Cider",
+          "category": "Drinks",
+          "description": "Warm apple cider infused with cinnamon sticks, cloves, and orange slices.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "New Year's Eve Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Sparkling Cranberry-Brie Bites",
+          "category": "Starters",
+          "description": "Buttery phyllo cups filled with melted Brie and a dollop of cranberry sauce for a festive one-bite opener.",
+          "status": "done"
+        },
+        {
+          "title": "Smoked Salmon Crostini with Dill",
+          "category": "Starters",
+          "description": "Toasted baguette slices topped with whipped cream cheese, smoked salmon, and fresh dill.",
+          "status": "done"
+        },
+        {
+          "title": "Baked Spinach and Artichoke Dip",
+          "category": "Starters",
+          "description": "A warm, cheesy crowd-pleaser served with tortilla chips and vegetable dippers.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Roasted Beef Tenderloin",
+          "category": "Main dishes",
+          "description": "An elegant centerpiece roast coated in garlic and rosemary, served with a horseradish cream sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Garlic Mashed Potatoes",
+          "category": "Side dishes",
+          "description": "Creamy Yukon gold potatoes blended with sweet roasted garlic and butter.",
+          "status": "done"
+        },
+        {
+          "title": "Maple-Glazed Carrots",
+          "category": "Side dishes",
+          "description": "Tender carrot coins glazed with maple syrup and a touch of brown butter.",
+          "status": "done"
+        },
+        {
+          "title": "Winter Greens Salad with Pomegranate",
+          "category": "Salads",
+          "description": "Baby kale and arugula tossed with pomegranate seeds, toasted pecans, and a citrus vinaigrette.",
+          "status": "done"
+        },
+        {
+          "title": "Gruyère and Chive Popovers",
+          "category": "Breads",
+          "description": "Airy, golden popovers flecked with nutty Gruyère and fresh chives.",
+          "status": "done"
+        },
+        {
+          "title": "Champagne Spritz Punch",
+          "category": "Drinks",
+          "description": "A fizzy, make-ahead punch of sparkling wine, citrus, and elderflower served over ice.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate-Espresso Midnight Cake",
+          "category": "Desserts",
+          "description": "A rich chocolate layer cake brushed with espresso syrup and finished with whipped ganache.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "New Year's Day Brunch",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Sparkling Cranberry Orange Punch",
+          "category": "Drinks",
+          "description": "A fizzy, festive non-alcoholic punch with cranberry, orange, and ginger ale.",
+          "status": "done"
+        },
+        {
+          "title": "Make-Ahead Egg and Sausage Breakfast Casserole",
+          "category": "Main dishes",
+          "description": "A hearty overnight casserole of eggs, sausage, cheese, and bread that feeds a crowd.",
+          "status": "done"
+        },
+        {
+          "title": "Smoked Salmon and Cream Cheese Bagel Platter",
+          "category": "Main dishes",
+          "description": "An easy assemble-yourself platter of bagels, smoked salmon, cream cheese, capers, and red onion.",
+          "status": "done"
+        },
+        {
+          "title": "Maple-Glazed Bacon",
+          "category": "Sides",
+          "description": "Crispy oven-baked bacon brushed with maple syrup and brown sugar.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Sweet Potato and Kale Hash",
+          "category": "Sides",
+          "description": "A colorful, savory hash of roasted sweet potatoes, kale, and onions.",
+          "status": "done"
+        },
+        {
+          "title": "Winter Citrus and Pomegranate Salad",
+          "category": "Salads",
+          "description": "A bright salad of segmented oranges, grapefruit, and pomegranate seeds over greens.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Biscuits with Honey Butter",
+          "category": "Breads",
+          "description": "Flaky homemade biscuits served warm with whipped honey butter.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Yogurt Parfaits with Granola",
+          "category": "Desserts",
+          "description": "Layered parfaits of lemon-scented yogurt, crunchy granola, and fresh berries.",
+          "status": "done"
+        },
+        {
+          "title": "Cinnamon Roll Monkey Bread",
+          "category": "Desserts",
+          "description": "A pull-apart cinnamon-sugar bread baked with a buttery caramel glaze.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Super Bowl Watch Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Loaded Nachos with Queso and Jalapeños",
+          "category": "Starters",
+          "description": "A big sheet-pan of tortilla chips piled with melted cheese, seasoned beef, black beans, and pickled jalapeños for the opening kickoff.",
+          "status": "done"
+        },
+        {
+          "title": "Buffalo Chicken Wings",
+          "category": "Starters",
+          "description": "Crispy oven-baked wings tossed in classic hot butter sauce and served with blue cheese dip and celery sticks.",
+          "status": "done"
+        },
+        {
+          "title": "Spinach and Artichoke Dip",
+          "category": "Starters",
+          "description": "A creamy, cheesy hot dip baked until bubbly and served with toasted baguette slices for easy scooping.",
+          "status": "done"
+        },
+        {
+          "title": "Slow-Cooker Pulled Pork Sliders",
+          "category": "Main dishes",
+          "description": "Tender shredded pork piled on soft slider buns with tangy coleslaw, easy to keep warm through the whole game.",
+          "status": "done"
+        },
+        {
+          "title": "Chili Cheese Dogs",
+          "category": "Main dishes",
+          "description": "Grilled hot dogs topped with hearty beef chili, shredded cheddar, and diced onions for a classic game-day centerpiece.",
+          "status": "done"
+        },
+        {
+          "title": "Seven-Layer Taco Dip",
+          "category": "Sides",
+          "description": "A colorful layered dip of refried beans, guacamole, sour cream, salsa, cheese, olives, and green onions served with tortilla chips.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Guacamole",
+          "category": "Sides",
+          "description": "Freshly mashed avocados with lime, cilantro, onion, and tomato for a bright, crowd-pleasing scoop.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Parmesan Breadsticks",
+          "category": "Breads",
+          "description": "Soft baked breadsticks brushed with garlic butter and topped with grated Parmesan, perfect for dipping.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookie Bars",
+          "category": "Desserts",
+          "description": "Chewy, buttery cookie bars studded with chocolate chips and cut into squares for easy grabbing.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Lime Punch",
+          "category": "Drinks",
+          "description": "A refreshing pitcher of limeade mixed with sparkling water and served over ice with fresh lime slices.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Valentine's Day Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Oysters on the Half Shell with Mignonette",
+          "category": "Starters",
+          "description": "Chilled fresh oysters served with a tangy shallot and vinegar mignonette for an elegant opener.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Tomato Basil Soup",
+          "category": "Starters",
+          "description": "Silky roasted tomato soup finished with cream and fresh basil, a warm and romantic first course.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Crusted Beef Tenderloin for Two",
+          "category": "Main dishes",
+          "description": "A centerpiece roast of tender beef tenderloin coated in garlic and rosemary, sliced to share.",
+          "status": "done"
+        },
+        {
+          "title": "Pan-Seared Sea Bass with Lemon Butter",
+          "category": "Main dishes",
+          "description": "Delicate white fish seared crisp and finished with a bright lemon-caper butter sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Mashed Potatoes",
+          "category": "Side dishes",
+          "description": "Fluffy Yukon gold potatoes whipped with butter, cream, and roasted garlic.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Asparagus with Parmesan",
+          "category": "Side dishes",
+          "description": "Spears of asparagus roasted until tender and showered with shaved Parmesan.",
+          "status": "done"
+        },
+        {
+          "title": "Crusty French Baguette with Herb Butter",
+          "category": "Breads",
+          "description": "Warm sliced baguette served with a whipped parsley and chive butter.",
+          "status": "done"
+        },
+        {
+          "title": "Molten Chocolate Lava Cakes",
+          "category": "Desserts",
+          "description": "Individual warm chocolate cakes with a rich, flowing center, served for two.",
+          "status": "done"
+        },
+        {
+          "title": "Raspberry Chocolate Mousse Cups",
+          "category": "Desserts",
+          "description": "Light chocolate mousse layered with fresh raspberries in petite glass cups.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Raspberry Rose Spritzers",
+          "category": "Drinks",
+          "description": "A festive non-alcoholic spritzer of sparkling water, raspberry puree, and a hint of rose.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Easter Sunday Brunch",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Honey-Glazed Ham",
+          "category": "Main dishes",
+          "description": "A centerpiece spiral-cut ham brushed with a sweet honey-mustard glaze.",
+          "status": "done"
+        },
+        {
+          "title": "Spinach and Mushroom Quiche",
+          "category": "Main dishes",
+          "description": "A savory quiche with sautéed mushrooms, spinach, and Gruyère cheese in a flaky crust.",
+          "status": "done"
+        },
+        {
+          "title": "Deviled Eggs",
+          "category": "Starters",
+          "description": "Classic deviled eggs with a creamy, tangy yolk filling and a sprinkle of paprika.",
+          "status": "done"
+        },
+        {
+          "title": "Spring Pea Salad with Radishes and Mint",
+          "category": "Salads",
+          "description": "A bright salad of fresh peas, radishes, and mint tossed in a light lemon vinaigrette.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Asparagus with Lemon and Parmesan",
+          "category": "Side dishes",
+          "description": "Tender roasted asparagus spears finished with lemon zest and grated Parmesan.",
+          "status": "done"
+        },
+        {
+          "title": "Herbed Potato Salad",
+          "category": "Side dishes",
+          "description": "Creamy potato salad with fresh dill, parsley, and a hint of Dijon mustard.",
+          "status": "done"
+        },
+        {
+          "title": "Hot Cross Buns",
+          "category": "Breads",
+          "description": "Sweet, spiced buns with currants and a cross piped on top, a traditional Easter treat.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Poppy Seed Cake",
+          "category": "Desserts",
+          "description": "A moist lemon cake studded with poppy seeds and topped with a simple glaze.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Berry Salad",
+          "category": "Desserts",
+          "description": "A refreshing mix of strawberries, blueberries, and raspberries with a hint of mint.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Raspberry Lemonade",
+          "category": "Drinks",
+          "description": "A fizzy, fruity drink made with fresh raspberries, lemon juice, and sparkling water.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Mother's Day Brunch",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Smoked Salmon and Cream Cheese Toasts with Dill",
+          "category": "Starters",
+          "description": "Crisp toasted baguette slices topped with whipped cream cheese, smoked salmon, and fresh dill for an elegant opener.",
+          "status": "done"
+        },
+        {
+          "title": "Mixed Berry Fruit Salad with Honey-Lime Dressing",
+          "category": "Starters",
+          "description": "A bright bowl of strawberries, blueberries, and raspberries tossed in a light honey-lime syrup.",
+          "status": "done"
+        },
+        {
+          "title": "Spinach and Gruyère Quiche",
+          "category": "Main dishes",
+          "description": "A buttery pastry crust filled with silky egg custard, wilted spinach, and nutty Gruyère cheese.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Ricotta Pancakes",
+          "category": "Main dishes",
+          "description": "Fluffy pancakes enriched with ricotta and fresh lemon zest, served with warm maple syrup.",
+          "status": "done"
+        },
+        {
+          "title": "Maple-Glazed Bacon",
+          "category": "Sides",
+          "description": "Oven-baked thick-cut bacon brushed with maple syrup for a sweet-savory crisp finish.",
+          "status": "done"
+        },
+        {
+          "title": "Herbed Roasted Baby Potatoes",
+          "category": "Sides",
+          "description": "Tender baby potatoes roasted with rosemary, thyme, and olive oil until golden.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Biscuits with Honey Butter",
+          "category": "Breads",
+          "description": "Flaky, tender biscuits served warm with a simple whipped honey butter.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Poppy Seed Loaf Cake",
+          "category": "Desserts",
+          "description": "A moist, citrusy loaf cake topped with a delicate lemon glaze.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Strawberry Lemonade",
+          "category": "Drinks",
+          "description": "Fresh-squeezed lemonade muddled with strawberries and topped with sparkling water.",
+          "status": "done"
+        },
+        {
+          "title": "Iced Coffee with Vanilla Cream",
+          "category": "Drinks",
+          "description": "Chilled strong coffee poured over ice and finished with a splash of sweet vanilla cream.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Father's Day Backyard Cookout",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Grilled Cheeseburgers",
+          "category": "Main dishes",
+          "description": "Juicy half-pound patties topped with melted cheddar on toasted buns.",
+          "status": "done"
+        },
+        {
+          "title": "Smoky Grilled Chicken Thighs",
+          "category": "Main dishes",
+          "description": "Bone-in thighs with an easy paprika-brown sugar rub for a second grill option.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Old-Fashioned Potato Salad",
+          "category": "Side dishes",
+          "description": "Chilled potato salad with celery, egg, and a tangy mayo-mustard dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Grilled Corn on the Cob with Herb Butter",
+          "category": "Side dishes",
+          "description": "Sweet corn grilled in the husk and brushed with garlic-herb butter.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Creamy Coleslaw",
+          "category": "Side dishes",
+          "description": "Crisp shredded cabbage and carrots in a simple sweet-tangy dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Bacon and Cheddar Deviled Eggs",
+          "category": "Appetizers",
+          "description": "Creamy deviled egg halves topped with crispy bacon and sharp cheddar.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Cornbread Squares",
+          "category": "Breads",
+          "description": "Slightly sweet, tender cornbread baked in a skillet and cut into squares.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Watermelon and Berry Salad",
+          "category": "Desserts",
+          "description": "Chilled watermelon chunks and mixed berries tossed with a squeeze of lime.",
+          "status": "done"
+        },
+        {
+          "title": "S'mores Brownie Bars",
+          "category": "Desserts",
+          "description": "Fudgy brownies layered with graham crackers and toasted marshmallow topping.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh-Squeezed Lemonade",
+          "category": "Drinks",
+          "description": "Homemade lemonade with real lemon juice, served over plenty of ice.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Memorial Day Barbecue",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Cheeseburgers",
+          "category": "Main dishes",
+          "description": "Juicy grilled beef patties topped with melted cheddar and served on toasted buns.",
+          "status": "done"
+        },
+        {
+          "title": "Honey-Lime Grilled Chicken Thighs",
+          "category": "Main dishes",
+          "description": "Charred chicken thighs brushed with a sweet-tangy honey-lime glaze.",
+          "status": "done"
+        },
+        {
+          "title": "Corn on the Cob with Herb Butter",
+          "category": "Side dishes",
+          "description": "Sweet grilled corn slathered with parsley and chive butter.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Potato Salad",
+          "category": "Side dishes",
+          "description": "Classic mayo-based potato salad with celery, red onion, and hard-boiled eggs.",
+          "status": "done"
+        },
+        {
+          "title": "Watermelon and Feta Salad",
+          "category": "Side dishes",
+          "description": "Chilled watermelon cubes tossed with feta, mint, and a squeeze of lime.",
+          "status": "done"
+        },
+        {
+          "title": "Deviled Eggs",
+          "category": "Appetizers",
+          "description": "Creamy paprika-dusted deviled eggs, a cookout staple that disappears fast.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Skillet Cornbread",
+          "category": "Breads",
+          "description": "Golden, slightly sweet cornbread baked in a cast-iron skillet.",
+          "status": "done"
+        },
+        {
+          "title": "Strawberry Shortcake",
+          "category": "Desserts",
+          "description": "Macerated strawberries layered with fluffy whipped cream and tender biscuits.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lemonade",
+          "category": "Drinks",
+          "description": "Tart-sweet homemade lemonade served over plenty of ice.",
+          "status": "done"
+        },
+        {
+          "title": "Iced Tea Pitcher",
+          "category": "Drinks",
+          "description": "Smooth brewed black tea chilled and lightly sweetened for a crowd.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Fourth of July Cookout",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Cheeseburgers",
+          "category": "Main dishes",
+          "description": "Juicy grilled beef patties topped with melted cheddar and served on toasted buns.",
+          "status": "done"
+        },
+        {
+          "title": "Grilled Hot Dogs with Fixings",
+          "category": "Main dishes",
+          "description": "Charred all-beef hot dogs on soft buns with mustard, relish, and ketchup for easy customization.",
+          "status": "done"
+        },
+        {
+          "title": "Corn on the Cob with Herb Butter",
+          "category": "Side dishes",
+          "description": "Sweet summer corn grilled in husks and brushed with garlic-herb butter.",
+          "status": "done"
+        },
+        {
+          "title": "Red White and Blue Potato Salad",
+          "category": "Side dishes",
+          "description": "Creamy potato salad with baby red and white potatoes, a tangy dressing, and a sprinkle of blue cheese.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Coleslaw",
+          "category": "Side dishes",
+          "description": "Crisp shredded cabbage and carrots tossed in a creamy sweet-tart dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Watermelon and Feta Salad",
+          "category": "Salads",
+          "description": "Chilled watermelon cubes with crumbled feta, fresh mint, and a squeeze of lime.",
+          "status": "done"
+        },
+        {
+          "title": "Old-Fashioned Baked Beans",
+          "category": "Side dishes",
+          "description": "Slow-simmered navy beans in a sweet molasses and bacon sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Cornbread",
+          "category": "Breads",
+          "description": "Golden, slightly sweet cornbread baked in a cast-iron skillet for crisp edges.",
+          "status": "done"
+        },
+        {
+          "title": "Flag Berry Trifle",
+          "category": "Desserts",
+          "description": "Layered pound cake, whipped cream, and fresh strawberries and blueberries in patriotic stripes.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lemonade",
+          "category": "Drinks",
+          "description": "Ice-cold homemade lemonade with just the right balance of tart and sweet.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Labor Day Picnic",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Grilled Cheeseburgers",
+          "category": "Main dishes",
+          "description": "Juicy beef patties topped with melted cheddar and served on toasted buns.",
+          "status": "done"
+        },
+        {
+          "title": "Grilled BBQ Chicken Drumsticks",
+          "category": "Main dishes",
+          "description": "Smoky, sticky barbecue-glazed drumsticks that are easy to eat outdoors.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Potato Salad",
+          "category": "Salads and sides",
+          "description": "Creamy potatoes tossed with celery, red onion, and a tangy mustard dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Corn on the Cob with Herb Butter",
+          "category": "Salads and sides",
+          "description": "Fresh ears of corn boiled or grilled and brushed with herbed butter.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Coleslaw",
+          "category": "Salads and sides",
+          "description": "Crunchy shredded cabbage and carrots in a light, tangy slaw dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Watermelon and Feta Salad",
+          "category": "Salads and sides",
+          "description": "Chilled watermelon chunks with crumbled feta and fresh mint.",
+          "status": "done"
+        },
+        {
+          "title": "Deviled Eggs",
+          "category": "Appetizers and snacks",
+          "description": "Halved hard-boiled eggs filled with a creamy, lightly spiced yolk mixture.",
+          "status": "done"
+        },
+        {
+          "title": "Cornmeal Buttermilk Biscuits",
+          "category": "Breads",
+          "description": "Tender, golden biscuits with a hint of cornmeal, perfect for picnic sides.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Berry Shortcakes",
+          "category": "Desserts",
+          "description": "Sweet biscuits layered with macerated summer berries and whipped cream.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lemonade",
+          "category": "Drinks",
+          "description": "Squeezed lemon juice and sugar stirred into cold water for a refreshing pitcher.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Halloween Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Mummy-Wrapped Mini Hot Dogs",
+          "category": "Starters",
+          "description": "Crescent-dough strips wrapped around cocktail sausages to look like little mummies, served with mustard for dipping.",
+          "status": "done"
+        },
+        {
+          "title": "Pumpkin-Shaped Cheese Ball",
+          "category": "Starters",
+          "description": "A savory cream cheese and cheddar ball rolled in crushed crackers and shaped like a pumpkin with a bell pepper stem.",
+          "status": "done"
+        },
+        {
+          "title": "Witches' Brew Punch",
+          "category": "Drinks",
+          "description": "A fizzy lime-apple punch tinted green with gummy worms frozen into the ice for a spooky garnish.",
+          "status": "done"
+        },
+        {
+          "title": "Slow-Cooker Spider Cider",
+          "category": "Drinks",
+          "description": "Warm spiced apple cider kept in the slow cooker with floating cinnamon-stick 'legs' and orange slices.",
+          "status": "done"
+        },
+        {
+          "title": "Bat Wing Buffalo Wings",
+          "category": "Main dishes",
+          "description": "Oven-baked buffalo chicken wings with a glossy hot sauce glaze, plated to resemble bat wings.",
+          "status": "done"
+        },
+        {
+          "title": "Jack-o'-Lantern Stuffed Peppers",
+          "category": "Main dishes",
+          "description": "Orange bell peppers carved with simple pumpkin faces and filled with a hearty beef-and-rice mixture.",
+          "status": "done"
+        },
+        {
+          "title": "Mummy Meat Loaf",
+          "category": "Main dishes",
+          "description": "A family-size meat loaf draped with overlapping strips of bacon to look bandaged, finished with olive 'eyes'.",
+          "status": "done"
+        },
+        {
+          "title": "Monster Mash Potatoes",
+          "category": "Side dishes",
+          "description": "Creamy mashed potatoes piped into spooky mounds with pea 'eyes' and a butter drizzle.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Pumpkin and Brussels Sprouts",
+          "category": "Side dishes",
+          "description": "Cubes of pumpkin and halved Brussels sprouts roasted with maple syrup until caramelized and tender.",
+          "status": "done"
+        },
+        {
+          "title": "Graveyard Dirt Cups",
+          "category": "Desserts",
+          "description": "Chocolate pudding layered with crushed cookie 'dirt', topped with gummy worms and a cookie tombstone.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Friendsgiving Potluck",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Herb-Roasted Turkey Breast",
+          "category": "Main dishes",
+          "description": "A juicy bone-in turkey breast rubbed with garlic, thyme, and sage for an easy centerpiece that travels well.",
+          "status": "done"
+        },
+        {
+          "title": "Slow-Cooker Cranberry-Orange Sauce",
+          "category": "Sides",
+          "description": "Tangy-sweet cranberries simmered with orange zest and cinnamon, ready to keep warm in a potluck slow cooker.",
+          "status": "done"
+        },
+        {
+          "title": "Brown Butter Mashed Potatoes",
+          "category": "Sides",
+          "description": "Creamy Yukon Gold potatoes enriched with nutty browned butter and a splash of warm milk.",
+          "status": "done"
+        },
+        {
+          "title": "Sausage and Apple Stuffing",
+          "category": "Sides",
+          "description": "Toasted bread cubes tossed with browned sausage, diced apples, celery, and fresh herbs.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Brussels Sprouts with Bacon",
+          "category": "Sides",
+          "description": "Caramelized sprouts tossed with crispy bacon and a drizzle of maple syrup.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Green Bean Casserole",
+          "category": "Sides",
+          "description": "Classic green beans in a mushroom cream sauce topped with crunchy fried onions.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Cornbread",
+          "category": "Breads",
+          "description": "A tender, slightly sweet skillet cornbread that soaks up gravy and travels beautifully.",
+          "status": "done"
+        },
+        {
+          "title": "Spiced Pumpkin Pie Bars",
+          "category": "Desserts",
+          "description": "All the warm spice of pumpkin pie in easy-to-share, portable bars with a buttery crust.",
+          "status": "done"
+        },
+        {
+          "title": "Apple Cider Sangria",
+          "category": "Drinks",
+          "description": "A festive pitcher drink of apple cider, white wine, orange slices, and cinnamon sticks.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Fall Harvest Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Apple Cider Brined Roast Pork Loin",
+          "category": "Main dishes",
+          "description": "A juicy centerpiece pork loin infused with sweet-tart apple cider and fall spices.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Delicata Squash with Brown Butter",
+          "category": "Side dishes",
+          "description": "Caramelized squash rings tossed in nutty brown butter and fresh sage.",
+          "status": "done"
+        },
+        {
+          "title": "Maple-Glazed Brussels Sprouts",
+          "category": "Side dishes",
+          "description": "Oven-roasted sprouts coated in a sticky maple syrup glaze.",
+          "status": "done"
+        },
+        {
+          "title": "Wild Rice and Mushroom Pilaf",
+          "category": "Side dishes",
+          "description": "Earthy wild rice simmered with sauteed mushrooms and herbs.",
+          "status": "done"
+        },
+        {
+          "title": "Butternut Squash and Apple Soup",
+          "category": "Starters",
+          "description": "A silky pureed soup blending sweet squash and crisp apples.",
+          "status": "done"
+        },
+        {
+          "title": "Harvest Kale Salad with Cranberries and Pepitas",
+          "category": "Salads",
+          "description": "Shredded kale tossed with dried cranberries, toasted pepitas, and a cider vinaigrette.",
+          "status": "done"
+        },
+        {
+          "title": "Skillet Cornbread with Honey Butter",
+          "category": "Breads",
+          "description": "Golden, crumbly cornbread served warm with whipped honey butter.",
+          "status": "done"
+        },
+        {
+          "title": "Cranberry Orange Chutney",
+          "category": "Condiments",
+          "description": "A tangy-sweet relish of fresh cranberries, orange zest, and warm spices.",
+          "status": "done"
+        },
+        {
+          "title": "Pumpkin Spice Cake with Cream Cheese Frosting",
+          "category": "Desserts",
+          "description": "A moist spiced pumpkin layer cake topped with tangy cream cheese frosting.",
+          "status": "done"
+        },
+        {
+          "title": "Spiced Apple Cider",
+          "category": "Drinks",
+          "description": "Warm apple cider mulled with cinnamon, cloves, and orange peel.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Winter Comfort Food Night",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Slow-Cooker Beef Stew",
+          "category": "Main dishes",
+          "description": "Tender beef and root vegetables simmered in a rich, savory broth—the cozy centerpiece of the night.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Chicken and Dumplings",
+          "category": "Main dishes",
+          "description": "Shredded chicken in a velvety sauce topped with fluffy drop dumplings for a hearty second main.",
+          "status": "done"
+        },
+        {
+          "title": "Skillet Cornbread",
+          "category": "Breads",
+          "description": "Golden, buttery cornbread baked in a cast-iron skillet with a crisp edge and tender crumb.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Mashed Potatoes",
+          "category": "Side dishes",
+          "description": "Silky whipped potatoes loaded with roasted garlic and a touch of cream.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Root Vegetables",
+          "category": "Side dishes",
+          "description": "Carrots, parsnips, and sweet potatoes caramelized with olive oil and thyme.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Caesar Salad",
+          "category": "Salads",
+          "description": "Crisp romaine tossed in a lemony Caesar dressing with garlic croutons and shaved Parmesan.",
+          "status": "done"
+        },
+        {
+          "title": "Cheesy Baked Mac and Cheese",
+          "category": "Side dishes",
+          "description": "Creamy three-cheese pasta baked under a golden breadcrumb crust.",
+          "status": "done"
+        },
+        {
+          "title": "Apple Cinnamon Crumble",
+          "category": "Desserts",
+          "description": "Warm spiced apples under a buttery oat crumble, best served with vanilla ice cream.",
+          "status": "done"
+        },
+        {
+          "title": "Hot Spiced Apple Cider",
+          "category": "Drinks",
+          "description": "Simmered cider infused with cinnamon, cloves, and orange peel for a warming sip.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Spring Garden Luncheon",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Pea and Mint Crostini",
+          "category": "Starters",
+          "description": "Toasted baguette slices topped with bright smashed peas, fresh mint, and a squeeze of lemon.",
+          "status": "done"
+        },
+        {
+          "title": "Asparagus and Radish Salad with Lemon Vinaigrette",
+          "category": "Salads",
+          "description": "Crisp spring vegetables tossed in a light citrus dressing with shaved Parmesan.",
+          "status": "done"
+        },
+        {
+          "title": "Herbed Roast Chicken with Spring Vegetables",
+          "category": "Main dishes",
+          "description": "A lemony roast chicken surrounded by new potatoes, carrots, and peas.",
+          "status": "done"
+        },
+        {
+          "title": "Salmon with Dill Butter",
+          "category": "Main dishes",
+          "description": "Simply baked salmon fillets finished with a fresh dill and lemon butter.",
+          "status": "done"
+        },
+        {
+          "title": "Buttered New Potatoes with Chives",
+          "category": "Side dishes",
+          "description": "Tender baby potatoes tossed in melted butter and snipped chives.",
+          "status": "done"
+        },
+        {
+          "title": "Spring Onion and Cheddar Quick Bread",
+          "category": "Breads",
+          "description": "A savory, tender loaf flecked with scallions and sharp cheddar.",
+          "status": "done"
+        },
+        {
+          "title": "Honey-Lavender Shortbread Cookies",
+          "category": "Desserts",
+          "description": "Delicate buttery cookies lightly scented with honey and culinary lavender.",
+          "status": "done"
+        },
+        {
+          "title": "Strawberry-Rhubarb Fool",
+          "category": "Desserts",
+          "description": "Layered stewed spring fruit and softly whipped cream in individual glasses.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Elderflower Lemonade",
+          "category": "Drinks",
+          "description": "A refreshing bubbly lemonade lightly flavored with elderflower syrup.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Mint Iced Tea",
+          "category": "Drinks",
+          "description": "Cool brewed tea brightened with fresh mint and a hint of honey.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Summer Pool Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Grilled Burger Sliders",
+          "category": "Main dishes",
+          "description": "Juicy mini beef burgers grilled and served on soft slider buns, easy for poolside grazing.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Herb Grilled Chicken Skewers",
+          "category": "Main dishes",
+          "description": "Tender chicken chunks marinated in lemon and herbs, threaded on skewers and grilled.",
+          "status": "done"
+        },
+        {
+          "title": "Watermelon Feta Salad",
+          "category": "Salads",
+          "description": "Chilled cubes of watermelon tossed with feta, mint, and a light lime drizzle.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Creamy Coleslaw",
+          "category": "Salads",
+          "description": "Crisp shredded cabbage and carrots in a tangy, creamy dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Sweet Corn on the Cob",
+          "category": "Side dishes",
+          "description": "Buttered ears of sweet corn boiled or grilled for a quintessential summer side.",
+          "status": "done"
+        },
+        {
+          "title": "Chips and Guacamole",
+          "category": "Appetizers",
+          "description": "Crunchy tortilla chips with a fresh, chunky guacamole for easy snacking.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Breadsticks",
+          "category": "Breads",
+          "description": "Soft breadsticks brushed with garlic butter and baked until golden.",
+          "status": "done"
+        },
+        {
+          "title": "Ice Cream Sandwiches",
+          "category": "Desserts",
+          "description": "Store-bought or homemade ice cream sandwiched between chewy cookies, frozen and ready to serve.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lemonade",
+          "category": "Drinks",
+          "description": "A pitcher of freshly squeezed lemonade served over ice with lemon slices.",
+          "status": "done"
+        },
+        {
+          "title": "Frosted Fruit Punch",
+          "category": "Drinks",
+          "description": "A refreshing blend of fruit juices and ginger ale served ice-cold from a large dispenser.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Backyard Burger Night",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Cheeseburgers",
+          "category": "Main dishes",
+          "description": "Juicy grilled beef patties topped with melted cheddar and served on toasted buns.",
+          "status": "done"
+        },
+        {
+          "title": "Grilled Veggie Burgers",
+          "category": "Main dishes",
+          "description": "Hearty plant-based patties grilled alongside the beef for a meat-free option.",
+          "status": "done"
+        },
+        {
+          "title": "Old-Fashioned Potato Salad",
+          "category": "Side dishes",
+          "description": "Creamy mustard-dressed potato salad with celery and hard-boiled eggs.",
+          "status": "done"
+        },
+        {
+          "title": "Grilled Corn on the Cob",
+          "category": "Side dishes",
+          "description": "Sweet corn grilled in the husk and finished with butter and salt.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Coleslaw",
+          "category": "Side dishes",
+          "description": "Crisp shredded cabbage and carrots in a tangy mayonnaise dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Loaded Guacamole and Chips",
+          "category": "Appetizers",
+          "description": "Fresh mashed avocado dip with lime and cilantro, served with tortilla chips.",
+          "status": "done"
+        },
+        {
+          "title": "Toasted Garlic Butter Buns",
+          "category": "Breads",
+          "description": "Split buns brushed with garlic butter and toasted on the grill.",
+          "status": "done"
+        },
+        {
+          "title": "Summer Berry Trifle",
+          "category": "Desserts",
+          "description": "Layers of angel food cake, vanilla pudding, and fresh berries in a glass bowl.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh-Squeezed Lemonade",
+          "category": "Drinks",
+          "description": "Ice-cold homemade lemonade with just the right balance of tart and sweet.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Steakhouse Dinner at Home",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Wedge Salad with Blue Cheese Dressing",
+          "category": "Starters",
+          "description": "Crisp iceberg wedges topped with creamy blue cheese dressing, bacon, and tomatoes.",
+          "status": "done"
+        },
+        {
+          "title": "Shrimp Cocktail with Horseradish Sauce",
+          "category": "Starters",
+          "description": "Chilled poached shrimp served with a tangy, spicy cocktail sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Cast-Iron Ribeye Steaks with Herb Butter",
+          "category": "Main dishes",
+          "description": "Thick ribeyes seared in a cast-iron skillet and finished with garlic-herb compound butter.",
+          "status": "done"
+        },
+        {
+          "title": "Creamed Spinach",
+          "category": "Side dishes",
+          "description": "Velvety spinach simmered in a rich Parmesan cream sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Twice-Baked Potatoes",
+          "category": "Side dishes",
+          "description": "Fluffy potato shells loaded with cheddar, bacon, and chives, then baked until golden.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Butter Skillet Mushrooms",
+          "category": "Side dishes",
+          "description": "Sliced cremini mushrooms sautéed in garlic butter until tender and browned.",
+          "status": "done"
+        },
+        {
+          "title": "Steakhouse Dinner Rolls",
+          "category": "Breads",
+          "description": "Soft, buttery yeast rolls brushed with melted butter and flaky salt.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Cheesecake",
+          "category": "Desserts",
+          "description": "Creamy New York-style cheesecake on a graham cracker crust.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Old Fashioned",
+          "category": "Drinks",
+          "description": "Bourbon cocktail with muddled orange, bitters, and a touch of sugar.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Prime Rib Holiday Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Herb-Crusted Prime Rib with Horseradish Cream",
+          "category": "Main dishes",
+          "description": "A showstopping bone-in prime rib roasted with garlic, rosemary, and thyme, served with a tangy horseradish cream.",
+          "status": "done"
+        },
+        {
+          "title": "Yorkshire Puddings",
+          "category": "Breads",
+          "description": "Light, airy popovers baked in beef drippings, the classic companion to prime rib.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Mashed Potatoes",
+          "category": "Side dishes",
+          "description": "Creamy Yukon Gold potatoes whipped with butter, milk, and roasted garlic.",
+          "status": "done"
+        },
+        {
+          "title": "Green Beans with Almonds and Lemon",
+          "category": "Side dishes",
+          "description": "Crisp-tender green beans tossed with toasted almonds, lemon zest, and butter.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Root Vegetables",
+          "category": "Side dishes",
+          "description": "Carrots, parsnips, and Brussels sprouts caramelized with olive oil and fresh herbs.",
+          "status": "done"
+        },
+        {
+          "title": "Winter Greens Salad with Cranberries and Pecans",
+          "category": "Salads",
+          "description": "Baby kale and spinach with dried cranberries, toasted pecans, and a maple-Dijon vinaigrette.",
+          "status": "done"
+        },
+        {
+          "title": "Shrimp Cocktail with Lemon Wedges",
+          "category": "Appetizers",
+          "description": "Chilled jumbo shrimp served with a zesty homemade cocktail sauce and fresh lemon.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Beef Gravy",
+          "category": "Sauces and condiments",
+          "description": "Rich pan gravy made from prime rib drippings, beef stock, and a touch of red wine.",
+          "status": "done"
+        },
+        {
+          "title": "Individual Chocolate Lava Cakes",
+          "category": "Desserts",
+          "description": "Warm chocolate cakes with molten centers, served with a dollop of whipped cream.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Cranberry-Pomegranate Punch",
+          "category": "Drinks",
+          "description": "A festive, non-alcoholic punch of cranberry juice, pomegranate, and sparkling water with citrus.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Seafood Feast",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Chilled Shrimp Cocktail with Lemon-Horseradish Sauce",
+          "category": "Starters",
+          "description": "Poached jumbo shrimp served cold with a tangy tomato-horseradish dip.",
+          "status": "done"
+        },
+        {
+          "title": "Oysters on the Half Shell with Mignonette",
+          "category": "Starters",
+          "description": "Fresh raw oysters on ice with a classic shallot-vinegar mignonette.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy New England Clam Chowder",
+          "category": "Soups",
+          "description": "Rich potato-and-clam chowder finished with cream and fresh thyme.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Butter Steamed Mussels",
+          "category": "Main dishes",
+          "description": "Plump mussels steamed in white wine, garlic, and butter with parsley.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Roasted Salmon Fillet",
+          "category": "Main dishes",
+          "description": "Centerpiece side of salmon roasted with lemon, dill, and olive oil.",
+          "status": "done"
+        },
+        {
+          "title": "Crispy Beer-Battered Fish and Chips",
+          "category": "Main dishes",
+          "description": "Flaky white fish in a golden beer batter with thick-cut fries.",
+          "status": "done"
+        },
+        {
+          "title": "Buttered Sweet Corn on the Cob",
+          "category": "Sides",
+          "description": "Fresh summer corn boiled and brushed with salted butter.",
+          "status": "done"
+        },
+        {
+          "title": "Crusty Sourdough Baguettes",
+          "category": "Breads",
+          "description": "Warm sliced baguettes for sopping up chowder and mussel broth.",
+          "status": "done"
+        },
+        {
+          "title": "Key Lime Pie",
+          "category": "Desserts",
+          "description": "Tart custard in a graham cracker crust topped with whipped cream.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Lemonade with Fresh Mint",
+          "category": "Drinks",
+          "description": "Bright homemade lemonade topped with soda water and mint sprigs.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Southern Comfort Food Supper",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Buttermilk Fried Chicken",
+          "category": "Main dishes",
+          "description": "Crispy, golden buttermilk-brined chicken that anchors the supper as the centerpiece.",
+          "status": "done"
+        },
+        {
+          "title": "Slow-Cooker Pulled Pork with Carolina Sauce",
+          "category": "Main dishes",
+          "description": "Tender shredded pork with a tangy vinegar sauce for a hearty second main.",
+          "status": "done"
+        },
+        {
+          "title": "Skillet Cornbread",
+          "category": "Breads",
+          "description": "Warm, crusty Southern cornbread baked in a cast-iron skillet.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Baked Macaroni and Cheese",
+          "category": "Side dishes",
+          "description": "Rich, cheesy baked macaroni with a golden crust.",
+          "status": "done"
+        },
+        {
+          "title": "Collard Greens with Smoked Turkey",
+          "category": "Side dishes",
+          "description": "Slow-simmered collards seasoned with smoked turkey for classic Southern flavor.",
+          "status": "done"
+        },
+        {
+          "title": "Southern Green Beans with Bacon",
+          "category": "Side dishes",
+          "description": "Tender green beans braised with bacon and a touch of onion.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Deviled Eggs",
+          "category": "Starters",
+          "description": "Creamy, paprika-dusted deviled eggs to start the meal.",
+          "status": "done"
+        },
+        {
+          "title": "Peach Cobbler",
+          "category": "Desserts",
+          "description": "Warm baked cobbler with sweet peaches and a buttery biscuit topping.",
+          "status": "done"
+        },
+        {
+          "title": "Sweet Tea",
+          "category": "Drinks",
+          "description": "Chilled, lightly sweetened Southern-style iced tea.",
+          "status": "done"
+        },
+        {
+          "title": "Banana Pudding",
+          "category": "Desserts",
+          "description": "Creamy layered pudding with bananas, vanilla wafers, and whipped topping.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Tex-Mex Fiesta",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Queso Fundido with Chorizo",
+          "category": "Starters",
+          "description": "A sizzling skillet of melted cheese topped with spicy chorizo and warm tortillas for scooping.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Chunky Guacamole",
+          "category": "Starters",
+          "description": "Fresh mashed avocados with lime, cilantro, onion, and tomato, served with tortilla chips.",
+          "status": "done"
+        },
+        {
+          "title": "Beef Fajitas with Peppers and Onions",
+          "category": "Main dishes",
+          "description": "Sizzling skirt steak strips with charred bell peppers and onions, served with warm tortillas.",
+          "status": "done"
+        },
+        {
+          "title": "Green Chile Chicken Enchiladas",
+          "category": "Main dishes",
+          "description": "Rolled corn tortillas filled with shredded chicken and topped with tangy green chile sauce and cheese.",
+          "status": "done"
+        },
+        {
+          "title": "Mexican Rice (Arroz Rojo)",
+          "category": "Side dishes",
+          "description": "Fluffy long-grain rice simmered in a savory tomato and garlic broth with a hint of cumin.",
+          "status": "done"
+        },
+        {
+          "title": "Charro Beans",
+          "category": "Side dishes",
+          "description": "Hearty pinto beans slow-simmered with bacon, onion, and jalapeño in a smoky broth.",
+          "status": "done"
+        },
+        {
+          "title": "Elote (Mexican Street Corn)",
+          "category": "Side dishes",
+          "description": "Grilled corn on the cob slathered with creamy lime mayo and sprinkled with cotija cheese and chile.",
+          "status": "done"
+        },
+        {
+          "title": "Cinnamon Churros with Chocolate Sauce",
+          "category": "Desserts",
+          "description": "Crispy fried dough sticks rolled in cinnamon sugar, served with a warm chocolate dipping sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lime Agua Fresca",
+          "category": "Drinks",
+          "description": "A refreshing pitcher of cold water blended with fresh lime juice and a touch of sugar.",
+          "status": "done"
+        },
+        {
+          "title": "Horchata",
+          "category": "Drinks",
+          "description": "A creamy, cinnamon-scented rice drink served ice-cold for a cool, sweet finish.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Taco Tuesday Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Ground Beef Tacos",
+          "category": "Main dishes",
+          "description": "Seasoned ground beef in warm corn tortillas with classic toppings.",
+          "status": "done"
+        },
+        {
+          "title": "Slow Cooker Shredded Chicken Tacos",
+          "category": "Main dishes",
+          "description": "Tender citrus-and-chili shredded chicken for easy self-serve tacos.",
+          "status": "done"
+        },
+        {
+          "title": "Charro Beans",
+          "category": "Side dishes",
+          "description": "Smoky pinto beans simmered with bacon and tomato.",
+          "status": "done"
+        },
+        {
+          "title": "Mexican Rice",
+          "category": "Side dishes",
+          "description": "Fluffy tomato-tinged rice with a hint of cumin.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Guacamole",
+          "category": "Starters",
+          "description": "Mashed avocado with lime, onion, and cilantro for dipping.",
+          "status": "done"
+        },
+        {
+          "title": "Pico de Gallo",
+          "category": "Starters",
+          "description": "Fresh diced tomato, onion, and jalapeño salsa.",
+          "status": "done"
+        },
+        {
+          "title": "Warm Tortilla Chips",
+          "category": "Breads",
+          "description": "Crisp tortilla chips warmed and lightly salted for scooping.",
+          "status": "done"
+        },
+        {
+          "title": "Cinnamon Churro Bites",
+          "category": "Desserts",
+          "description": "Bite-sized fried dough tossed in cinnamon sugar.",
+          "status": "done"
+        },
+        {
+          "title": "Horchata",
+          "category": "Drinks",
+          "description": "Chilled sweet rice-and-cinnamon drink served over ice.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Italian Pasta Night",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Garlic Bread with Parsley Butter",
+          "category": "Breads",
+          "description": "Toasted Italian bread brushed with garlicky parsley butter for mopping up sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Bruschetta with Tomatoes and Basil",
+          "category": "Starters",
+          "description": "Grilled bread topped with ripe tomatoes, basil, and olive oil for a fresh opener.",
+          "status": "done"
+        },
+        {
+          "title": "Simple Green Salad with Lemon Vinaigrette",
+          "category": "Salads",
+          "description": "Crisp greens tossed in a bright lemon dressing to balance the rich pasta.",
+          "status": "done"
+        },
+        {
+          "title": "Spaghetti alla Carbonara",
+          "category": "Main dishes",
+          "description": "Roman pasta with eggs, Pecorino, and pancetta for a creamy, savory centerpiece.",
+          "status": "done"
+        },
+        {
+          "title": "Penne all'Arrabbiata",
+          "category": "Main dishes",
+          "description": "Spicy tomato-garlic sauce clinging to penne for a lively vegetarian option.",
+          "status": "done"
+        },
+        {
+          "title": "Baked Rigatoni with Sausage and Mozzarella",
+          "category": "Main dishes",
+          "description": "Comforting baked pasta with crumbled sausage and bubbling cheese.",
+          "status": "done"
+        },
+        {
+          "title": "Garlicky Sautéed Broccoli Rabe",
+          "category": "Sides",
+          "description": "Bitter greens wilted with garlic and chili flakes to cut through the pasta richness.",
+          "status": "done"
+        },
+        {
+          "title": "Tiramisu Cups",
+          "category": "Desserts",
+          "description": "Individual coffee-soaked ladyfinger cups layered with mascarpone cream.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Italian Soda with Lemon",
+          "category": "Drinks",
+          "description": "Fizzy lemon soda served over ice as a refreshing, kid-friendly sip.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Pizza-Making Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Classic Pizza Dough",
+          "category": "Breads",
+          "description": "A reliable, easy-to-stretch yeasted dough that anchors the whole make-your-own pizza party.",
+          "status": "done"
+        },
+        {
+          "title": "No-Cook Pizza Sauce",
+          "category": "Sauces",
+          "description": "A quick blend of crushed tomatoes, garlic, and herbs for spreading on dough without simmering.",
+          "status": "done"
+        },
+        {
+          "title": "Margherita Pizza",
+          "category": "Main dishes",
+          "description": "The simple centerpiece pie with tomato sauce, fresh mozzarella, and basil for guests to build and bake.",
+          "status": "done"
+        },
+        {
+          "title": "Pepperoni and Mushroom Pizza",
+          "category": "Main dishes",
+          "description": "A crowd-pleasing second pizza option loaded with classic toppings.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Butter Breadsticks",
+          "category": "Sides",
+          "description": "Extra dough twisted into buttery, garlicky breadsticks for snacking while pizzas bake.",
+          "status": "done"
+        },
+        {
+          "title": "Italian Chopped Salad",
+          "category": "Salads",
+          "description": "Crunchy romaine, tomatoes, and chickpeas tossed in a tangy vinaigrette to balance the rich pizza.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Vegetable Antipasto Platter",
+          "category": "Starters",
+          "description": "A colorful spread of roasted peppers, olives, and marinated vegetables to nibble before baking begins.",
+          "status": "done"
+        },
+        {
+          "title": "Nutella Dessert Pizza",
+          "category": "Desserts",
+          "description": "A sweet finish of baked dough spread with hazelnut chocolate and topped with fresh strawberries.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Citrus Punch",
+          "category": "Drinks",
+          "description": "A refreshing blend of orange and lemon juices with sparkling water to serve over ice.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Mediterranean Dinner Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Hummus with Olive Oil and Paprika",
+          "category": "Starters",
+          "description": "Creamy chickpea dip swirled with olive oil and dusted with paprika, served with warm pita.",
+          "status": "done"
+        },
+        {
+          "title": "Greek Village Salad",
+          "category": "Salads",
+          "description": "Chunky tomatoes, cucumbers, red onion, and feta dressed simply with olive oil and oregano.",
+          "status": "done"
+        },
+        {
+          "title": "Warm Pita Bread",
+          "category": "Breads",
+          "description": "Soft pita rounds warmed and brushed with olive oil, perfect for scooping dips and sides.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Roasted Leg of Lamb",
+          "category": "Main dishes",
+          "description": "Tender lamb roasted with garlic, lemon, and rosemary as the centerpiece of the meal.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Herb Roast Chicken",
+          "category": "Main dishes",
+          "description": "Golden chicken roasted with lemon, garlic, and oregano for a crowd-pleasing alternative main.",
+          "status": "done"
+        },
+        {
+          "title": "Greek Lemon Potatoes",
+          "category": "Sides",
+          "description": "Oven-roasted potatoes braised in lemon juice, olive oil, and oregano until tender.",
+          "status": "done"
+        },
+        {
+          "title": "Garlicky Green Beans with Tomatoes",
+          "category": "Sides",
+          "description": "Fresh green beans simmered with tomatoes, garlic, and olive oil in the Mediterranean style.",
+          "status": "done"
+        },
+        {
+          "title": "Baklava",
+          "category": "Desserts",
+          "description": "Flaky phyllo layers filled with walnuts and honey syrup for a classic sweet finish.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Mint Lemonade",
+          "category": "Drinks",
+          "description": "Bright lemonade infused with fresh mint, served over ice to refresh the palate.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Greek Taverna Night",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Warm Pita with Olive Oil and Oregano",
+          "category": "Breads",
+          "description": "Soft pita wedges brushed with olive oil and sprinkled with dried oregano, served warm for dipping.",
+          "status": "done"
+        },
+        {
+          "title": "Tzatziki with Cucumber and Dill",
+          "category": "Starters",
+          "description": "Cool yogurt dip with grated cucumber, garlic, dill, and lemon, ideal with pita and vegetables.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Horiatiki Village Salad",
+          "category": "Salads",
+          "description": "Chunky tomatoes, cucumber, red onion, Kalamata olives, and feta dressed simply with olive oil and oregano.",
+          "status": "done"
+        },
+        {
+          "title": "Spanakopita Triangles",
+          "category": "Starters",
+          "description": "Flaky phyllo pastries filled with spinach, feta, and herbs, baked until golden.",
+          "status": "done"
+        },
+        {
+          "title": "Chicken Souvlaki Skewers",
+          "category": "Main dishes",
+          "description": "Lemon-oregano marinated chicken skewers grilled until charred and juicy, the taverna centerpiece.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Herb Roasted Potatoes",
+          "category": "Sides",
+          "description": "Oven-roasted potato wedges tossed with lemon juice, garlic, and oregano until crisp outside and tender within.",
+          "status": "done"
+        },
+        {
+          "title": "Green Beans in Tomato and Olive Oil",
+          "category": "Sides",
+          "description": "Slow-simmered green beans with tomato, onion, and olive oil for a homely, flavorful vegetable side.",
+          "status": "done"
+        },
+        {
+          "title": "Baklava with Walnuts and Honey",
+          "category": "Desserts",
+          "description": "Layered phyllo with cinnamon walnuts and honey syrup, cut into diamonds for a sweet finish.",
+          "status": "done"
+        },
+        {
+          "title": "Greek Yogurt with Honey and Walnuts",
+          "category": "Desserts",
+          "description": "Thick strained yogurt topped with warmed honey and toasted walnuts, a simple light dessert option.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lemonade with Mint",
+          "category": "Drinks",
+          "description": "Bright homemade lemonade infused with fresh mint, served over ice for a refreshing nonalcoholic sip.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "French Bistro Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "French Onion Soup",
+          "category": "Starters",
+          "description": "Deeply caramelized onions in beef broth topped with toasted baguette and melted Gruyère.",
+          "status": "done"
+        },
+        {
+          "title": "Warm Goat Cheese Salad",
+          "category": "Starters",
+          "description": "Peppery greens tossed in Dijon vinaigrette with warm breaded goat cheese rounds.",
+          "status": "done"
+        },
+        {
+          "title": "Coq au Vin",
+          "category": "Main dishes",
+          "description": "Chicken braised low and slow with red wine, mushrooms, pearl onions, and bacon.",
+          "status": "done"
+        },
+        {
+          "title": "Steak Frites",
+          "category": "Main dishes",
+          "description": "Pan-seared skirt steak with garlic-herb butter served alongside crispy double-fried potatoes.",
+          "status": "done"
+        },
+        {
+          "title": "Gratin Dauphinois",
+          "category": "Side dishes",
+          "description": "Thinly sliced potatoes baked in cream, garlic, and nutmeg until golden and tender.",
+          "status": "done"
+        },
+        {
+          "title": "Haricots Verts with Shallots",
+          "category": "Side dishes",
+          "description": "Blanched green beans sautéed with shallots and a touch of butter and lemon.",
+          "status": "done"
+        },
+        {
+          "title": "Crusty Baguettes",
+          "category": "Breads",
+          "description": "Simple homemade baguettes with a crisp crust and soft interior for sopping up sauces.",
+          "status": "done"
+        },
+        {
+          "title": "Tarte Tatin",
+          "category": "Desserts",
+          "description": "Upside-down caramelized apple tart baked on flaky pastry and served warm.",
+          "status": "done"
+        },
+        {
+          "title": "Crème Brûlée",
+          "category": "Desserts",
+          "description": "Silky vanilla custard finished with a crackly layer of torched sugar.",
+          "status": "done"
+        },
+        {
+          "title": "Kir Royale",
+          "category": "Drinks",
+          "description": "Chilled sparkling wine brightened with a splash of blackcurrant liqueur.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "German Oktoberfest Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Brezeln (German Pretzels)",
+          "category": "Starters",
+          "description": "Soft, chewy pretzels with a dark brown crust, perfect for dipping in mustard.",
+          "status": "done"
+        },
+        {
+          "title": "Obatzda (Bavarian Cheese Spread)",
+          "category": "Starters",
+          "description": "A creamy blend of Camembert, butter, and paprika, served with pretzels or bread.",
+          "status": "done"
+        },
+        {
+          "title": "Sauerbraten with Red Cabbage",
+          "category": "Main dishes",
+          "description": "Tender marinated beef roast served with sweet-and-sour red cabbage.",
+          "status": "done"
+        },
+        {
+          "title": "Bratwurst with Sauerkraut",
+          "category": "Main dishes",
+          "description": "Grilled German sausages served with tangy sauerkraut and mustard.",
+          "status": "done"
+        },
+        {
+          "title": "Käsespätzle",
+          "category": "Main dishes",
+          "description": "Soft egg noodles layered with melted cheese and crispy onions.",
+          "status": "done"
+        },
+        {
+          "title": "Kartoffelsalat (German Potato Salad)",
+          "category": "Side dishes",
+          "description": "Warm potato salad with a tangy vinegar and bacon dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Apfelstrudel",
+          "category": "Desserts",
+          "description": "Flaky pastry filled with spiced apples and raisins, served with vanilla sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Schwarzwälder Kirschtorte (Black Forest Cake)",
+          "category": "Desserts",
+          "description": "Chocolate sponge cake with cherries, whipped cream, and chocolate shavings.",
+          "status": "done"
+        },
+        {
+          "title": "German Beer",
+          "category": "Drinks",
+          "description": "A selection of traditional German beers, such as Weihenstephan or Paulaner.",
+          "status": "done"
+        },
+        {
+          "title": "Apfelschorle",
+          "category": "Drinks",
+          "description": "A refreshing mix of apple juice and sparkling water.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "St. Patrick's Day Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Corned Beef and Cabbage",
+          "category": "Main dishes",
+          "description": "Simmered corned beef brisket served with tender cabbage wedges, the classic centerpiece of the holiday.",
+          "status": "done"
+        },
+        {
+          "title": "Irish Soda Bread",
+          "category": "Breads",
+          "description": "Rustic buttermilk quick bread with a golden crust, perfect for sopping up the juices.",
+          "status": "done"
+        },
+        {
+          "title": "Colcannon",
+          "category": "Side dishes",
+          "description": "Creamy mashed potatoes folded with buttered kale or cabbage and a touch of scallion.",
+          "status": "done"
+        },
+        {
+          "title": "Honey-Glazed Carrots",
+          "category": "Side dishes",
+          "description": "Roasted carrots brushed with honey and butter for a sweet, simple contrast.",
+          "status": "done"
+        },
+        {
+          "title": "Irish Cheddar and Stout Fondue",
+          "category": "Starters",
+          "description": "Warm, savory cheese dip made with Irish cheddar and stout, served with bread cubes.",
+          "status": "done"
+        },
+        {
+          "title": "Smoked Salmon on Brown Bread",
+          "category": "Starters",
+          "description": "Delicate smoked salmon slices atop buttered Irish brown bread with a squeeze of lemon.",
+          "status": "done"
+        },
+        {
+          "title": "Guinness Chocolate Cake",
+          "category": "Desserts",
+          "description": "Rich, moist chocolate cake spiked with stout and topped with cream cheese frosting.",
+          "status": "done"
+        },
+        {
+          "title": "Irish Apple Crumble",
+          "category": "Desserts",
+          "description": "Warm baked apples under a buttery oat crumble, a cozy seasonal finish.",
+          "status": "done"
+        },
+        {
+          "title": "Irish Coffee",
+          "category": "Drinks",
+          "description": "Hot coffee with a splash of Irish whiskey, brown sugar, and a float of lightly whipped cream.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Cinco de Mayo Fiesta",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Guacamole with Tortilla Chips",
+          "category": "Starters",
+          "description": "Freshly mashed avocado with lime, cilantro, and onion, served with crispy tortilla chips.",
+          "status": "done"
+        },
+        {
+          "title": "Chicken Enchiladas Verdes",
+          "category": "Main dishes",
+          "description": "Rolled corn tortillas filled with shredded chicken, topped with tangy salsa verde and melted cheese.",
+          "status": "done"
+        },
+        {
+          "title": "Carne Asada Tacos",
+          "category": "Main dishes",
+          "description": "Grilled marinated skirt steak sliced into warm corn tortillas with onion and cilantro.",
+          "status": "done"
+        },
+        {
+          "title": "Mexican Rice",
+          "category": "Side dishes",
+          "description": "Fluffy tomato-infused long-grain rice with garlic and a hint of cumin.",
+          "status": "done"
+        },
+        {
+          "title": "Charro Beans",
+          "category": "Side dishes",
+          "description": "Hearty pinto beans simmered with bacon, onion, and mild chiles.",
+          "status": "done"
+        },
+        {
+          "title": "Street Corn Salad",
+          "category": "Side dishes",
+          "description": "Charred corn kernels tossed with lime, cotija cheese, and cilantro.",
+          "status": "done"
+        },
+        {
+          "title": "Cinnamon Churros",
+          "category": "Desserts",
+          "description": "Crisp fried dough sticks rolled in cinnamon sugar, served with chocolate dipping sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Margarita Pitcher",
+          "category": "Drinks",
+          "description": "Classic blend of tequila, fresh lime juice, and orange liqueur served over ice.",
+          "status": "done"
+        },
+        {
+          "title": "Agua de Horchata",
+          "category": "Drinks",
+          "description": "Creamy chilled rice drink flavored with cinnamon and a touch of vanilla.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Mardi Gras Celebration",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Chicken and Andouille Gumbo",
+          "category": "Main dishes",
+          "description": "A hearty Cajun stew with dark roux, chicken, and smoked sausage served over rice.",
+          "status": "done"
+        },
+        {
+          "title": "Shrimp Étouffée",
+          "category": "Main dishes",
+          "description": "Louisiana-style shrimp smothered in a buttery, spicy tomato-based sauce over steamed rice.",
+          "status": "done"
+        },
+        {
+          "title": "Red Beans and Rice",
+          "category": "Side dishes",
+          "description": "Creamy kidney beans simmered with aromatics and sausage, served over fluffy long-grain rice.",
+          "status": "done"
+        },
+        {
+          "title": "Cheesy Corn Maque Choux",
+          "category": "Side dishes",
+          "description": "Sweet corn sautéed with bell peppers, onions, and a touch of cream and cheese.",
+          "status": "done"
+        },
+        {
+          "title": "Jambalaya-Spiced Deviled Eggs",
+          "category": "Appetizers",
+          "description": "Classic deviled eggs kicked up with Cajun seasoning and a hint of hot sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Crawfish Boil Dip",
+          "category": "Appetizers",
+          "description": "A warm, creamy dip loaded with crawfish tails, peppers, and cheese, served with crackers.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Cornbread",
+          "category": "Breads",
+          "description": "Golden, tender Southern cornbread baked in a skillet with a crisp crust.",
+          "status": "done"
+        },
+        {
+          "title": "King Cake",
+          "category": "Desserts",
+          "description": "A festive cinnamon-swirled brioche ring decorated with purple, green, and gold sugar.",
+          "status": "done"
+        },
+        {
+          "title": "Pecan Pralines",
+          "category": "Desserts",
+          "description": "Sweet, creamy Louisiana pralines made with toasted pecans and brown sugar.",
+          "status": "done"
+        },
+        {
+          "title": "Hurricane Punch",
+          "category": "Drinks",
+          "description": "A fruity, tropical party punch with citrus juices and grenadine, served over ice.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Kentucky Derby Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Kentucky Hot Brown Sliders",
+          "category": "Main dishes",
+          "description": "Mini open-faced turkey and bacon sandwiches blanketed in a creamy Mornay sauce and broiled until bubbly.",
+          "status": "done"
+        },
+        {
+          "title": "Bourbon-Glazed Ham Biscuits",
+          "category": "Main dishes",
+          "description": "Warm buttermilk biscuits filled with thin-sliced ham brushed with a sweet-and-sticky bourbon glaze.",
+          "status": "done"
+        },
+        {
+          "title": "Pimento Cheese Deviled Eggs",
+          "category": "Starters",
+          "description": "Classic deviled eggs folded with sharp pimento cheese for a creamy Southern bite.",
+          "status": "done"
+        },
+        {
+          "title": "Benedictine Spread Tea Sandwiches",
+          "category": "Starters",
+          "description": "Cool cucumber-and-cream-cheese finger sandwiches tinted green, a Kentucky tea-room tradition.",
+          "status": "done"
+        },
+        {
+          "title": "Derby Day Crudités with Buttermilk Ranch",
+          "category": "Sides",
+          "description": "A colorful platter of crisp spring vegetables with a tangy homemade buttermilk ranch dip.",
+          "status": "done"
+        },
+        {
+          "title": "Cheddar-Chive Cornbread Squares",
+          "category": "Breads",
+          "description": "Skillet-baked buttermilk cornbread flecked with sharp cheddar and fresh chives, cut into squares.",
+          "status": "done"
+        },
+        {
+          "title": "Bluegrass Cole Slaw",
+          "category": "Sides",
+          "description": "Crunchy shredded cabbage and carrots in a light, tangy cider-vinegar dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Kentucky Derby Pie Bars",
+          "category": "Desserts",
+          "description": "Chewy chocolate-and-walnut shortbread bars inspired by the classic Derby pie.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Mint Julep Pitcher",
+          "category": "Drinks",
+          "description": "A batch-friendly blend of bourbon, mint, and simple syrup served over crushed ice.",
+          "status": "done"
+        },
+        {
+          "title": "Sweet Iced Tea with Lemon",
+          "category": "Drinks",
+          "description": "House-brewed sweet tea poured tall with fresh lemon slices for a crowd-pleasing nonalcoholic option.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Game Night Appetizers",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Loaded Nachos Supreme",
+          "category": "Main dishes",
+          "description": "A shareable tray of tortilla chips piled with seasoned beef, melted cheese, jalapeños, and fresh toppings.",
+          "status": "done"
+        },
+        {
+          "title": "Buffalo Chicken Dip",
+          "category": "Hot appetizers",
+          "description": "Creamy, spicy dip with shredded chicken and hot sauce, served bubbling with tortilla chips.",
+          "status": "done"
+        },
+        {
+          "title": "Soft Pretzel Bites with Cheese Sauce",
+          "category": "Breads",
+          "description": "Warm, salty pretzel bites paired with a tangy beer-cheese dipping sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Deviled Eggs",
+          "category": "Cold appetizers",
+          "description": "Halved eggs with a creamy, tangy mustard filling dusted with paprika.",
+          "status": "done"
+        },
+        {
+          "title": "Crispy Baked Chicken Wings",
+          "category": "Hot appetizers",
+          "description": "Oven-baked wings tossed in a choice of classic hot or honey-garlic sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Veggie Tray with Ranch Dip",
+          "category": "Sides",
+          "description": "A colorful assortment of crunchy vegetables with a cool, herby ranch dip.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Parmesan Popcorn",
+          "category": "Snacks",
+          "description": "Buttery popcorn tossed with garlic powder, Parmesan, and fresh herbs for an easy bowl snack.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookies",
+          "category": "Desserts",
+          "description": "Chewy, golden cookies warm from the oven for a sweet finish.",
+          "status": "done"
+        },
+        {
+          "title": "Craft Root Beer and Lemonade Station",
+          "category": "Drinks",
+          "description": "Chilled root beer and fresh lemonade over ice, perfect for guests to serve themselves.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Movie Marathon Snack Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Loaded Nacho Platter",
+          "category": "Appetizers",
+          "description": "A shareable platter of tortilla chips topped with melted cheese, jalapeños, and seasoned beef.",
+          "status": "done"
+        },
+        {
+          "title": "Buffalo Chicken Wings",
+          "category": "Appetizers",
+          "description": "Spicy, tangy wings perfect for snacking during a movie marathon.",
+          "status": "done"
+        },
+        {
+          "title": "Soft Pretzel Bites with Cheese Dip",
+          "category": "Snacks",
+          "description": "Warm, bite-sized pretzels served with a creamy cheese dipping sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Popcorn Trio",
+          "category": "Snacks",
+          "description": "Three flavors of popcorn: classic butter, spicy chili-lime, and caramel.",
+          "status": "done"
+        },
+        {
+          "title": "Pigs in a Blanket",
+          "category": "Snacks",
+          "description": "Mini hot dogs wrapped in flaky pastry, baked until golden.",
+          "status": "done"
+        },
+        {
+          "title": "Veggie sticks with Hummus",
+          "category": "Sides",
+          "description": "Fresh carrot, celery, and bell pepper sticks served with creamy hummus.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookies",
+          "category": "Desserts",
+          "description": "Classic chewy chocolate chip cookies for a sweet treat.",
+          "status": "done"
+        },
+        {
+          "title": "Brownie Bites",
+          "category": "Desserts",
+          "description": "Fudgy, bite-sized brownies that are easy to pop during the movie.",
+          "status": "done"
+        },
+        {
+          "title": "Craft Soda Selection",
+          "category": "Drinks",
+          "description": "A variety of craft sodas in different flavors to keep everyone refreshed.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Birthday Dinner Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Roasted Tomato and Garlic Bruschetta",
+          "category": "Starters",
+          "description": "Toasted baguette slices topped with sweet roasted tomatoes, garlic, and fresh basil for a bright, easy opener.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Roasted Chicken with Lemon",
+          "category": "Main dishes",
+          "description": "A golden whole chicken roasted with lemon, garlic, and thyme as a celebratory centerpiece that feeds a crowd.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Parmesan Risotto",
+          "category": "Side dishes",
+          "description": "Silky arborio rice simmered with Parmesan and butter for a rich, comforting side that pairs well with roast chicken.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Green Beans with Almonds",
+          "category": "Side dishes",
+          "description": "Blanched green beans sautéed with garlic and toasted almonds for a crisp, fresh contrast.",
+          "status": "done"
+        },
+        {
+          "title": "Warm Dinner Rolls",
+          "category": "Breads",
+          "description": "Soft, buttery pull-apart rolls served warm to round out the table and soak up every bite.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Caesar Salad",
+          "category": "Salads",
+          "description": "Crisp romaine tossed in a creamy Parmesan dressing with homemade croutons for a familiar crowd-pleaser.",
+          "status": "done"
+        },
+        {
+          "title": "Birthday Chocolate Layer Cake",
+          "category": "Desserts",
+          "description": "A moist chocolate cake with fluffy chocolate frosting, the natural star of any birthday dinner.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Berry Birthday Punch",
+          "category": "Drinks",
+          "description": "A festive non-alcoholic punch of sparkling water, cranberry, and fresh berries with a toast-worthy fizz.",
+          "status": "done"
+        },
+        {
+          "title": "Vanilla Bean Ice Cream",
+          "category": "Desserts",
+          "description": "A simple scoop of creamy vanilla ice cream to serve alongside the birthday cake.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Kids' Birthday Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Mini Corn Dog Bites",
+          "category": "Starter",
+          "description": "Bite-sized corn dogs baked in mini muffin tins for an easy, kid-friendly finger food.",
+          "status": "done"
+        },
+        {
+          "title": "Rainbow Fruit Skewers",
+          "category": "Starter",
+          "description": "Colorful wooden skewers of strawberries, grapes, pineapple, and melon for a fun, healthy grab-and-go snack.",
+          "status": "done"
+        },
+        {
+          "title": "Cheesy Mini Pizzas",
+          "category": "Main dishes",
+          "description": "English-muffin pizzas topped with tomato sauce and mozzarella, easy for kids to customize and bake.",
+          "status": "done"
+        },
+        {
+          "title": "Oven-Baked Chicken Tenders",
+          "category": "Main dishes",
+          "description": "Crispy breadcrumb-coated chicken strips baked until golden, a familiar crowd-pleasing centerpiece.",
+          "status": "done"
+        },
+        {
+          "title": "Mac and Cheese Cups",
+          "category": "Side dishes",
+          "description": "Creamy baked macaroni and cheese portioned into muffin cups for mess-free individual servings.",
+          "status": "done"
+        },
+        {
+          "title": "Buttered Corn on the Cob",
+          "category": "Side dishes",
+          "description": "Sweet corn on the cob cut into kid-sized pieces and brushed with butter and a little salt.",
+          "status": "done"
+        },
+        {
+          "title": "Soft Garlic Breadsticks",
+          "category": "Breads",
+          "description": "Pillowy homemade breadsticks brushed with garlic butter, easy to hold and dunk.",
+          "status": "done"
+        },
+        {
+          "title": "Birthday Cake with Buttercream Frosting",
+          "category": "Desserts",
+          "description": "A classic vanilla layer cake topped with colorful buttercream swirls and sprinkles.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookies",
+          "category": "Desserts",
+          "description": "Chewy, golden chocolate chip cookies baked in batches for a simple shareable treat.",
+          "status": "done"
+        },
+        {
+          "title": "Fruit Punch",
+          "category": "Drinks",
+          "description": "A chilled blend of fruit juices and lemon-lime soda with floating fruit slices for a festive drink.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Graduation Open House",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Slow-Cooker Shredded Beef Sliders",
+          "category": "Main dishes",
+          "description": "Tender shredded beef piled on soft slider buns for easy, crowd-pleasing portions.",
+          "status": "done"
+        },
+        {
+          "title": "Lemon Herb Grilled Chicken Skewers",
+          "category": "Main dishes",
+          "description": "Lightly marinated chicken skewers that grill quickly and suit guests arriving at different times.",
+          "status": "done"
+        },
+        {
+          "title": "Macaroni and Cheese Bites",
+          "category": "Appetizers",
+          "description": "Crisp, cheesy baked pasta bites that are easy to eat standing up.",
+          "status": "done"
+        },
+        {
+          "title": "Veggie and Dip Cups",
+          "category": "Appetizers",
+          "description": "Individual cups of crunchy vegetables with ranch dip for a fresh, grab-and-go starter.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Creamy Coleslaw",
+          "category": "Side dishes",
+          "description": "A tangy, crisp coleslaw that pairs well with sliders and grilled chicken.",
+          "status": "done"
+        },
+        {
+          "title": "Summer Corn and Tomato Salad",
+          "category": "Side dishes",
+          "description": "Sweet corn tossed with cherry tomatoes and herbs for a bright seasonal side.",
+          "status": "done"
+        },
+        {
+          "title": "Soft Dinner Rolls with Honey Butter",
+          "category": "Breads",
+          "description": "Warm, pull-apart rolls served with whipped honey butter for sandwich building or snacking.",
+          "status": "done"
+        },
+        {
+          "title": "Sheet-Pan Chocolate Chip Cookie Bars",
+          "category": "Desserts",
+          "description": "Chewy cookie bars baked in one pan and cut into squares for easy serving.",
+          "status": "done"
+        },
+        {
+          "title": "Graduation Cap Cupcakes",
+          "category": "Desserts",
+          "description": "Frosted cupcakes topped with simple chocolate graduation caps for a festive touch.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Citrus Punch",
+          "category": "Drinks",
+          "description": "A refreshing blend of citrus juices and sparkling water served over ice in a large dispenser.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Baby Shower Brunch",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Mini Spinach and Feta Quiches",
+          "category": "Starters",
+          "description": "Bite-sized savory quiches with spinach and feta, easy to pick up while mingling.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Fruit Salad with Honey-Lime Dressing",
+          "category": "Starters",
+          "description": "A bright, colorful bowl of seasonal fruit tossed in a light honey-lime dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Smoked Salmon and Cream Cheese Bagel Platter",
+          "category": "Main dishes",
+          "description": "A do-ahead platter of bagels with smoked salmon, cream cheese, capers, and red onion.",
+          "status": "done"
+        },
+        {
+          "title": "Cheddar and Chive Egg Strata",
+          "category": "Main dishes",
+          "description": "A make-ahead baked egg casserole layered with bread, cheddar, and chives.",
+          "status": "done"
+        },
+        {
+          "title": "Maple-Glazed Bacon",
+          "category": "Main dishes",
+          "description": "Oven-baked bacon brushed with maple syrup for a sweet-savory brunch favorite.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Herb Roasted Baby Potatoes",
+          "category": "Side dishes",
+          "description": "Crispy roasted baby potatoes tossed with garlic and fresh herbs.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Biscuits with Honey Butter",
+          "category": "Breads",
+          "description": "Warm, flaky buttermilk biscuits served with whipped honey butter.",
+          "status": "done"
+        },
+        {
+          "title": "Vanilla Bean Mini Cheesecakes",
+          "category": "Desserts",
+          "description": "Individual creamy vanilla cheesecakes with a graham cracker crust, easy to serve.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Berry Punch Mocktail",
+          "category": "Drinks",
+          "description": "A festive, non-alcoholic punch of sparkling water, berries, and citrus.",
+          "status": "done"
+        },
+        {
+          "title": "Iced Peach Tea",
+          "category": "Drinks",
+          "description": "A lightly sweetened iced peach tea that suits a daytime celebration.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Bridal Shower Luncheon",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Sparkling Raspberry Lemonade Punch",
+          "category": "Drinks",
+          "description": "A fizzy, fruit-forward punch that feels festive and stays refreshing all afternoon.",
+          "status": "done"
+        },
+        {
+          "title": "Cucumber Tea Sandwiches with Herbed Cream Cheese",
+          "category": "Appetizers",
+          "description": "Delicate crustless finger sandwiches that are a classic shower starter.",
+          "status": "done"
+        },
+        {
+          "title": "Mixed Greens with Strawberries, Feta, and Poppyseed Dressing",
+          "category": "Salads",
+          "description": "A bright spring salad with sweet berries and a tangy-sweet dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Chicken Salad on Mini Croissants",
+          "category": "Main dishes",
+          "description": "Creamy, tender chicken salad piled into buttery mini croissants for an easy, elegant centerpiece.",
+          "status": "done"
+        },
+        {
+          "title": "Quiche Lorraine Bites",
+          "category": "Main dishes",
+          "description": "Bite-size savory custard tarts with bacon and Gruyère that eat neatly with one hand.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Asparagus with Lemon and Parmesan",
+          "category": "Side dishes",
+          "description": "Simple spring asparagus spears brightened with lemon zest and shaved Parmesan.",
+          "status": "done"
+        },
+        {
+          "title": "Herbed New Potato Salad",
+          "category": "Side dishes",
+          "description": "Warm baby potatoes tossed in a light mustard-herb vinaigrette instead of heavy mayo.",
+          "status": "done"
+        },
+        {
+          "title": "Buttermilk Biscuits with Honey Butter",
+          "category": "Breads",
+          "description": "Flaky, tender biscuits served warm alongside whipped honey butter.",
+          "status": "done"
+        },
+        {
+          "title": "Mini Vanilla Cupcakes with Buttercream Frosting",
+          "category": "Desserts",
+          "description": "Bite-size vanilla cupcakes with pastel buttercream make a pretty, portioned sweet.",
+          "status": "done"
+        },
+        {
+          "title": "Champagne-Soaked Berry Trifle Cups",
+          "category": "Desserts",
+          "description": "Individual trifle cups layered with macerated berries, sponge cake, and light cream.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Housewarming Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Sparkling Cranberry-Orange Punch",
+          "category": "Drinks",
+          "description": "A fizzy, festive non-alcoholic punch with cranberry and orange that's easy to batch for a crowd.",
+          "status": "done"
+        },
+        {
+          "title": "Crudités with Lemon-Herb Yogurt Dip",
+          "category": "Starters",
+          "description": "A colorful raw vegetable platter paired with a bright, creamy herb dip for easy grazing.",
+          "status": "done"
+        },
+        {
+          "title": "Baked Brie with Honey and Toasted Almonds",
+          "category": "Starters",
+          "description": "A warm, gooey brie topped with honey and almonds, served with crackers for a crowd-pleasing bite.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Roasted Chicken Thighs",
+          "category": "Main dishes",
+          "description": "Juicy, golden chicken thighs roasted with garlic and mixed herbs, a dependable centerpiece for a buffet.",
+          "status": "done"
+        },
+        {
+          "title": "Vegetable Lasagna",
+          "category": "Main dishes",
+          "description": "A cheesy, make-ahead lasagna layered with zucchini, spinach, and marinara to feed a mixed crowd.",
+          "status": "done"
+        },
+        {
+          "title": "Garlic Butter Dinner Rolls",
+          "category": "Breads",
+          "description": "Soft, pull-apart rolls brushed with garlic butter, ideal for sopping up saucy mains.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Seasonal Vegetables",
+          "category": "Sides",
+          "description": "A simple sheet-pan mix of carrots, potatoes, and broccoli caramelized with olive oil and salt.",
+          "status": "done"
+        },
+        {
+          "title": "Big Green Salad with Lemon Vinaigrette",
+          "category": "Sides",
+          "description": "Crisp greens, cucumber, and cherry tomatoes tossed in a tangy lemon dressing for a fresh contrast.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookie Bars",
+          "category": "Desserts",
+          "description": "Chewy, chocolate-studded bars baked in a sheet pan and cut into squares for easy serving.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Fruit Salad with Mint",
+          "category": "Desserts",
+          "description": "A light mix of seasonal fruit finished with fresh mint and a squeeze of lime.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Anniversary Dinner",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Burrata with Roasted Tomatoes and Basil",
+          "category": "Starters",
+          "description": "Creamy burrata paired with sweet roasted cherry tomatoes and fresh basil for an elegant opening course.",
+          "status": "done"
+        },
+        {
+          "title": "Herb-Crusted Rack of Lamb",
+          "category": "Main dishes",
+          "description": "A centerpiece rack of lamb with a garlicky herb crust, roasted to rosy perfection.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Parmesan Risotto",
+          "category": "Sides",
+          "description": "Silky arborio rice slowly stirred with white wine and Parmesan for a luxurious accompaniment.",
+          "status": "done"
+        },
+        {
+          "title": "Roasted Asparagus with Lemon and Almonds",
+          "category": "Sides",
+          "description": "Tender asparagus spears brightened with lemon zest and toasted almonds.",
+          "status": "done"
+        },
+        {
+          "title": "Crusty French Bread with Whipped Butter",
+          "category": "Breads",
+          "description": "Warm artisan loaf served with lightly salted whipped butter for the table.",
+          "status": "done"
+        },
+        {
+          "title": "Bittersweet Chocolate Pots de Crème",
+          "category": "Desserts",
+          "description": "Rich, silky chocolate custards topped with a dollop of whipped cream.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Raspberry Champagne Cocktail",
+          "category": "Drinks",
+          "description": "Chilled Champagne accented with raspberry liqueur and a fresh berry garnish.",
+          "status": "done"
+        },
+        {
+          "title": "Mixed Greens with Pomegranate and Goat Cheese",
+          "category": "Salads",
+          "description": "A refreshing salad of baby greens, jewel-like pomegranate seeds, and creamy goat cheese.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Family Reunion Buffet",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Slow-Cooker Pulled Pork Sandwiches",
+          "category": "Main dishes",
+          "description": "Tender shredded pork piled on soft buns with a tangy barbecue sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Oven-Baked Fried Chicken",
+          "category": "Main dishes",
+          "description": "Crispy seasoned chicken pieces baked in the oven for an easy crowd-pleaser.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Creamy Coleslaw",
+          "category": "Salads",
+          "description": "Crisp shredded cabbage and carrots in a mild creamy dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Old-Fashioned Potato Salad",
+          "category": "Salads",
+          "description": "Diced potatoes tossed with mayo, celery, and hard-boiled eggs.",
+          "status": "done"
+        },
+        {
+          "title": "Buttered Corn on the Cob",
+          "category": "Side dishes",
+          "description": "Sweet corn cobs boiled and brushed with melted butter.",
+          "status": "done"
+        },
+        {
+          "title": "Southern Baked Beans",
+          "category": "Side dishes",
+          "description": "Slow-simmered navy beans with bacon and brown sugar.",
+          "status": "done"
+        },
+        {
+          "title": "Skillet Cornbread",
+          "category": "Breads",
+          "description": "Golden, slightly sweet cornbread baked in a cast-iron skillet.",
+          "status": "done"
+        },
+        {
+          "title": "Watermelon Wedges",
+          "category": "Desserts",
+          "description": "Chilled fresh watermelon slices for a light, juicy finish.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookies",
+          "category": "Desserts",
+          "description": "Chewy homemade cookies that please kids and adults alike.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lemonade",
+          "category": "Drinks",
+          "description": "Homemade lemonade with fresh-squeezed lemons and a touch of sugar.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Camping Weekend Cookout",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Grilled Cheeseburgers",
+          "category": "Main dishes",
+          "description": "Juicy beef patties grilled over the fire and topped with melted cheddar.",
+          "status": "done"
+        },
+        {
+          "title": "Foil-Packet Lemon Butter Trout",
+          "category": "Main dishes",
+          "description": "Whole trout with lemon and herbs cooked in foil packets right on the coals.",
+          "status": "done"
+        },
+        {
+          "title": "Campfire Corn on the Cob",
+          "category": "Sides",
+          "description": "Fresh sweet corn grilled in the husk with butter and a sprinkle of salt.",
+          "status": "done"
+        },
+        {
+          "title": "Loaded Foil-Packet Potatoes",
+          "category": "Sides",
+          "description": "Sliced potatoes with bacon, onion, and cheese steamed in foil over the fire.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Three-Bean Camp Salad",
+          "category": "Salads",
+          "description": "A tangy make-ahead bean salad that holds up well in a cooler.",
+          "status": "done"
+        },
+        {
+          "title": "Smoky Campfire Chili",
+          "category": "Starters",
+          "description": "A hearty chili simmered over the fire and served in mugs to warm up the evening.",
+          "status": "done"
+        },
+        {
+          "title": "Skillet Cornbread",
+          "category": "Breads",
+          "description": "Golden cornbread baked in a cast-iron skillet for a rustic fireside side.",
+          "status": "done"
+        },
+        {
+          "title": "S'mores Banana Boats",
+          "category": "Desserts",
+          "description": "Bananas stuffed with chocolate and marshmallows, wrapped in foil, and melted over the coals.",
+          "status": "done"
+        },
+        {
+          "title": "Cast-Iron Apple Crumble",
+          "category": "Desserts",
+          "description": "Tender campfire-baked apples with an oat crumble topping.",
+          "status": "done"
+        },
+        {
+          "title": "Campfire Hot Cocoa",
+          "category": "Drinks",
+          "description": "Rich cocoa warmed over the fire with marshmallows on top for chilly nights.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Tailgate Party",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Buffalo Chicken Dip",
+          "category": "Appetizers",
+          "description": "A creamy, spicy dip with shredded chicken and buffalo sauce, served hot with tortilla chips.",
+          "status": "done"
+        },
+        {
+          "title": "Loaded Potato Skins",
+          "category": "Appetizers",
+          "description": "Crispy potato halves topped with cheddar cheese, bacon, and green onions.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Cheeseburger Sliders",
+          "category": "Main dishes",
+          "description": "Juicy mini beef patties with melted cheese and pickles on soft slider buns.",
+          "status": "done"
+        },
+        {
+          "title": "Grilled Bratwurst with Peppers and Onions",
+          "category": "Main dishes",
+          "description": "Grilled bratwurst sausages served with sautéed bell peppers and onions in hoagie rolls.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Coleslaw",
+          "category": "Sides",
+          "description": "A refreshing mix of shredded cabbage and carrots in a tangy mayonnaise dressing.",
+          "status": "done"
+        },
+        {
+          "title": "Cowboy Caviar",
+          "category": "Sides",
+          "description": "A zesty bean and corn salad with avocado, tomatoes, and a lime vinaigrette.",
+          "status": "done"
+        },
+        {
+          "title": "Soft Pretzel Bites with Cheese Sauce",
+          "category": "Breads",
+          "description": "Warm, chewy pretzel bites served with a creamy cheddar dipping sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookies",
+          "category": "Desserts",
+          "description": "Classic chewy cookies loaded with semi-sweet chocolate chips.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Lemonade",
+          "category": "Drinks",
+          "description": "Homemade lemonade made with fresh lemons and a touch of sugar, served over ice.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Sunday Football Gathering",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Buffalo Chicken Wings",
+          "category": "Main dishes",
+          "description": "Crispy baked wings tossed in a tangy, buttery hot sauce and served with blue cheese dip.",
+          "status": "done"
+        },
+        {
+          "title": "Slow-Cooker Pulled Pork Sliders",
+          "category": "Main dishes",
+          "description": "Tender shredded pork piled onto soft slider rolls with a drizzle of barbecue sauce.",
+          "status": "done"
+        },
+        {
+          "title": "Loaded Nachos Supreme",
+          "category": "Starters",
+          "description": "A shareable tray of tortilla chips topped with melted cheese, seasoned beef, jalapeños, and pico de gallo.",
+          "status": "done"
+        },
+        {
+          "title": "Seven-Layer Taco Dip",
+          "category": "Starters",
+          "description": "A creamy, colorful layered dip with refried beans, guacamole, salsa, cheese, and olives for scooping.",
+          "status": "done"
+        },
+        {
+          "title": "Classic Guacamole with Tortilla Chips",
+          "category": "Starters",
+          "description": "Fresh mashed avocado dip brightened with lime, onion, and cilantro, served with crunchy chips.",
+          "status": "done"
+        },
+        {
+          "title": "Creamy Macaroni and Cheese",
+          "category": "Side dishes",
+          "description": "A comforting baked pasta dish with a smooth cheddar cheese sauce and a golden crumb topping.",
+          "status": "done"
+        },
+        {
+          "title": "Crispy Oven-Baked Potato Wedges",
+          "category": "Side dishes",
+          "description": "Seasoned potato wedges baked until golden and crisp, perfect for dipping.",
+          "status": "done"
+        },
+        {
+          "title": "Easy Garlic Breadsticks",
+          "category": "Breads",
+          "description": "Warm, buttery breadsticks brushed with garlic and herbs, great for mopping up dips.",
+          "status": "done"
+        },
+        {
+          "title": "Chocolate Chip Cookies",
+          "category": "Desserts",
+          "description": "Chewy, classic homemade cookies loaded with chocolate chips for a sweet finish.",
+          "status": "done"
+        },
+        {
+          "title": "Sparkling Lemonade Punch",
+          "category": "Drinks",
+          "description": "A refreshing pitcher drink of lemonade and sparkling water with fresh lemon slices.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "Weekend Breakfast Buffet",
+      "status": "planned",
+      "error": "",
+      "recipes": [
+        {
+          "title": "Buttermilk Pancakes",
+          "category": "Main dishes",
+          "description": "Fluffy, golden pancakes made from a simple buttermilk batter and served with warm maple syrup.",
+          "status": "done"
+        },
+        {
+          "title": "Classic French Toast",
+          "category": "Main dishes",
+          "description": "Thick slices of bread dipped in cinnamon-spiced custard and griddled until crisp and tender.",
+          "status": "done"
+        },
+        {
+          "title": "Fluffy Scrambled Eggs",
+          "category": "Main dishes",
+          "description": "Soft, creamy scrambled eggs cooked gently and seasoned simply for a crowd-friendly buffet staple.",
+          "status": "done"
+        },
+        {
+          "title": "Applewood Smoked Bacon",
+          "category": "Breakfast meats",
+          "description": "Oven-baked bacon strips cooked until crisp for easy batch preparation.",
+          "status": "done"
+        },
+        {
+          "title": "Breakfast Sausage Links",
+          "category": "Breakfast meats",
+          "description": "Savory pork sausage links browned on the stovetop and kept warm for the buffet line.",
+          "status": "done"
+        },
+        {
+          "title": "Herbed Breakfast Potatoes",
+          "category": "Sides",
+          "description": "Diced potatoes roasted with onions, bell peppers, and a blend of herbs until golden.",
+          "status": "done"
+        },
+        {
+          "title": "Fresh Fruit Salad",
+          "category": "Sides",
+          "description": "A colorful mix of seasonal fruit tossed lightly with honey and fresh lime juice.",
+          "status": "done"
+        },
+        {
+          "title": "Basket of Assorted Breakfast Breads",
+          "category": "Breads",
+          "description": "A warm assortment of croissants, muffins, and toast-ready sliced bread for the buffet table.",
+          "status": "done"
+        },
+        {
+          "title": "Cinnamon Streusel Coffee Cake",
+          "category": "Desserts",
+          "description": "A tender sour-cream coffee cake topped with a buttery cinnamon streusel crumb.",
+          "status": "done"
+        },
+        {
+          "title": "Freshly Brewed Coffee and Orange Juice",
+          "category": "Drinks",
+          "description": "A self-serve station pairing hot brewed coffee with chilled orange juice.",
+          "status": "done"
+        }
+      ]
+    }
+  ]
+}
