@@ -2,7 +2,7 @@
    A related recipe is never presented as the exact event dish. */
 (() => {
   'use strict';
-  const ignored = new Set('a an the and with of for to on from in by at plus style classic homemade easy simple best traditional fresh warm quick ultimate perfect delicious family favorite famous original'.split(' '));
+  const ignored = new Set('a an the and with of for to on from in by at plus style classic homemade easy simple best traditional fresh warm quick ultimate perfect delicious family favorite famous original new york cast iron skillet pan steakhouse'.split(' '));
   const normalize = text => String(text || '')
     .normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
     .replace(/&/g, ' and ').replace(/['’]/g, '').replace(/[^a-z0-9]+/g, ' ')
@@ -88,7 +88,9 @@
         let score=2*intersection/(qw+cw);
         // Prefer a complete title match, but avoid linking to a different flavored variant.
         const unexpectedFlavors=item.terms.filter(t=>flavorWarnings.has(t)&&!qset.has(t));
-        score-=0.07*Math.min(2,unexpectedFlavors.length);
+        score-=0.18*Math.min(2,unexpectedFlavors.length);
+        const headTerms=terms(String(title).split(/\bwith\b|\bserved\b|\btopped\b/i)[0]);
+        if(headTerms.length>=2 && headTerms.every(t=>item.termSet.has(t)))score+=0.12;
         if(group!=='other' && item.group!=='other' && group!==item.group){
           if(!((group==='salad'&&item.group==='main')||(group==='main'&&item.group==='salad')))score-=0.09;
         }
