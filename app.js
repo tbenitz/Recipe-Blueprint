@@ -522,7 +522,6 @@
     const view=e.target.closest('[data-view]');if(view){e.preventDefault();navView(view.dataset.view);return;}
     const open=e.target.closest('a[data-open-recipe], button[data-open-recipe]');if(open){e.preventDefault();showReader(open.dataset.openRecipe);return;}
     const col=e.target.closest('[data-open-collection]');if(col){navView('collection',{collectionId:col.dataset.openCollection});return;}
-    const find=e.target.closest('[data-find-dish]');if(find){navView('recipes',{search:find.dataset.findDish});return;}
     const fav=e.target.closest('[data-favorite]');if(fav){e.preventDefault();toggleFavorite(fav.dataset.favorite);return;}
     const pg=e.target.closest('[data-page]');if(pg){state.filters.page=Math.max(0,state.filters.page+Number(pg.dataset.page));renderBrowseGrid();document.querySelector('.browse-title')?.scrollIntoView({block:'start'});return;}
     if(e.target.closest('#clearFilters')){state.filters.search='';state.filters.country='';state.filters.region='';state.filters.category='';state.filters.sort='title';state.filters.page=0;renderBrowser();}
