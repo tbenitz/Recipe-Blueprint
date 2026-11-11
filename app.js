@@ -5,7 +5,7 @@
   const number = n => Number(n || 0).toLocaleString();
   const minutes = n => { const v=Math.max(0,Math.round(Number(n)||0)); return v>=60 ? Math.floor(v/60)+'h '+String(v%60).padStart(2,'0')+'m' : v+' min'; };
   const toNumber = (n,d=0) => Number.isFinite(Number(n)) ? Math.round(Number(n)) : d;
-  const state = {recipes:[],collections:[],recipeMap:new Map(),collectionMap:new Map(),collectionAliases:{},favorites:new Set(),view:'home',filters:{search:'',country:'',region:'',category:'',sort:'featured',page:0},collectionId:'',readerId:'',sequence:[],ready:false,familyCollectionId:'',familyPdfAvailable:false};
+  const state = {recipes:[],collections:[],recipeMap:new Map(),collectionMap:new Map(),collectionAliases:{},favorites:new Set(),view:'home',filters:{search:'',country:'',region:'',category:'',sort:'featured',page:0},collectionId:'',readerId:'',sequence:[],ready:false,familyCollectionId:'',familyPdfAvailable:false,eventMenus:new Map()};
   const pageSize=24;
   try { const ids=JSON.parse(localStorage.getItem('recipe-blueprint-favorites-v1')||'[]'); if(Array.isArray(ids))state.favorites=new Set(ids.map(String)); } catch {}
   let toastHandle=0;
@@ -68,6 +68,54 @@
     recs.forEach(r=>{if(r.collectionId&&!known.has(r.collectionId))addCollection({id:r.collectionId,name:state.collectionAliases[r.collectionId]||('Unnamed cookbook '+r.collectionId.slice(-5)),type:'cookbook',recovered:true});});
     return {recipes:recs,collections};
   }
+  function installEventMenus(normalized, payload) {
+  if(!Array.isArray(payload?.events))return;
+  const key = value => String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim();
+  const available=new Map();
+  for(const r of normalized.recipes){
+    if(!r.recipe?.ingredients?.length||!r.recipe?.steps?.length)continue;
+    const terms=[r.title,...(r.aliases||[])];
+    for(const term of terms){const title=key(term);if(!title)continue;if(!available.has(title))available.set(title,[]);available.get(title).push(r);}
+  }
+  const byName=new Map(normalized.collections.filter(c=>c.type==='event').map(c=>[key(c.name),c]));
+  const ids=new Set(normalized.collections.map(c=>c.id));
+  const usedNames=new Set();
+  for(const [i,event] of payload.events.entries()){
+    const name=safeText(event?.name||'',240).trim();
+    if(!name||usedNames.has(key(name))||!Array.isArray(event.recipes))continue;
+    usedNames.add(key(name));
+    let col=byName.get(key(name));
+    if(!col){
+      const slug=key(name).replace(/\s+/g,'-').slice(0,90)||'event';
+      const stem='menu-'+slug;
+      let id=stem,suffix=2;
+      while(ids.has(id))id=stem+'-'+suffix++;
+      col={id,name,type:'event',targetCount:0,created:0,planned:0,recovered:false};
+      normalized.collections.push(col);ids.add(id);byName.set(key(name),col);
+    }
+    const dishes=[];
+    for(const entry of event.recipes){
+      const title=safeText(entry?.title||'',250).trim();
+      if(!title)continue;
+      const candidates=(available.get(key(title))||[]).slice().sort((a,b)=>
+        Number(b.collectionId===col.id)-Number(a.collectionId===col.id)||
+        Number(/^United States(?:$|[\s(/-])/i.test(b.country))-Number(/^United States(?:$|[\s(/-])/i.test(a.country))||
+        Number(!b.sourcePdf)-Number(!a.sourcePdf)||
+        b.recipe.steps.length-a.recipe.steps.length
+      );
+      dishes.push({
+        title,
+        category:safeText(entry.category||'Other dishes',100),
+        description:safeText(entry.description||'',1200),
+        recipeId:candidates[0]?.id||''
+      });
+    }
+    col.targetCount=Math.max(col.targetCount,dishes.length);
+    col.planned=Math.max(col.planned,dishes.length);
+    col.created=Math.max(Number(col.created)||0,Date.now()+(payload.events.length-i));
+    state.eventMenus.set(col.id,{name,recipes:dishes});
+  }
+}
   function writeUrl(params,replace=false){const url=new URL(window.location.href);url.search='';for(const [k,v] of Object.entries(params)){if(v)url.searchParams.set(k,String(v));}history[replace?'replaceState':'pushState']({},'',url.pathname+url.search+url.hash);}
   function navView(view,options={}){state.view=view;state.collectionId=options.collectionId||'';state.filters.page=0;state.filters.search=options.search??'';state.filters.country='';state.filters.region='';state.filters.category='';state.filters.sort='featured';if(!options.noHistory)writeUrl({view:view==='home'?'':view,collection:state.collectionId});renderPage();closeReader(false);window.scrollTo(0,0);}
   function routeFromUrl(){const u=new URL(window.location.href),view=u.searchParams.get('view')||'home',cid=u.searchParams.get('collection')||'',rid=u.searchParams.get('recipe')||'';
@@ -170,15 +218,19 @@
     </article>`;
   }
   function collectionCard(c){
-    const done=countOfCollection(c.id),target=Math.max(done,c.targetCount,c.planned);
-    const kind=c.type==='event'?'Event menu':'Cookbook';
-    return `<article class="collection-card"><button type="button" data-open-collection="${esc(c.id)}" aria-label="Browse ${esc(c.name)}">
-      <div class="card-art ${c.type==='event'?'event':'book'}"><span class="art-symbol">${c.type==='event'?'✳':'▤'}</span></div>
-      <div class="card-body"><span class="card-eyebrow">${c.id===state.familyCollectionId?'★ FEATURED · ':''}${kind}${c.recovered?' · Descriptive title':''}</span><h3>${esc(c.name)}</h3>
-      <p>${done?number(done)+' published recipe'+(done===1?'':'s'):'No published recipes yet'}${target>done?' · '+number(target)+' planned total':''}</p>
-      ${target?'<div class="collection-progress"><span style="width:'+Math.min(100,Math.round(done/target*100))+'%"></span></div>':''}
-      <div class="card-bottom"><strong>Explore collection →</strong><span>${number(done)} available</span></div></div></button></article>`;
-  }
+  const menu=state.eventMenus.get(c.id);
+  const done=countOfCollection(c.id);
+  const linked=menu?menu.recipes.filter(d=>d.recipeId).length:done;
+  const target=menu?menu.recipes.length:Math.max(done,c.targetCount,c.planned);
+  const kind=c.type==='event'?'Event menu':'Cookbook';
+  const summary=menu?`${number(target)} dishes · ${number(linked)} linked full recipes`:`${done?number(done)+' published recipe'+(done===1?'':'s'):'No published recipes yet'}${target>done?' · '+number(target)+' planned total':''}`;
+  return `<article class="collection-card"><button type="button" data-open-collection="${esc(c.id)}" aria-label="Browse ${esc(c.name)}">
+    <div class="card-art ${c.type==='event'?'event':'book'}"><span class="art-symbol">${c.type==='event'?'✳':'▤'}</span></div>
+    <div class="card-body"><span class="card-eyebrow">${c.id===state.familyCollectionId?'★ FEATURED · ':''}${kind}${c.recovered?' · Descriptive title':''}</span><h3>${esc(c.name)}</h3>
+    <p>${summary}</p>
+    ${target&&!menu?'<div class="collection-progress"><span style="width:'+Math.min(100,Math.round(done/target*100))+'%"></span></div>':''}
+    <div class="card-bottom"><strong>Explore collection →</strong><span>${menu?number(target)+' menu dishes':number(done)+' available'}</span></div></div></button></article>`;
+}
   function heading(title,kicker,description){
     return `<div class="browse-title"><span class="eyebrow">${esc(kicker)}</span><h1>${esc(title)}</h1><p>${esc(description)}</p></div>`;
   }
@@ -201,6 +253,7 @@
   }
   function optionList(values,placeholder,chosen){return '<option value="">'+esc(placeholder)+'</option>'+values.sort((a,b)=>a.localeCompare(b)).map(v=>'<option value="'+esc(v)+'"'+(v===chosen?' selected':'')+'>'+esc(v)+'</option>').join('');}
   function renderBrowser(){
+    if(state.view==='collection'&&state.eventMenus.has(state.collectionId)){renderEventMenu();return;}
     const col=state.collectionMap.get(state.collectionId);
     const isCollection=state.view==='collection';
     const kind=state.view==='favorites'?'YOUR PERSONAL LIST':isCollection?(col?.type==='event'?'EVENT MENU':'COOKBOOK'):'THE COMPLETE LIBRARY';
@@ -218,6 +271,34 @@
     </div><div class="browse-meta"><span id="resultsCount"></span><button type="button" id="clearFilters">Clear filters</button></div><div class="card-grid" id="browseGrid"></div><div class="pagination" id="browsePager"></div>`;
     $('filterSort').value=state.filters.sort;renderBrowseGrid();
   }
+  function renderEventMenu(){
+  const menu=state.eventMenus.get(state.collectionId);
+  if(!menu)return;
+  const groups=new Map();
+  for(const dish of menu.recipes){
+    const category=dish.category||'Other dishes';
+    if(!groups.has(category))groups.set(category,[]);
+    groups.get(category).push(dish);
+  }
+  const linked=menu.recipes.filter(d=>d.recipeId).length;
+  const existing=state.recipes.filter(r=>r.collectionId===state.collectionId);
+  const inMenu=new Set(menu.recipes.map(d=>d.recipeId).filter(Boolean));
+  const extras=existing.filter(r=>!inMenu.has(r.id));
+  state.sequence=[...new Set([...menu.recipes.map(d=>d.recipeId).filter(Boolean),...extras.map(r=>r.id)])];
+  const sections=[...groups.entries()].map(([category,dishes])=>
+    `<section class="section-block"><div class="section-heading"><div><span class="eyebrow">MENU COURSE</span><h2>${esc(category)}</h2></div><span class="section-aside">${number(dishes.length)} dishes</span></div>
+    <div class="card-grid">${dishes.map(d=>`<article class="recipe-card">
+      <div class="card-body"><span class="card-eyebrow">${esc(category)}</span><h3>${esc(d.title)}</h3><p>${esc(d.description)}</p><div class="card-bottom"><span>${d.recipeId?'✓ Full recipe linked':'Menu idea · full recipe not linked'}</span></div></div>
+      <div class="card-actions">${d.recipeId?`<button type="button" class="card-open" data-open-recipe="${esc(d.recipeId)}">View full recipe →</button>`:`<button type="button" class="card-open" data-find-dish="${esc(d.title)}">Search recipe library →</button>`}</div>
+    </article>`).join('')}</div></section>`
+  ).join('');
+  const extraSection=extras.length?`<section class="section-block"><div class="section-heading"><div><span class="eyebrow">ALSO IN THIS COLLECTION</span><h2>Other published recipes</h2></div></div><div class="card-grid">${extras.map(recipeCard).join('')}</div></section>`:'';
+  $('content').innerHTML=`<div class="breadcrumbs"><button data-view="events">← All event menus</button><span>/</span><span>${esc(menu.name)}</span></div>`
+    +heading(menu.name,'EVENT MENU','Explore this complete event lineup. Open a linked recipe for ingredients and step-by-step directions; other dishes are listed as menu ideas.')
+    +`<div class="browse-meta"><span>${number(menu.recipes.length)} menu dishes · ${number(linked)} linked full recipes${extras.length?' · '+number(extras.length)+' additional recipes':''}</span></div>`
+    +sections+extraSection;
+  if(extras.length)window.RecipeBlueprintPhotos?.observe($('content'),state.recipeMap);
+}
   function renderBrowseGrid(){
     const list=currentRecipeSet(),pages=Math.max(1,Math.ceil(list.length/pageSize));state.filters.page=Math.min(state.filters.page,pages-1);
     state.sequence=list.map(r=>r.id);
@@ -228,11 +309,12 @@
     window.RecipeBlueprintPhotos?.observe($('content'),state.recipeMap);
   }
   function renderCollections(){
-    const event=state.view==='events',cols=collectionItems(event?'event':'cookbook');
-    $('content').innerHTML=heading(event?'Event menus':'The cookbook shelf',event?'CELEBRATIONS & GATHERINGS':'COOKBOOK COLLECTIONS',event?'Holiday feasts, parties, and complete meals in one place.':'Explore the named cookbooks and collections. Where the export lost a book title, a descriptive title based on its recipes is shown.')
-    +`<div class="browse-meta"><span>${number(cols.length)} ${event?'event menu':'cookbook'}${cols.length===1?'':'s'} · ${number(cols.reduce((n,c)=>n+countOfCollection(c.id),0))} published recipes</span></div>`
-    +(cols.length?'<div class="card-grid">'+cols.map(collectionCard).join('')+'</div>':'<div class="empty-state"><h2>Nothing on this shelf yet</h2><p>Collections from the published JSON will show here automatically.</p></div>');
-  }
+  const event=state.view==='events',cols=collectionItems(event?'event':'cookbook');
+  const count=cols.reduce((sum,c)=>sum+(event&&state.eventMenus.has(c.id)?state.eventMenus.get(c.id).recipes.length:countOfCollection(c.id)),0);
+  $('content').innerHTML=heading(event?'Event menus':'The cookbook shelf',event?'CELEBRATIONS & GATHERINGS':'COOKBOOK COLLECTIONS',event?'Holiday feasts, parties, and complete meals in one place.':'Explore the named cookbooks and collections. Where the export lost a book title, a descriptive title based on its recipes is shown.')
+  +`<div class="browse-meta"><span>${number(cols.length)} ${event?'event menu':'cookbook'}${cols.length===1?'':'s'} · ${number(count)} ${event?'menu dishes':'published recipes'}</span></div>`
+  +(cols.length?'<div class="card-grid">'+cols.map(collectionCard).join('')+'</div>':'<div class="empty-state"><h2>Nothing on this shelf yet</h2><p>Collections from the published JSON will show here automatically.</p></div>');
+}
   function updateNav(){document.querySelectorAll('.nav-link').forEach(el=>{const active=el.dataset.view===state.view||(state.view==='collection'&&el.dataset.view===(state.collectionMap.get(state.collectionId)?.type==='event'?'events':'cookbooks'));el.classList.toggle('active',active);if(active)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});$('favoriteCount').textContent=number(state.favorites.size);}
   function renderPage(){
     updateNav();if(!state.ready)return;
@@ -246,7 +328,7 @@
     if(state.favorites.has(id))state.favorites.delete(id);else state.favorites.add(id);
     try{localStorage.setItem('recipe-blueprint-favorites-v1',JSON.stringify([...state.favorites]));}catch{toast('This browser cannot save favorites.');}
     updateNav();if(state.readerId===id){const el=$('readerFavorite'),saved=state.favorites.has(id);el.textContent=saved?'♥ Saved':'♡ Save';el.setAttribute('aria-pressed',String(saved));}
-    if(state.view==='home')renderHome();else if(['recipes','favorites','collection'].includes(state.view))renderBrowseGrid();
+    if(state.view==='home')renderHome();else if(state.view==='collection'&&state.eventMenus.has(state.collectionId))renderEventMenu();else if(['recipes','favorites','collection'].includes(state.view))renderBrowseGrid();
   }
   function familySourcePanel(item){
     const src=item.sourcePdf;
@@ -396,6 +478,11 @@
           }
         }
       }catch(error){console.warn('Stone family cookbook did not load:',error);}
+      // Curated event menus augment, rather than overwrite, the published cookbook data.
+      try{
+        const response=await fetch('./event-menus.json',{cache:'no-store'});
+        if(response.ok)installEventMenus(normalized,await response.json());
+      }catch(error){console.warn('Event menus could not be loaded:',error);}
       state.recipes=normalized.recipes;state.collections=normalized.collections;
       state.recipeMap=new Map(state.recipes.map(r=>[r.id,r]));
       for(const [oldId,canonicalId] of Object.entries(legacyStoneRecipeAliases)){
@@ -427,6 +514,7 @@
     const view=e.target.closest('[data-view]');if(view){e.preventDefault();navView(view.dataset.view);return;}
     const open=e.target.closest('a[data-open-recipe], button[data-open-recipe]');if(open){e.preventDefault();showReader(open.dataset.openRecipe);return;}
     const col=e.target.closest('[data-open-collection]');if(col){navView('collection',{collectionId:col.dataset.openCollection});return;}
+    const find=e.target.closest('[data-find-dish]');if(find){navView('recipes',{search:find.dataset.findDish});return;}
     const fav=e.target.closest('[data-favorite]');if(fav){e.preventDefault();toggleFavorite(fav.dataset.favorite);return;}
     const pg=e.target.closest('[data-page]');if(pg){state.filters.page=Math.max(0,state.filters.page+Number(pg.dataset.page));renderBrowseGrid();document.querySelector('.browse-title')?.scrollIntoView({block:'start'});return;}
     if(e.target.closest('#clearFilters')){state.filters.search='';state.filters.country='';state.filters.region='';state.filters.category='';state.filters.sort='title';state.filters.page=0;renderBrowser();}
