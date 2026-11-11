@@ -36,16 +36,3 @@
 .original-step-text{display:block;font-size:11px;margin-top:8px;color:#806749}
 @media(max-width:620px){.family-home-block{padding:12px}.source-meta{align-items:flex-start;flex-direction:column;gap:3px}.reader-source-box{padding:12px}}
 .reader-source-box .source-pdf-link{position:relative;z-index:1;pointer-events:auto;cursor:pointer}
-
-
-/* Event menus: show exactly what links to a full recipe versus a similar dish. */
-.event-dish-card .card-body{padding-bottom:13px}
-.event-dish-card .card-body>p{font-size:12px;line-height:1.55;margin:7px 0 14px}
-.event-related-name{background:#f4f9fe;border:1px solid #dcebf8;border-radius:8px;padding:9px 10px;color:#466984!important;line-height:1.45!important;margin-bottom:12px!important}
-.event-related-name strong{color:#234e75}
-.event-dish-actions{flex-wrap:wrap;align-items:stretch;gap:7px}
-.event-dish-actions>.card-open{font-size:12px;text-align:left;min-height:32px}
-.event-recipe-alternatives{width:100%;display:flex;flex-direction:column;gap:5px}
-.event-recipe-alternatives>span{font-size:11px;font-weight:750;color:#71879d}
-.event-suggestion{font-size:11px;text-align:left;line-height:1.45;background:#f5f9fd;border:1px solid #dce8f3;color:#295e91;border-radius:8px;padding:8px 9px;overflow-wrap:anywhere}
-.event-suggestion:hover{background:#e8f3fd;border-color:#a1c7e9}
