@@ -68,54 +68,55 @@
     recs.forEach(r=>{if(r.collectionId&&!known.has(r.collectionId))addCollection({id:r.collectionId,name:state.collectionAliases[r.collectionId]||('Unnamed cookbook '+r.collectionId.slice(-5)),type:'cookbook',recovered:true});});
     return {recipes:recs,collections};
   }
-  function installEventMenus(normalized, payload) {
-  if(!Array.isArray(payload?.events))return;
-  const key = value => String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim();
-  const available=new Map();
-  for(const r of normalized.recipes){
-    if(!r.recipe?.ingredients?.length||!r.recipe?.steps?.length)continue;
-    const terms=[r.title,...(r.aliases||[])];
-    for(const term of terms){const title=key(term);if(!title)continue;if(!available.has(title))available.set(title,[]);available.get(title).push(r);}
-  }
-  const byName=new Map(normalized.collections.filter(c=>c.type==='event').map(c=>[key(c.name),c]));
-  const ids=new Set(normalized.collections.map(c=>c.id));
-  const usedNames=new Set();
-  for(const [i,event] of payload.events.entries()){
-    const name=safeText(event?.name||'',240).trim();
-    if(!name||usedNames.has(key(name))||!Array.isArray(event.recipes))continue;
-    usedNames.add(key(name));
-    let col=byName.get(key(name));
-    if(!col){
-      const slug=key(name).replace(/\s+/g,'-').slice(0,90)||'event';
-      const stem='menu-'+slug;
-      let id=stem,suffix=2;
-      while(ids.has(id))id=stem+'-'+suffix++;
-      col={id,name,type:'event',targetCount:0,created:0,planned:0,recovered:false};
-      normalized.collections.push(col);ids.add(id);byName.set(key(name),col);
+    function installEventMenus(normalized,payload){
+    if(!Array.isArray(payload?.events))return;
+    const key=value=>String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim();
+    const matcher=window.RecipeBlueprintEventLinks?.createIndex(normalized.recipes);
+    const fallback=new Map();
+    if(!matcher){
+      for(const r of normalized.recipes){
+        if(!r.recipe?.ingredients?.length||!r.recipe?.steps?.length)continue;
+        const k=key(r.title);
+        if(k&&!fallback.has(k))fallback.set(k,{id:r.id,title:r.title,kind:'exact'});
+      }
     }
-    const dishes=[];
-    for(const entry of event.recipes){
-      const title=safeText(entry?.title||'',250).trim();
-      if(!title)continue;
-      const candidates=(available.get(key(title))||[]).slice().sort((a,b)=>
-        Number(b.collectionId===col.id)-Number(a.collectionId===col.id)||
-        Number(/^United States(?:$|[\s(/-])/i.test(b.country))-Number(/^United States(?:$|[\s(/-])/i.test(a.country))||
-        Number(!b.sourcePdf)-Number(!a.sourcePdf)||
-        b.recipe.steps.length-a.recipe.steps.length
-      );
-      dishes.push({
-        title,
-        category:safeText(entry.category||'Other dishes',100),
-        description:safeText(entry.description||'',1200),
-        recipeId:candidates[0]?.id||''
-      });
+    const byName=new Map(normalized.collections.filter(c=>c.type==='event').map(c=>[key(c.name),c]));
+    const ids=new Set(normalized.collections.map(c=>c.id));
+    const usedNames=new Set();
+    for(const [i,event] of payload.events.entries()){
+      const name=safeText(event?.name||'',240).trim();
+      if(!name||usedNames.has(key(name))||!Array.isArray(event.recipes))continue;
+      usedNames.add(key(name));
+      let col=byName.get(key(name));
+      if(!col){
+        const slug=key(name).replace(/\s+/g,'-').slice(0,90)||'event';
+        const stem='menu-'+slug;
+        let id=stem,suffix=2;
+        while(ids.has(id))id=stem+'-'+suffix++;
+        col={id,name,type:'event',targetCount:0,created:0,planned:0,recovered:false};
+        normalized.collections.push(col);ids.add(id);byName.set(key(name),col);
+      }
+      const dishes=[];
+      for(const entry of event.recipes){
+        const title=safeText(entry?.title||'',250).trim();
+        if(!title)continue;
+        const category=safeText(entry.category||'Other dishes',100);
+        const matches=matcher?matcher.find(title,category):[fallback.get(key(title))].filter(Boolean);
+        const primary=matches[0]&&matches[0].kind!=='alternative'?matches[0]:null;
+        const alternatives=primary?matches.slice(1,4):matches.slice(0,3);
+        dishes.push({
+          title,category,description:safeText(entry.description||'',1200),
+          recipeId:primary?.id||'',matchKind:primary?.kind||'',
+          linkedTitle:primary?.title||'',
+          alternatives:alternatives.map(m=>({id:m.id,title:m.title,kind:m.kind}))
+        });
+      }
+      col.targetCount=Math.max(col.targetCount,dishes.length);
+      col.planned=Math.max(col.planned,dishes.length);
+      col.created=Math.max(Number(col.created)||0,Date.now()+(payload.events.length-i));
+      state.eventMenus.set(col.id,{name,recipes:dishes});
     }
-    col.targetCount=Math.max(col.targetCount,dishes.length);
-    col.planned=Math.max(col.planned,dishes.length);
-    col.created=Math.max(Number(col.created)||0,Date.now()+(payload.events.length-i));
-    state.eventMenus.set(col.id,{name,recipes:dishes});
   }
-}
   function writeUrl(params,replace=false){const url=new URL(window.location.href);url.search='';for(const [k,v] of Object.entries(params)){if(v)url.searchParams.set(k,String(v));}history[replace?'replaceState':'pushState']({},'',url.pathname+url.search+url.hash);}
   function navView(view,options={}){state.view=view;state.collectionId=options.collectionId||'';state.filters.page=0;state.filters.search=options.search??'';state.filters.country='';state.filters.region='';state.filters.category='';state.filters.sort='featured';if(!options.noHistory)writeUrl({view:view==='home'?'':view,collection:state.collectionId});renderPage();closeReader(false);window.scrollTo(0,0);}
   function routeFromUrl(){const u=new URL(window.location.href),view=u.searchParams.get('view')||'home',cid=u.searchParams.get('collection')||'',rid=u.searchParams.get('recipe')||'';
@@ -271,34 +272,42 @@
     </div><div class="browse-meta"><span id="resultsCount"></span><button type="button" id="clearFilters">Clear filters</button></div><div class="card-grid" id="browseGrid"></div><div class="pagination" id="browsePager"></div>`;
     $('filterSort').value=state.filters.sort;renderBrowseGrid();
   }
-  function renderEventMenu(){
-  const menu=state.eventMenus.get(state.collectionId);
-  if(!menu)return;
-  const groups=new Map();
-  for(const dish of menu.recipes){
-    const category=dish.category||'Other dishes';
-    if(!groups.has(category))groups.set(category,[]);
-    groups.get(category).push(dish);
+    function renderEventMenu(){
+    const menu=state.eventMenus.get(state.collectionId);
+    if(!menu)return;
+    const groups=new Map();
+    for(const dish of menu.recipes){
+      const category=dish.category||'Other dishes';
+      if(!groups.has(category))groups.set(category,[]);
+      groups.get(category).push(dish);
+    }
+    const exact=menu.recipes.filter(d=>d.matchKind==='exact').length;
+    const related=menu.recipes.filter(d=>d.matchKind==='related').length;
+    const suggestions=menu.recipes.filter(d=>!d.recipeId&&d.alternatives?.length).length;
+    const missing=menu.recipes.length-exact-related-suggestions;
+    const existing=state.recipes.filter(r=>r.collectionId===state.collectionId);
+    const inMenu=new Set(menu.recipes.flatMap(d=>[d.recipeId,...(d.alternatives||[]).map(x=>x.id)]).filter(Boolean));
+    const extras=existing.filter(r=>!inMenu.has(r.id));
+    state.sequence=[...new Set([...menu.recipes.flatMap(d=>[d.recipeId,...(d.alternatives||[]).map(x=>x.id)]).filter(Boolean),...extras.map(r=>r.id)])];
+    const dishCard=(d,category)=>{
+      const status=d.matchKind==='exact'?'✓ Full recipe available':d.matchKind==='related'?'↗ Similar published recipe':d.alternatives?.length?'◉ Related recipes to choose from':'No published full recipe found';
+      const link=d.recipeId?'<button type="button" class="card-open" data-open-recipe="'+esc(d.recipeId)+'">'+(d.matchKind==='exact'?'View full recipe →':'View similar full recipe →')+'</button>':'';
+      const relatedName=d.matchKind==='related'?'<p class="event-related-name">Published recipe: <strong>'+esc(d.linkedTitle)+'</strong></p>':'';
+      const options=(d.alternatives||[]).length?'<div class="event-recipe-alternatives"><span>Other available recipes</span>'+d.alternatives.map(m=>'<button type="button" class="event-suggestion" data-open-recipe="'+esc(m.id)+'">'+esc(m.title)+' →</button>').join('')+'</div>':'';
+      const fallback=(!link&&!options)?'<button type="button" class="card-open" data-view="recipes">Browse all recipes →</button>':'';
+      return '<article class="recipe-card event-dish-card"><div class="card-body"><span class="card-eyebrow">'+esc(category)+'</span><h3>'+esc(d.title)+'</h3><p>'+esc(d.description)+'</p>'+relatedName+'<div class="card-bottom"><span>'+status+'</span></div></div><div class="card-actions event-dish-actions">'+link+options+fallback+'</div></article>';
+    };
+    const sections=[...groups.entries()].map(([category,dishes])=>
+      '<section class="section-block"><div class="section-heading"><div><span class="eyebrow">MENU COURSE</span><h2>'+esc(category)+'</h2></div><span class="section-aside">'+number(dishes.length)+' '+(dishes.length===1?'dish':'dishes')+'</span></div>'+
+      '<div class="card-grid">'+dishes.map(d=>dishCard(d,category)).join('')+'</div></section>'
+    ).join('');
+    const extraSection=extras.length?'<section class="section-block"><div class="section-heading"><div><span class="eyebrow">ALSO IN THIS COLLECTION</span><h2>Other published recipes</h2></div></div><div class="card-grid">'+extras.map(recipeCard).join('')+'</div></section>':'';
+    $('content').innerHTML='<div class="breadcrumbs"><button data-view="events">← All event menus</button><span>/</span><span>'+esc(menu.name)+'</span></div>'
+      +heading(menu.name,'EVENT MENU','Dishes are grouped by course. Exact matches open the same recipe; similar matches show the published title and may have different ingredients or directions. Unpublished dishes remain menu ideas.')
+      +'<div class="browse-meta"><span>'+number(menu.recipes.length)+' menu dishes · '+number(exact)+' exact recipe links · '+number(related)+' similar recipe links · '+number(suggestions)+' alternative suggestions · '+number(missing)+' without a recipe match</span></div>'
+      +sections+extraSection;
+    if(extras.length)window.RecipeBlueprintPhotos?.observe($('content'),state.recipeMap);
   }
-  const linked=menu.recipes.filter(d=>d.recipeId).length;
-  const existing=state.recipes.filter(r=>r.collectionId===state.collectionId);
-  const inMenu=new Set(menu.recipes.map(d=>d.recipeId).filter(Boolean));
-  const extras=existing.filter(r=>!inMenu.has(r.id));
-  state.sequence=[...new Set([...menu.recipes.map(d=>d.recipeId).filter(Boolean),...extras.map(r=>r.id)])];
-  const sections=[...groups.entries()].map(([category,dishes])=>
-    `<section class="section-block"><div class="section-heading"><div><span class="eyebrow">MENU COURSE</span><h2>${esc(category)}</h2></div><span class="section-aside">${number(dishes.length)} dishes</span></div>
-    <div class="card-grid">${dishes.map(d=>`<article class="recipe-card">
-      <div class="card-body"><span class="card-eyebrow">${esc(category)}</span><h3>${esc(d.title)}</h3><p>${esc(d.description)}</p><div class="card-bottom"><span>${d.recipeId?'✓ Full recipe linked':'Menu idea · full recipe not linked'}</span></div></div>
-      <div class="card-actions">${d.recipeId?`<button type="button" class="card-open" data-open-recipe="${esc(d.recipeId)}">View full recipe →</button>`:`<button type="button" class="card-open" data-find-dish="${esc(d.title)}">Search recipe library →</button>`}</div>
-    </article>`).join('')}</div></section>`
-  ).join('');
-  const extraSection=extras.length?`<section class="section-block"><div class="section-heading"><div><span class="eyebrow">ALSO IN THIS COLLECTION</span><h2>Other published recipes</h2></div></div><div class="card-grid">${extras.map(recipeCard).join('')}</div></section>`:'';
-  $('content').innerHTML=`<div class="breadcrumbs"><button data-view="events">← All event menus</button><span>/</span><span>${esc(menu.name)}</span></div>`
-    +heading(menu.name,'EVENT MENU','Explore this complete event lineup. Open a linked recipe for ingredients and step-by-step directions; other dishes are listed as menu ideas.')
-    +`<div class="browse-meta"><span>${number(menu.recipes.length)} menu dishes · ${number(linked)} linked full recipes${extras.length?' · '+number(extras.length)+' additional recipes':''}</span></div>`
-    +sections+extraSection;
-  if(extras.length)window.RecipeBlueprintPhotos?.observe($('content'),state.recipeMap);
-}
   function renderBrowseGrid(){
     const list=currentRecipeSet(),pages=Math.max(1,Math.ceil(list.length/pageSize));state.filters.page=Math.min(state.filters.page,pages-1);
     state.sequence=list.map(r=>r.id);
