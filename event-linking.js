@@ -41,7 +41,7 @@
       for(const title of allNames){
         const k=terms(title).join(' ');
         const normal=normalize(title);
-        for(const v of [normal,k]){
+        for(const v of [normal]){
           if(!v)continue;
           const arr=byExact.get(v)||[];
           if(!arr.some(a=>a.id===item.id)){arr.push(item);byExact.set(v,arr);}
